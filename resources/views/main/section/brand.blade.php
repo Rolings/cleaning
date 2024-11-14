@@ -1,7 +1,15 @@
 <div class="col-lg-4">
-    <div class="brand brand-name">
-        <span>EUROFRESH</span>
-        <p>cleaning</p>
-        <!-- <img src="img/logo.png" alt="Logo"> -->
-    </div>
+    @if(request()->route()->named('index'))
+        <div class="brand brand-name">
+            <span>EUROFRESH</span>
+            <p>cleaning</p>
+            <!-- <img src="img/logo.png" alt="Logo"> -->
+        </div>
+    @else
+        <a class="brand brand-name" href="{{ route('index') }}">
+            <span>EUROFRESH</span>
+            <p>cleaning</p>
+            <!-- <img src="img/logo.png" alt="Logo"> -->
+        </a>
+    @endif
 </div>
