@@ -130,7 +130,7 @@ a:focus {
 }
 
 
-.header .brand img {
+.header .brand-name img {
     width: 100%;
     max-width: 150px;
     height: 100%;
@@ -1945,4 +1945,25 @@ a:focus {
         margin: 5px 0;
         text-align: center;
     }
+}
+
+.page-item{
+    margin: 2px;
+}
+.active .default-btn{
+    color: #ffffff;
+    background: #00539c;
+}
+
+.default-btn {
+    position: relative;
+    margin-bottom: 30px;
+    padding: 10px 20px;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    background: #FFD662;
+    transition: .3s;
 }

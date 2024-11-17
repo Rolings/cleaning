@@ -11,15 +11,16 @@
         <!-- Page Header End -->
 
         <!-- Service Start -->
-        @include('main.services.section.service')
+        <livewire:service />
+{{--        @include('main.services.section.service')--}}
         <!-- Service End -->
 
         <!-- Feature Start -->
-        @include('main.services.section.feature')
+{{--        @include('main.services.section.feature')--}}
         <!-- Feature End -->
 
         <!-- Pricing Plan Start -->
-        @include('main.services.section.price')
+{{--        @include('main.services.section.price')--}}
         <!-- Pricing Plan End -->
 
         @include('main.section.footer')

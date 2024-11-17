@@ -1,4 +1,4 @@
-init: docker-down docker-up init-key npm-install
+init: docker-down docker-up init-key npm-install init-migrations init-seed
 up: docker-up
 stop: docker-stop
 down: docker-down
@@ -23,5 +23,5 @@ init-key:
 init-migrations:
 	docker-compose exec cleaning_app php artisan migrate
 init-seed:
-	docker-compose exec cleaning_app php artisan db:seed
+	docker-compose exec cleaning_app php artisan migrate:fresh --seed
 

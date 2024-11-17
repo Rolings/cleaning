@@ -27,7 +27,7 @@
 
     <!-- CSS Libraries -->
     @vite([
-{{--        'resources/css/library/bootstrap/bootstrap.css',--}}
+/*        'resources/css/library/bootstrap/bootstrap.css',*/
         'resources/css/library/lightbox/lightbox.css',
         'resources/css/library/owlcarousel/owl.carousel.css',
         'resources/css/main/main-style.css',
@@ -36,20 +36,19 @@
     <!-- JavaScript Libraries -->
     @vite([ 'resources/js/library/jquery.js'])
 
-
+    @livewireStyles
 </head>
 <body>
 @yield('content')
 @include('custom_scripts')
 @yield('js')
-
-
-@vite([
-'resources/js/library/bootstrap.js',
-'resources/js/library/easing.js',
-'resources/js/library/isotope-layout.js',
-'resources/js/library/lightbox.js',
-])
-@vite([  'resources/js/main/main-script.js'])
+    @vite([
+        'resources/js/library/bootstrap.js',
+        'resources/js/library/easing.js',
+        'resources/js/library/isotope-layout.js',
+        'resources/js/library/lightbox.js',
+    ])
+    @vite(['resources/js/main/main-script.js'])
+@livewireScripts
 </body>
 </html>

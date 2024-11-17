@@ -28,15 +28,15 @@
         <!-- FAQs End -->
 
         <!-- Pricing Plan Start -->
-        @include('main.home.section.price')
+{{--        @include('main.home.section.price')--}}
         <!-- Pricing Plan End -->
 
         <!-- Testimonial Start -->
-        @include('main.home.section.testimonial')
+{{--        @include('main.home.section.testimonial')--}}
         <!-- Testimonial End -->
 
         <!-- Call to Action Start -->
-        <div class="call-to-action">
+{{--        <div class="call-to-action">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-md-9">
@@ -50,7 +50,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>--}}
         <!-- Call to Action End -->
 
         <!-- Blog Start -->

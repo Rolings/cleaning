@@ -7,7 +7,7 @@ Route::resource('/',HomeController::class)->only('index');
 Route::resource('about', AboutController::class)->only('index');
 Route::resource('contact', ContactController::class)->only('index');
 Route::resource('projects', ProjectController::class)->only('index');
-Route::resource('services', ServiceController::class)->only('index');
+Route::resource('services', ServiceController::class)->only(['index','show']);
 
 Route::get('/privacy-policy', [PrivacyPolicyController::class, 'index'])->name('privacy.policy');
 Route::get('/terms-condition', [TermsConditionController::class, 'index'])->name('terms.condition');

@@ -6,25 +6,34 @@
                 <div class="footer-contact">
                     <h2>Get In Touch</h2>
                     <p><i class="fa fa-map-marker-alt"></i>123 Street, New York, USA</p>
-                    <p><i class="fa fa-phone-alt"></i>+012 345 67890</p>
-                    <p><i class="fa fa-envelope"></i>info@example.com</p>
+                    <p><i class="fa fa-phone-alt"></i>{{ $contact_phone }}</p>
+                    <p><i class="fa fa-envelope"></i>{{ $contact_email }}</p>
                     <div class="footer-social">
-                        <a href=""><i class="fab fa-twitter"></i></a>
-                        <a href=""><i class="fab fa-facebook-f"></i></a>
-                        <a href=""><i class="fab fa-youtube"></i></a>
-                        <a href=""><i class="fab fa-instagram"></i></a>
-                        <a href=""><i class="fab fa-linkedin-in"></i></a>
+                        @if(!empty($contact_twitter))
+                            <a href="{{ $contact_twitter }}" target="_blank"><i class="fab fa-twitter"></i></a>
+                        @endif
+                        @if(!empty($contact_facebook))
+                            <a href="{{ $contact_facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        @endif
+                        @if(!empty($contact_youtube))
+                            <a href="{{ $contact_youtube }}" target="_blank"><i class="fab fa-youtube"></i></a>
+                        @endif
+                        @if(!empty($contact_instagram))
+                            <a href="{{ $contact_instagram }}" target="_blank"><i class="fab fa-instagram"></i></a>
+                        @endif
+                        @if(!empty($contact_linkedin))
+                            <a href="{{ $contact_linkedin }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        @endif
                     </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="footer-link">
                     <h2>Useful Link</h2>
-                    <a href="">About Us</a>
-                    <a href="">Our Story</a>
-                    <a href="">Our Services</a>
-                    <a href="">Our Projects</a>
-                    <a href="">Contact Us</a>
+                    <a href="{{ route('about.index') }}">About Us</a>
+                    <a href="{{ route('services.index') }}">Services</a>
+                    <a href="{{ route('projects.index') }}">Projects</a>
+                    <a href="{{ route('contact.index') }}">Contact</a>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
@@ -51,11 +60,10 @@
     </div>
     <div class="container footer-menu">
         <div class="f-menu">
-            <a href="">Terms of use</a>
-            <a href="">Privacy policy</a>
-            <a href="">Cookies</a>
-            <a href="">Help & FQAs</a>
-            <a href="">Contact us</a>
+            <a href="{{ route('terms.condition') }}">Terms of use</a>
+            <a href="{{ route('privacy.policy') }}">Privacy policy</a>
+            <a href="{{ route('cookies') }}">Cookies</a>
+            <a href="{{ route('contact.index') }}">Contact us</a>
         </div>
     </div>
 </div>
