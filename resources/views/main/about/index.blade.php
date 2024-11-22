@@ -15,7 +15,7 @@
         <!-- About End -->
 
         <!-- Story Start -->
-        @include('main.about.section.story')
+        <livewire:history />
         <!-- Story End -->
 
         <!-- Team Start -->

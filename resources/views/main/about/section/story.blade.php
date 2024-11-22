@@ -11,145 +11,52 @@
                         <p>Now</p>
                     </div>
                     <div class="story-continue">
+                        @foreach($history->forget($history->count()-1) as $item)
 
-                        <div class="row story-right">
-                            <div class="col-md-6">
-                                <p class="story-date">
-                                    01 Dec 2020
-                                </p>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="story-box">
-                                    <div class="story-text">
-                                        <h3>Lorem ipsum dolor</h3>
-                                        <p>
-                                            Lorem ipsum dolor sit amet elit. Proin euismod nibh in convallis. Nam vitae posuere tortor, et imperdiet nunc. Praesent nisl nulla, fringilla eu ornare, dignissim vitae ipsum.
+                            @if(($loop->index+1) % 2 == 0)
+                                <div class="row story-left">
+                                    <div class="col-md-6 d-md-none d-block">
+                                        <p class="story-date">
+                                            {{ $item->event_date_at->format('d F Y') }}
+                                        </p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="story-box">
+                                            <div class="story-text">
+                                                <h3>{{ $item->title }}</h3>
+                                                <p>
+                                                    {{ $item->description }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 d-md-block d-none">
+                                        <p class="story-date">
+                                            {{ $item->event_date_at->format('d F Y') }}
                                         </p>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="row story-left">
-                            <div class="col-md-6 d-md-none d-block">
-                                <p class="story-date">
-                                    01 Jun 2020
-                                </p>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="story-box">
-                                    <div class="story-text">
-                                        <h3>Lorem ipsum dolor</h3>
-                                        <p>
-                                            Lorem ipsum dolor sit amet elit. Proin euismod nibh in convallis. Nam vitae posuere tortor, et imperdiet nunc. Praesent nisl nulla, fringilla eu ornare, dignissim vitae ipsum.
+                            @else
+                                <div class="row story-right">
+                                    <div class="col-md-6">
+                                        <p class="story-date">
+                                            {{ $item->event_date_at->format('d F Y') }}
                                         </p>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 d-md-block d-none">
-                                <p class="story-date">
-                                    01 Jun 2020
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="story-year">
-                                    <p>2020</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row story-right">
-                            <div class="col-md-6">
-                                <p class="story-date">
-                                    01 Dec 2019
-                                </p>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="story-box">
-                                    <div class="story-text">
-                                        <h3>Lorem ipsum dolor</h3>
-                                        <p>
-                                            Lorem ipsum dolor sit amet elit. Proin euismod nibh in convallis. Nam vitae posuere tortor, et imperdiet nunc. Praesent nisl nulla, fringilla eu ornare, dignissim vitae ipsum.
-                                        </p>
+                                    <div class="col-md-6">
+                                        <div class="story-box">
+                                            <div class="story-text">
+                                                <h3>{{ $item->title }}</h3>
+                                                <p>
+                                                    {{ $item->description }}
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="row story-left">
-                            <div class="col-md-6 d-md-none d-block">
-                                <p class="story-date">
-                                    01 Jun  2019
-                                </p>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="story-box">
-                                    <div class="story-text">
-                                        <h3>Lorem ipsum dolor</h3>
-                                        <p>
-                                            Lorem ipsum dolor sit amet elit. Proin euismod nibh in convallis. Nam vitae posuere tortor, et imperdiet nunc. Praesent nisl nulla, fringilla eu ornare, dignissim vitae ipsum.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 d-md-block d-none">
-                                <p class="story-date">
-                                    01 Jun  2019
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="story-year">
-                                    <p>2019</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row story-right">
-                            <div class="col-md-6">
-                                <p class="story-date">
-                                    01 Dec 2018
-                                </p>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="story-box">
-                                    <div class="story-text">
-                                        <h3>Lorem ipsum dolor</h3>
-                                        <p>
-                                            Lorem ipsum dolor sit amet elit. Proin euismod nibh in convallis. Nam vitae posuere tortor, et imperdiet nunc. Praesent nisl nulla, fringilla eu ornare, dignissim vitae ipsum.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row story-left">
-                            <div class="col-md-6 d-md-none d-block">
-                                <p class="story-date">
-                                    01 Jun 2018
-                                </p>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="story-box">
-                                    <div class="story-text">
-                                        <h3>Lorem ipsum dolor</h3>
-                                        <p>
-                                            Lorem ipsum dolor sit amet elit. Proin euismod nibh in convallis. Nam vitae posuere tortor, et imperdiet nunc. Praesent nisl nulla, fringilla eu ornare, dignissim vitae ipsum.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 d-md-block d-none">
-                                <p class="story-date">
-                                    01 Jun 2018
-                                </p>
-                            </div>
-                        </div>
+                            @endif
+                        @endforeach
+                        
                     </div>
                     <div class="story-start">
                         <p>Launch</p>
@@ -157,9 +64,9 @@
                     <div class="story-launch">
                         <div class="story-box">
                             <div class="story-text">
-                                <h3>Launched our company on 01 Jan 2018</h3>
+                                <h3>{{ $history->last()->title }}</h3>
                                 <p>
-                                    Lorem ipsum dolor sit amet elit. Proin euismod nibh in convallis. Nam vitae posuere tortor, et imperdiet nunc. Praesent nisl nulla, fringilla eu ornare, dignissim vitae ipsum.
+                                    {{ $history->last()->description }}
                                 </p>
                             </div>
                         </div>

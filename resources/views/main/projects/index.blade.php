@@ -11,7 +11,7 @@
         <!-- Page Header End -->
 
         <!-- Portfolio Start -->
-        @include('main.projects.section.portfolio')
+        <livewire:project />
         <!-- Portfolio Start -->
 
         @include('main.section.footer')

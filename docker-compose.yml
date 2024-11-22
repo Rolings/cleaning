@@ -9,6 +9,8 @@ services:
         volumes:
             - .:/var/www
             - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+        depends_on:
+            - cleaning_redis
         networks:
             - cleaning_work_network
 
@@ -41,10 +43,19 @@ services:
         networks:
             - cleaning_work_network
 
+    cleaning_redis:
+        image: redis:latest
+        container_name: cleaning_redis
+        ports:
+            - 6379:6379
+        volumes:
+            - redis_data:/data
+
 networks:
     cleaning_work_network:
 
 volumes:
+    redis_data:
     dbdata:
         driver: local
 
