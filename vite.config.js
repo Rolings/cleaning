@@ -9,17 +9,24 @@ export default defineConfig({
         commonjs(),
         laravel({
             input: [
-                'resources/css/library/bootstrap/bootstrap.css',
-                'resources/css/library/lightbox/lightbox.css',
-                'resources/css/library/owlcarousel/owl.carousel.css',
+                // Main resources
                 'resources/css/main/main-style.css',
+                'resources/js/main/main-script.js',
+
+                // Library resource
+                'resources/css/library/bootstrap.css',
+                'resources/css/library/lightbox.css',
+                'resources/css/library/owl.carousel.css',
+
                 'resources/js/library/jquery.js',
                 'resources/js/library/bootstrap.js',
-                'resources/js/library/easing.js',
-                'resources/js/library/isotope-layout.js',
-                'resources/js/library/owl.carousel.js',
                 'resources/js/library/lightbox.js',
-                'resources/js/main/main-script.js',
+                'resources/js/library/owl.carousel.js',
+                'resources/js/library/popper.js',
+
+                // Admin resources
+                'resources/css/admin/portal.css',
+                'resources/js/admin/main-script.js',
             ],
             refresh: true,
         }),

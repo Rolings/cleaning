@@ -20,6 +20,7 @@ npm-install:
 	docker compose exec cleaning_app npm run build
 init-key:
 	docker compose exec cleaning_app php artisan key:generate
+	docker compose exec cleaning_app php artisan storage:link
 init-migrations:
 	docker compose exec cleaning_app php artisan migrate
 init-seed:

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\File;
 
 use App\Models\File;
 use Illuminate\Http\Request;
@@ -57,7 +57,7 @@ class FileService
      * @param string $disk
      * @return $this
      */
-    public function setParams(Request $request, string $name, string $disk = 'avatar'): self
+    public function setParams(Request $request, string $name, string $disk = 'public'): self
     {
         $this->request = $request;
         $this->fileName = $name;
@@ -70,7 +70,7 @@ class FileService
      * @param string $disk
      * @return $this
      */
-    public function setDisk(string $disk = 'avatar'): self
+    public function setDisk(string $disk = 'public'): self
     {
         $this->disk = $disk;
 

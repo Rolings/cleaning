@@ -45,6 +45,30 @@ return [
             'throw' => false,
         ],
 
+        'service' => [
+            'driver' => 'local',
+            'root' => storage_path('app/service'),
+            'url' => env('APP_URL').'/storage/service',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'project' => [
+            'driver' => 'local',
+            'root' => storage_path('app/project'),
+            'url' => env('APP_URL').'/storage/project',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'user' => [
+            'driver' => 'local',
+            'root' => storage_path('app/user'),
+            'url' => env('APP_URL').'/storage/user',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

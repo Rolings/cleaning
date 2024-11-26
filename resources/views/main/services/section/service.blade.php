@@ -7,7 +7,7 @@
             @foreach ($services as $service)
                 <div class="col-lg-3 col-md-6">
                     <div class="service-item">
-                        <img src="build/images/main/service-1.jpg" alt="Service">
+                        <img src="{{ $service->image?->url }}" width="100" alt="Service">
                         <h3>{{ $service->id }} {{ $service->title }}</h3>
                         <p>
                             {{ $service->limitDescription }}

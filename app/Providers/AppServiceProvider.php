@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Setting;
+use Illuminate\Foundation\AliasLoader;
+use App\Helpers\AdminMenu;
+use Spatie\Html\Facades\Html;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,7 +17,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Get the AliasLoader instance
+        $loader = AliasLoader::getInstance();
+
+        // Add your aliases
+        $loader->alias('AdminMenu', AdminMenu::class);
+        $loader->alias('Html', Html::class);
     }
 
     /**

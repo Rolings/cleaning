@@ -18,10 +18,10 @@ class Service extends Model
         'image_id',
     ];
 
-    protected $casts=[
-      'image_id'=>'integer',
-      'created_at'=>'datetime',
-      'updated_at'=>'datetime',
+    protected $casts = [
+        'image_id'   => 'integer',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     /**
@@ -47,6 +47,6 @@ class Service extends Model
      */
     public function getLimitDescriptionAttribute(): string
     {
-        return Str::limit($this->description,55);
+        return Str::limit($this->description, 55);
     }
 }

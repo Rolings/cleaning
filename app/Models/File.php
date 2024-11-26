@@ -24,7 +24,8 @@ class File extends Model
      */
     public function getUrlAttribute(): string
     {
-        return Storage::disk($this->disk)->url($this->name);
+        return Storage::disk($this->disk)->exists($this->name)
+            ? Storage::disk($this->disk)->url($this->name)
+            : self::NO_IMAGE;
     }
-
 }
