@@ -13,25 +13,26 @@
                         <h1 class="app-page-title mb-0">{{ $item->title }}</h1>
                     </div>
                 </div><!--//row-->
-                {{ html()->form('put')->route('admin.services.update', $item->slug)->acceptsFiles()->open() }}
+                {{ html()->form('put')->route('admin.projects.update', $item)->acceptsFiles()->open() }}
                     <div class="row gy-4">
-                        <div class="col-12 col-lg-4">
+ {{--                       <div class="col-12 col-lg-4">
                             <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
                                 <div class="app-card-body px-4 w-100">
 
                                     <div class="app-card app-card-settings p-4">
                                         <div class="app-card-body">
 
+
                                             <div class="mb-3 row justify-content-between align-items-center">
                                                 <div class="col-12">
                                                     <div class="item-label mb-2"><strong>Иконка</strong></div>
                                                     <div class="item-data">
-                                                        <img class="profile-image" width="300" src="{{ $item->image?->url}}" id="image" alt="">
+                                                        <img class="profile-image" width="300"  id="image" alt="">
                                                     </div>
                                                 </div><!--//col-->
                                                 <div class="container pt-1">
-                                                    <label for="images" class="drop-container">
-                                                        {{ html()->file('image')->accept('image/png, image/gif, image/jpeg')->required()->attributes(['onchange'=>'loadFile(event)']) }}
+                                                    <label for="main" class="drop-container">
+                                                        {{ html()->file('main')->accept('image/png, image/gif, image/jpeg')->required()->attributes(['onchange'=>'loadFile(event)']) }}
                                                         @error('icon')
                                                         <p class="alert alert-message">{{ $message }}</p>
                                                         @enderror
@@ -53,41 +54,41 @@
 
                                 </div>
                             </div>
-                        </div>
+                        </div>--}}
                         <div class="col-12 col-lg-8">
                             <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
                                 <div class="app-card-body px-4 w-100">
 
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                <div class="item-label"><strong>Slug</strong></div>
-                                                {{ html()->text('slug',$item->slug)->attributes(['id'=>'slug','class'=>'form-control']) }}
-                                            </div><!--//col-->
-                                        </div><!--//row-->
-                                    </div><!--//item-->
 
                                     <div class="item border-bottom py-3">
+
+
+
                                         <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
+                                            <div class="col-12">
                                                 <div class="item-label"><strong>Title</strong></div>
-                                                {{ html()->text('title',$item->title)->required()->attributes(['id'=>'title','class'=>'form-control']) }}
+                                                {{ html()->text('title',$item->title)->attributes(['id'=>'title','class'=>'form-control']) }}
                                             </div><!--//col-->
                                         </div><!--//row-->
+
+                                        <div class="mb-3 row justify-content-between align-items-center">
+                                            <div class="col-12">
+                                                <div class="item-label mb-2"><strong>Рекламные картинки для слайдера</strong></div>
+                                                <div id="slider-list" class="item-data">
+
+                                                </div>
+                                            </div><!--//col-->
+                                            <div class="container pt-1">
+                                                <div class="slider-images"></div>
+                                            </div>
+                                        </div>
                                     </div><!--//item-->
 
-                                    <div class="item border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                <div class="item-label"><strong>Description</strong></div>
-                                                {{ html()->textarea('description',$item->description)->required()->attributes(['id'=>'description','class'=>'form-control textarea','cols'=>'100','rows'=>'30','style'=>'height:300px;']) }}
-                                            </div><!--//col-->
-                                        </div><!--//row-->
-                                    </div><!--//item-->
+
                                 </div><!--//app-card-body-->
                                 <div class="app-card-footer p-4 mt-auto">
                                     {{ html()->submit('Зберегти')->attributes(['class'=>'btn app-btn-secondary']) }}
-                                    <a class="btn app-btn-secondary"  href="{{ route('admin.services.index') }}">Назад</a>
+                                    <a class="btn app-btn-secondary"  href="{{ route('admin.projects.index') }}">Назад</a>
                                     <div class="item border-bottom py-3">
                                         @if($errors->any())
                                             <label for="setting-input-1" class="form-label badge bg-danger">{{ $errors->first() }}
@@ -126,6 +127,17 @@
                 URL.revokeObjectURL(output.src) // free memory
             }
         };
+        window.onload = function (){
+            $('.slider-images').imageUploader({
+                extensions: ['.jpg', '.jpeg', '.png', '.gif'],
+                mimes: ['image/jpeg', 'image/png', 'image/gif'],
+                imagesInputName: 'slider',
+                preloadedInputName: 'images_id_left'
+            });
+        }
+
+
+
 
     </script>
 @endsection

@@ -11,7 +11,7 @@ class Service extends Component
 {
     public function render()
     {
-        $services = ModelsService::paginate(8);
+        $services = ModelsService::orderBy('created_at')->paginate(8);
 
         return view('main.services.section.service',[
             'services' => $services

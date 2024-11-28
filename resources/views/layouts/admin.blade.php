@@ -13,10 +13,10 @@
     <link rel="shortcut icon" href="favicon.ico">
 
     <!-- FontAwesome JS-->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    {{--    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">--}}
 
     <!-- App CSS -->
-    @vite([ 'resources/css/admin/portal.css'])
+    @vite(['resources/css/admin/portal.css', 'resources/css/library/image-uploader.css',])
 
     @yield('css')
 
@@ -27,10 +27,12 @@
 @yield('content')
 @include('custom_scripts')
 @yield('before_js')
+
 @vite([
-    'resources/js/library/popper.js',
-    'resources/js/library/bootstrap.js',
-    'resources/js/admin/main-script.js',
+        'resources/js/library/bootstrap.bundle.js',
+        'resources/js/library/popper.js',
+        'resources/js/library/image-uploader.js',
+        'resources/js/admin/main-script.js',
 ])
 @yield('js')
 @livewireScripts

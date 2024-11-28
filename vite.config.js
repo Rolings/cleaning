@@ -17,12 +17,15 @@ export default defineConfig({
                 'resources/css/library/bootstrap.css',
                 'resources/css/library/lightbox.css',
                 'resources/css/library/owl.carousel.css',
+                'resources/css/library/image-uploader.css',
 
                 'resources/js/library/jquery.js',
                 'resources/js/library/bootstrap.js',
+                'resources/js/library/bootstrap.bundle.js',
                 'resources/js/library/lightbox.js',
                 'resources/js/library/owl.carousel.js',
                 'resources/js/library/popper.js',
+                'resources/js/library/image-uploader.js',
 
                 // Admin resources
                 'resources/css/admin/portal.css',

@@ -68,7 +68,9 @@ class ServiceController extends Controller
     {
         $service->load('image');
 
-        $fileService->remove($service->image);
+        if (!is_null($service->image)) {
+            $fileService->remove($service->image);
+        }
 
         $service->delete();
 
