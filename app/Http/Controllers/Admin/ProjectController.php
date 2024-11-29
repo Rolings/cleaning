@@ -18,14 +18,14 @@ class ProjectController extends Controller
             ->orderBy('created_at')
             ->paginate(15);
 
-        return view('admin.project.index', [
+        return view('admin.projects.index', [
             'items' => $projects
         ]);
     }
 
     public function create()
     {
-        return view('admin.project.create');
+        return view('admin.projects.create');
     }
 
     public function store(StoreRequest $request, Project $project, FileService $fileService): RedirectResponse
@@ -46,7 +46,7 @@ class ProjectController extends Controller
     {
         $project->load(['mainPhoto','gallery']);
 
-        return view('admin.project.edit', [
+        return view('admin.projects.edit', [
             'item' => $project
         ]);
     }

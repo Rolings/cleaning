@@ -14,7 +14,11 @@ class CallbackController extends Controller
      */
     public function index()
     {
-        //
+        $callbacks = Callback::all();
+
+        return view('admin.callbacks.index',[
+            'callbacks' => $callbacks
+        ]);
     }
 
     /**

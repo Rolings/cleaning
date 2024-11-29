@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreQuestionRequest;
-use App\Http\Requests\UpdateQuestionRequest;
+use App\Http\Requests\Question\StoreQuestionRequest;
+use App\Http\Requests\Question\UpdateQuestionRequest;
 use App\Models\Question;
 
 class QuestionController extends Controller
@@ -14,7 +14,11 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        //
+        $questions = Question::paginate(15);
+
+        return view('admin.questions.index', [
+            'questions' => $questions
+        ]);
     }
 
     /**

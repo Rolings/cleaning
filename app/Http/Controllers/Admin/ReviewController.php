@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreReviewRequest;
-use App\Http\Requests\UpdateReviewRequest;
+use App\Http\Requests\Review\StoreReviewRequest;
+use App\Http\Requests\Review\UpdateReviewRequest;
 use App\Models\Review;
 
 class ReviewController extends Controller
@@ -14,7 +14,11 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        //
+        $reviews = Review::paginate(15);
+
+        return view('admin.reviews.index',[
+            'reviews' => $reviews
+        ]);
     }
 
     /**

@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "bootstrap": "^5.3.3",
+        "chart.js": "^4.4.6",
         "desandro-matches-selector": "^2.0.2",
         "ev-emitter": "^2.1.2",
         "fizzy-ui-utils": "^3.0.0",

@@ -11,7 +11,9 @@ docker-build:
 	docker compose build
 docker-up:
 	docker compose up -d
-docker-down:
+docker-clear-storage:
+	rm -rf storage/app/public/*
+docker-down: docker-clear-storage
 	docker compose down --remove-orphans
 composer-install:
 	docker compose exec cleaning_app composer install

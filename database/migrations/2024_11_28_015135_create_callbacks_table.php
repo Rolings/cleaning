@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('callbacks', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('phone');
+            $table->string('comment')->nullable();
             $table->timestamps();
         });
     }

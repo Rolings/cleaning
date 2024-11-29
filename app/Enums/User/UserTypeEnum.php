@@ -9,5 +9,6 @@ enum UserTypeEnum: string
     use EnumsTrait;
 
     case ADMIN = 'admin';
+    case EMPLOYEES = 'employees';
     case CLIENT = 'client';
 }

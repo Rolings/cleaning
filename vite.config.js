@@ -26,6 +26,7 @@ export default defineConfig({
                 'resources/js/library/owl.carousel.js',
                 'resources/js/library/popper.js',
                 'resources/js/library/image-uploader.js',
+                'resources/js/library/chart.js',
 
                 // Admin resources
                 'resources/css/admin/portal.css',

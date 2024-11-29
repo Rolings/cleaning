@@ -20,8 +20,9 @@
                         <div class="app-utility-item app-user-dropdown dropdown">
                             <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown" href="#"
                                role="button" aria-expanded="false">
-                                <img src="" alt=""></a>
+                                <img src="{{ $no_image }}" alt=""></a>
                             <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
+                                <li><a class="dropdown-item" target="_blank" href="{{ route('index') }}">Main site</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>

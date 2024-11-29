@@ -17,6 +17,16 @@ class Project extends Model
         'title',
     ];
 
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
+    /**
+     * Relation with File model
+     *
+     * @return BelongsToMany
+     */
     public function mainPhoto(): BelongsToMany
     {
         return $this->belongsToMany(File::class, ProjectFile::class, 'project_id', 'file_id')->wherePivot('main', true);

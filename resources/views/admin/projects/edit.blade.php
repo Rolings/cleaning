@@ -135,9 +135,5 @@
                 preloadedInputName: 'images_id_left'
             });
         }
-
-
-
-
     </script>
 @endsection

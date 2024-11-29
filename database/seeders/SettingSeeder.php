@@ -16,6 +16,7 @@ class SettingSeeder extends Seeder
         $data = [
             ['key' => 'contact_phone', 'value' => '+012 345 67890',],
             ['key' => 'contact_email', 'value' => 'info@example.com'],
+            ['key' => 'contact_address', 'value' => '123 Street, New York, USA'],
             ['key' => 'contact_facebook', 'value' => 'https://www.facebook.com/'],
             ['key' => 'contact_twitter', 'value' => 'https://twitter.com/'],
             ['key' => 'contact_instagram', 'value' => 'https://www.instagram.com/'],

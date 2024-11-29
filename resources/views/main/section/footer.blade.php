@@ -5,9 +5,18 @@
             <div class="col-md-6 col-lg-3">
                 <div class="footer-contact">
                     <h2>Get In Touch</h2>
-                    <p><i class="fa fa-map-marker-alt"></i>123 Street, New York, USA</p>
-                    <p><i class="fa fa-phone-alt"></i>{{ $contact_phone }}</p>
-                    <p><i class="fa fa-envelope"></i>{{ $contact_email }}</p>
+                    @if(!empty($contact_address))
+                        <p><i class="fa fa-map-marker-alt"></i>{{ $contact_address }}</p>
+                    @endif
+
+                    @if(!empty($contact_phone))
+                        <p><i class="fa fa-phone-alt"></i>{{ $contact_phone }}</p>
+                    @endif
+
+                    @if(!empty($contact_email))
+                        <p><i class="fa fa-envelope"></i>{{ $contact_email }}</p>
+                    @endif
+
                     <div class="footer-social">
                         @if(!empty($contact_twitter))
                             <a href="{{ $contact_twitter }}" target="_blank"><i class="fab fa-twitter"></i></a>

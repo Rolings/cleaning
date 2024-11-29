@@ -1,10 +1,16 @@
 <div class="topbar">
-    <div class="topbar-col">
-        <a href="tel:{{ $contact_phone }}"><i class="fa fa-phone-alt"></i>{{ $contact_phone }}</a>
-    </div>
-    <div class="topbar-col">
-        <a href="mailto:{{ $contact_email }}"><i class="fa fa-envelope"></i>{{ $contact_email }}</a>
-    </div>
+    @if(!empty($contact_phone))
+        <div class="topbar-col">
+            <a href="tel:{{ $contact_phone }}"><i class="fa fa-phone-alt"></i>{{ $contact_phone }}</a>
+        </div>
+    @endif
+
+    @if(!empty($contact_email))
+        <div class="topbar-col">
+            <a href="mailto:{{ $contact_email }}"><i class="fa fa-envelope"></i>{{ $contact_email }}</a>
+        </div>
+    @endif
+
     <div class="topbar-col">
         <div class="topbar-social">
             @if(!empty($contact_twitter))

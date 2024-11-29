@@ -17,14 +17,14 @@ class ServiceController extends Controller
             ->orderBy('created_at')
             ->paginate(15);
 
-        return view('admin.service.index', [
+        return view('admin.services.index', [
             'items' => $services
         ]);
     }
 
     public function create()
     {
-        return view('admin.service.create');
+        return view('admin.services.create');
     }
 
     public function store(StoreRequest $request, Service $service, FileService $fileService): RedirectResponse
@@ -45,7 +45,7 @@ class ServiceController extends Controller
     {
         $service->load('image');
 
-        return view('admin.service.edit', [
+        return view('admin.services.edit', [
             'item' => $service
         ]);
     }

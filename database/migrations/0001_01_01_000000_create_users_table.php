@@ -17,12 +17,13 @@ return new class extends Migration {
             $table->string('first_name');
             $table->string('last_name')->nullable();
             $table->string('middle_name')->nullable();
-            $table->foreignIdFor(File::class, 'avatar_id');
+            $table->foreignIdFor(File::class, 'avatar_id')->nullable();
             $table->enum('type', UserTypeEnum::all())->default(UserTypeEnum::CLIENT->value);
             $table->string('phone')->nullable();
-            $table->string('email')->unique();
+            $table->string('email')->nullable()->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('active')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });
