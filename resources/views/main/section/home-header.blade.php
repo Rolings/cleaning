@@ -16,7 +16,7 @@
             </div>
             <div class="col-md-5">
                 <div class="form">
-                    <h3>Get A Quote</h3>
+                    <h3>Quick order</h3>
                     <form>
                         <input class="form-control" type="text" placeholder="Your Name">
                         <input class="form-control" type="text" placeholder="Mobile Number">

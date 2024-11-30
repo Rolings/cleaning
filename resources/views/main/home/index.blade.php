@@ -54,7 +54,7 @@
         <!-- Call to Action End -->
 
         <!-- Blog Start -->
-        @include('main.home.section.blog')
+{{--        @include('main.home.section.blog')--}}
         <!-- Blog End -->
 
         @include('main.section.footer')

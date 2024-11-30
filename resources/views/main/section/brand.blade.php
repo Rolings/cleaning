@@ -1,13 +1,26 @@
 <div class="col-lg-4">
     @if(request()->route()->named('index'))
         <div class="brand brand-name">
-            <span>EUROFRESH</span>
-            <p>cleaning</p>
+            <div class="logo">
+                <img src="build/images/main/logo.svg" alt="">
+            </div>
+            <div class="description">
+                <span>EUROFRESH</span>
+                <p>cleaning</p>
+            </div>
+
         </div>
     @else
         <a class="brand brand-name" href="{{ route('index') }}">
-            <span>EUROFRESH</span>
-            <p>cleaning</p>
+
+            <div class="logo">
+                <img src="build/images/main/logo.svg" alt="">
+            </div>
+            <div class="description">
+                <span>EUROFRESH</span>
+                <p>cleaning</p>
+            </div>
+
         </a>
     @endif
 </div>

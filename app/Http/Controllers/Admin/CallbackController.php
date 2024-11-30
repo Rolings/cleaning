@@ -6,17 +6,25 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Callback\StoreCallbackRequest;
 use App\Http\Requests\Callback\UpdateCallbackRequest;
 use App\Models\Callback;
+use Illuminate\Http\Request;
 
 class CallbackController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $callbacks = Callback::all();
+        $callbacks = Callback::when($request->route()->named('admin.callbacks.index.new'), function ($query) use ($request) {
+            return $query->unread();
+        })->when($request->route()->named('admin.callbacks.index.read'), function ($query) use ($request) {
+            return $query->read();
+        })
+            ->orderByDesc('created_at')
+            ->paginate(10);
 
-        return view('admin.callbacks.index',[
+
+        return view('admin.callbacks.index', [
             'callbacks' => $callbacks
         ]);
     }

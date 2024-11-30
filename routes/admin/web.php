@@ -16,7 +16,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('dashboard', DashboardController::class)->only('index');
-    Route::resource('callbacks', CallbackController::class);
+
+    Route::prefix('callbacks')->name('callbacks.')->group(function () {
+        Route::resource('/', CallbackController::class)->only('show');
+
+        Route::get('/', [CallbackController::class, 'index'])->name('index');
+        Route::get('/new', [CallbackController::class, 'index'])->name('index.new');
+        Route::get('/read', [CallbackController::class, 'index'])->name('index.read');
+
+       // Route::put('/update', [SettingController::class, 'update'])->name('update');
+    });
+
+
     Route::resource('orders', OrderController::class);
     Route::resource('services', ServiceController::class);
     Route::resource('projects', ProjectController::class);
