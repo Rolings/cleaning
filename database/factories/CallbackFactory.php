@@ -22,7 +22,8 @@ class CallbackFactory extends Factory
             'name'       => fake()->name(),
             'phone'      => fake()->unique()->phoneNumber(),
             'comment'    => fake()->text(),
-            'created_at' => fake()->dateTimeBetween(now()->subDays(365), now())
+            'created_at' => fake()->dateTimeBetween(now()->subDays(365), now()),
+            'is_read'    => rand(0, 1) == 1,
         ];
     }
 }

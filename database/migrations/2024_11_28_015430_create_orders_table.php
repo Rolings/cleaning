@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('address');
             $table->dateTime('order_at');
             $table->string('comment')->nullable();
+            $table->boolean('is_read')->default(false);
             $table->timestamps();
         });
     }

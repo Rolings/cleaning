@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Callback;
+namespace App\Http\Requests\Admin\History;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCallbackRequest extends FormRequest
+class StoreHistoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

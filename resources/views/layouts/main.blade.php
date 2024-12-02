@@ -28,6 +28,8 @@
     @vite([
         'resources/css/library/lightbox.css',
         'resources/css/library/owl.carousel.css',
+        'resources/css/library/query.toast.css',
+
         'resources/css/main/main-style.css',
     ])
 
@@ -39,12 +41,14 @@
 <body>
 @yield('content')
 @include('custom_scripts')
-@yield('js')
+@yield('before_js')
 @vite([
     'resources/js/library/bootstrap.js',
     'resources/js/library/lightbox.js',
+    'resources/js/library/jquery.toast.js',
     'resources/js/main/main-script.js',
 ])
+@yield('js')
 @livewireScripts
 </body>
 </html>

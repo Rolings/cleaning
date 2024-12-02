@@ -18,6 +18,7 @@ export default defineConfig({
                 'resources/css/library/lightbox.css',
                 'resources/css/library/owl.carousel.css',
                 'resources/css/library/image-uploader.css',
+                'resources/css/library/query.toast.css',
 
                 'resources/js/library/jquery.js',
                 'resources/js/library/bootstrap.js',
@@ -27,6 +28,8 @@ export default defineConfig({
                 'resources/js/library/popper.js',
                 'resources/js/library/image-uploader.js',
                 'resources/js/library/chart.js',
+                'resources/js/library/jquery.toast.js',
+                'resources/js/library/jquery.mask.js',
 
                 // Admin resources
                 'resources/css/admin/portal.css',

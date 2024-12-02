@@ -3,22 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Question\StoreQuestionRequest;
-use App\Http\Requests\Admin\Question\UpdateQuestionRequest;
-use App\Models\Question;
+use App\Http\Requests\Admin\History\StoreHistoryRequest;
+use App\Http\Requests\Admin\History\UpdateHistoryRequest;
+use App\Models\History;
 
-class QuestionController extends Controller
+class HistoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $questions = Question::paginate(15);
-
-        return view('admin.questions.index', [
-            'questions' => $questions
-        ]);
+        //
     }
 
     /**
@@ -32,7 +28,7 @@ class QuestionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreQuestionRequest $request)
+    public function store(StoreHistoryRequest $request)
     {
         //
     }
@@ -40,7 +36,7 @@ class QuestionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Question $qestion)
+    public function show(History $history)
     {
         //
     }
@@ -48,7 +44,7 @@ class QuestionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Question $qestion)
+    public function edit(History $history)
     {
         //
     }
@@ -56,7 +52,7 @@ class QuestionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateQuestionRequest $request, Question $qestion)
+    public function update(UpdateHistoryRequest $request, History $history)
     {
         //
     }
@@ -64,7 +60,7 @@ class QuestionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Question $qestion)
+    public function destroy(History $history)
     {
         //
     }

@@ -2,14 +2,13 @@
 
 namespace App\Providers;
 
+use App\Helpers\AdminMenu;
+use App\Models\{Callback, File, Order, Setting};
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use App\Models\Setting;
-use Illuminate\Foundation\AliasLoader;
-use App\Helpers\AdminMenu;
 use Spatie\Html\Facades\Html;
-use App\Models\File;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,6 +31,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if (!App::runningInConsole()) {
+            View::share('new_callbacks_count', Callback::unread()->count());
+            View::share('new_order_count', Order::unread()->count());
             View::share('no_image', File::NO_IMAGE);
             View::share('contact_phone', Setting::findByKey('contact_phone')?->value);
             View::share('contact_email', Setting::findByKey('contact_email')?->value);

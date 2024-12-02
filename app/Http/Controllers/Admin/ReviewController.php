@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Review\StoreReviewRequest;
-use App\Http\Requests\Review\UpdateReviewRequest;
+use App\Http\Requests\Admin\Review\StoreReviewRequest;
+use App\Http\Requests\Admin\Review\UpdateReviewRequest;
 use App\Models\Review;
 
 class ReviewController extends Controller

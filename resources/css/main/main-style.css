@@ -2040,3 +2040,7 @@ a:focus {
     background: #FFD662;
     transition: .3s;
 }
+
+.cursor-pointer{
+    cursor: pointer;
+}

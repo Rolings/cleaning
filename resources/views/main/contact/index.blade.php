@@ -6,11 +6,9 @@
         @include('main.section.header')
         <!-- Header End -->
 
-
         <!-- Page Header Start -->
         @include('main.section.breadcrumb',['title'=>'Contact'])
         <!-- Page Header End -->
-
 
         <!-- Contact Start -->
         <div class="contact">
@@ -88,23 +86,22 @@
                     </div>
                     <div class="col-md-6">
                         <div class="contact-form">
-                            <form>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <input type="text" class="form-control" placeholder="Your Name" required="required" />
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <input type="email" class="form-control" placeholder="Your Email" required="required" />
-                                    </div>
+                            {{ html()->form()->route('contact.store')->attributes(['id'=>'contact-form'])->open() }}
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    {{ html()->text('name')->required()->placeholder('Your name')->attributes(['id'=>'name','class'=>'form-control']) }}
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Subject" required="required" />
+                                <div class="form-group col-md-6">
+                                    {{ html()->text('phone')->required()->placeholder('+1 (000) 000 0000')->attributes(['id'=>'phone','class'=>'form-control']) }}
                                 </div>
-                                <div class="form-group">
-                                    <textarea class="form-control" rows="6" placeholder="Message" required="required" ></textarea>
-                                </div>
-                                <div><button class="btn" type="submit">Send Message</button></div>
-                            </form>
+                            </div>
+                            <div class="form-group">
+                                {{ html()->textarea('message')->required()->placeholder('Message')->attributes(['id'=>'message','class'=>'form-control','rows'=>6]) }}
+                            </div>
+                            <div>
+                                <button class="btn" type="submit">Send Message</button>
+                            </div>
+                            {{ html()->form()->close() }}
                         </div>
                     </div>
                 </div>
@@ -117,4 +114,44 @@
 
         <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
     </div>
+@endsection
+@vite(['resources/js/library/jquery.mask.js'])
+@section('js')
+    <script>
+        window.onload = () => {
+            $('#phone').on('input', () => {
+                $(this).val('+1')
+            }).on('mousedown', () => {
+                $(this).val('+1')
+            }).mask('+1 (000) 000 0000');
+
+            $("form#contact-form").on('submit', function (e) {
+                e.preventDefault();
+                let _this = $(this);
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr('action'),
+                    data: $(this).serializeArray(),
+                    success: (response) => {
+                        $.toast({
+                            heading: 'Success',
+                            text: response.message,
+                            showHideTransition: 'slide',
+                            icon: 'success'
+                        })
+                        _this[0].reset();
+                    },
+                    error: (error) => {
+                        $.toast({
+                            heading: 'Error',
+                            text: error.message,
+                            showHideTransition: 'fade',
+                            icon: 'error'
+                        })
+                    }
+
+                });
+            })
+        }
+    </script>
 @endsection

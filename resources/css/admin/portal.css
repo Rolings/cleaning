@@ -12947,3 +12947,7 @@ button.close:focus {
 .sidebar-border-line {
     border-top: 1px solid #e7e9ed;
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}

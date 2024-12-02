@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('/',HomeController::class)->only('index');
 Route::resource('about', AboutController::class)->only('index');
-Route::resource('contact', ContactController::class)->only('index');
+Route::resource('contact', ContactController::class)->only(['index','store']);
 Route::resource('projects', ProjectController::class)->only('index');
 Route::resource('services', ServiceController::class)->only(['index','show']);
 

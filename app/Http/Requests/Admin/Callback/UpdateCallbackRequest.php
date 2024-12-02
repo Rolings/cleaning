@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Review;
+namespace App\Http\Requests\Admin\Callback;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreReviewRequest extends FormRequest
+class UpdateCallbackRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

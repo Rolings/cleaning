@@ -29,7 +29,8 @@ class OrderFactory extends Factory
             'address'    => fake()->address(),
             'order_at'   => fake()->dateTimeBetween(now()->subDays(365), now()),
             'comment'    => fake()->text(),
-            'created_at' => fake()->dateTimeBetween(now()->subDays(365), now())
+            'created_at' => fake()->dateTimeBetween(now()->subDays(365), now()),
+            'is_read'    => rand(0,1) == 1,
         ];
     }
 }
