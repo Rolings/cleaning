@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\PropertiesTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class File extends Model
 {
+    use PropertiesTrait;
     const NO_IMAGE = 'https://tgtdiagnostics.com/wp-content/themes/tgt/assets/svg/no.svg';
 
     protected $fillable = [

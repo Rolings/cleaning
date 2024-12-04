@@ -17,7 +17,7 @@ class ReviewController extends Controller
         $reviews = Review::paginate(15);
 
         return view('admin.reviews.index',[
-            'reviews' => $reviews
+            'items' => $reviews
         ]);
     }
 

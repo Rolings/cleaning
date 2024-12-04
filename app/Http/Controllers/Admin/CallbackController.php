@@ -26,7 +26,7 @@ class CallbackController extends Controller
         })->orderByDesc('created_at')->paginate(10);
 
         return view('admin.callbacks.index', [
-            'callbacks' => $callbacks
+            'items' => $callbacks
         ]);
     }
 

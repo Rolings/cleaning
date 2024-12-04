@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             ServiceSeeder::class,
             ProjectSeeder::class,
             HistorySeeder::class,
+            QuestionSeeder::class,
+            ReviewSeeder::class,
             CallbackSeeder::class,
             OrderSeeder::class,
         ]);

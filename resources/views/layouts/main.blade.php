@@ -4,8 +4,7 @@
     <meta charset="utf-8">
     <title>@yield('title','')</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Cleaning Company Website Template" name="keywords">
-    <meta content="Cleaning Company Website Template" name="description">
+
     <!-- Author Meta -->
     <meta name="author" content="colorlib">
     <!-- Meta Description -->
@@ -46,6 +45,7 @@
     'resources/js/library/bootstrap.js',
     'resources/js/library/lightbox.js',
     'resources/js/library/jquery.toast.js',
+    'resources/js/library/owl.carousel.js',
     'resources/js/main/main-script.js',
 ])
 @yield('js')

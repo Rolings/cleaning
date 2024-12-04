@@ -18,11 +18,8 @@
             @endforeach
         </div>
 
-        <div class="row">
-            <div class="col-12 load-more">
-                {{ $services->links('main.section.pagination') }}
-            </div>
+        <div class="row justify-content-center">
+            {{ $services->links('main.section.pagination') }}
         </div>
-
     </div>
 </div>

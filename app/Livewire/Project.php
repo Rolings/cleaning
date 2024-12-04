@@ -9,9 +9,9 @@ class Project extends Component
 {
     public function render()
     {
-        $projects = ProjectModel::with(['mainPhoto','gallery'])->get();
+        $projects = ProjectModel::with(['gallery'])->get();
 
-        return view('main.projects.section.projects',[
+        return view('main.section.livewire.projects',[
             'projects' => $projects
         ]);
     }

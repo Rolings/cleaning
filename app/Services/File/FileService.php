@@ -6,13 +6,14 @@ use App\Models\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\UploadedFile;
 
 class FileService
 {
     /**
      * @var string
      */
-    protected string $file;
+    protected UploadedFile $file;
     /**
      * @var string
      */
@@ -57,7 +58,7 @@ class FileService
      * @param string $disk
      * @return $this
      */
-    public function setParams(Request $request, string $name, string $disk = 'public'): self
+    public function setParams(Request $request, string $name, string $disk = 'avatar'): self
     {
         $this->request = $request;
         $this->fileName = $name;
@@ -67,16 +68,52 @@ class FileService
     }
 
     /**
+     * @param UploadedFile $file
+     * @param string $name
+     * @param string $disk
+     * @param int|null $id
+     * @return File
+     */
+    public function setUploadFile(UploadedFile $file, string $name, string $disk = 'avatar', int $id = null)
+    {
+        $this->fileName = $name;
+        $this->disk = $disk;
+
+        $this->setFile($file);
+        $this->setExtension($file->getClientOriginalExtension());
+        $this->setSize($file->getSize());
+
+        return is_null($id)
+            ? $this->save()
+            : $this->fresh($id);
+    }
+
+    /**
      * @param string $disk
      * @return $this
      */
-    public function setDisk(string $disk = 'public'): self
+    public function setDisk(string $disk = 'avatar'): self
     {
         $this->disk = $disk;
 
         return $this;
     }
 
+    /**
+     * @param UploadedFile $file
+     * @return $this
+     */
+    public function setFile(UploadedFile $file): self
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    /**
+     * @param string $extension
+     * @return $this
+     */
     public function setExtension(string $extension): self
     {
         $this->extension = $extension;
@@ -84,6 +121,10 @@ class FileService
         return $this;
     }
 
+    /**
+     * @param string $size
+     * @return $this
+     */
     public function setSize(string $size): self
     {
         $this->size = $size;
@@ -107,7 +148,7 @@ class FileService
     public function storeFile(int $id = null): ?File
     {
         if ($this->request->hasFile($this->fileName)) {
-            $this->file = $this->request->file($this->fileName);
+            $this->setFile($this->request->file($this->fileName));
             $this->setExtension($this->request->file($this->fileName)->getClientOriginalExtension());
             $this->setSize($this->request->file($this->fileName)->getSize());
 
@@ -130,9 +171,8 @@ class FileService
         $files = collect([]);
         if ($this->request->hasFile($this->fileName)) {
             if (is_array($this->request->file($this->fileName))) {
-                $this->isArray = true;
                 foreach ($this->request->file($this->fileName) as $file) {
-                    $this->file = $file;
+                    $this->setFile($file);
                     $this->setExtension($file->getClientOriginalExtension());
                     $this->setSize($file->getSize());
                     $files->push($this->save());
@@ -158,6 +198,17 @@ class FileService
     }
 
     /**
+     * @param File $file
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse|void
+     */
+    public function downloadFile(File $file)
+    {
+        if ($file && Storage::disk($file->disk)->exists($file->name)) {
+            return Storage::disk($file->disk)->download($file->name);
+        }
+    }
+
+    /**
      * Function delete file from storage and remove record in DB
      *
      * @param File $file
@@ -168,6 +219,38 @@ class FileService
             Storage::disk($file->disk)->delete($file->name);
             $file->delete();
         }
+    }
+
+    /**
+     * @param array $files
+     * @return void
+     */
+    public function removeFiles(Collection $files): void
+    {
+        $files->each(function ($item) {
+            $this->remove($item);
+        });
+    }
+
+    /**
+     * @param int $id
+     * @return File|null
+     */
+    public function makeCopyFile(int $id): ?File
+    {
+        $file = $this->model->find($id);
+
+        if ($file && Storage::disk($file->disk)->exists($file->name)) {
+            $this->setExtension($file->type);
+            $this->setDisk($file->disk);
+            $this->setSize($file->size);
+            $filename = $this->makeFilename();
+            Storage::disk($file->disk)->copy($file->name, $filename);
+
+            return $this->record($filename);
+        }
+
+        return null;
     }
 
     /**
@@ -200,7 +283,7 @@ class FileService
      */
     protected function makeFilename(): string
     {
-        return pathinfo($this->extension, PATHINFO_FILENAME) . '_' . time() . '.' . $this->extension;
+        return pathinfo($this->extension, PATHINFO_FILENAME) . '_' . now()->format("Hisu") . '.' . $this->extension;
     }
 
     /**

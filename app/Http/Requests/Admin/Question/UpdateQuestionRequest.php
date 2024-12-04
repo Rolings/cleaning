@@ -11,7 +11,15 @@ class UpdateQuestionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
+    }
+
+    public function prepareForValidation(): void
+    {
+        $this->merge([
+            'top'    => isset($this->active) && isset($this->top),
+            'active' => isset($this->active),
+        ]);
     }
 
     /**
@@ -22,7 +30,13 @@ class UpdateQuestionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name'     => ['required', 'string', 'max:255'],
+            'email'    => ['required', 'string', 'email', 'max:255'],
+            'subject'  => ['required', 'string', 'max:255'],
+            'question' => ['required', 'string', 'max:255'],
+            'answer'   => ['required', 'string', 'max:255'],
+            'top'      => ['nullable', 'boolean'],
+            'active'   => ['nullable', 'boolean'],
         ];
     }
 }

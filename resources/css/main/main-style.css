@@ -68,6 +68,19 @@ a:focus {
     padding-top: 10px;
 }
 
+a.btn-global{
+    position: relative;
+    margin-bottom: 30px;
+    padding: 10px 20px;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    background: #ffd662;
+    transition: .3s;
+}
+
 
 /*******************************/
 /********** Header CSS *********/

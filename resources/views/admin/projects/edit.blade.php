@@ -15,55 +15,10 @@
                 </div><!--//row-->
                 {{ html()->form('put')->route('admin.projects.update', $item)->acceptsFiles()->open() }}
                     <div class="row gy-4">
- {{--                       <div class="col-12 col-lg-4">
-                            <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
-                                <div class="app-card-body px-4 w-100">
-
-                                    <div class="app-card app-card-settings p-4">
-                                        <div class="app-card-body">
-
-
-                                            <div class="mb-3 row justify-content-between align-items-center">
-                                                <div class="col-12">
-                                                    <div class="item-label mb-2"><strong>Иконка</strong></div>
-                                                    <div class="item-data">
-                                                        <img class="profile-image" width="300"  id="image" alt="">
-                                                    </div>
-                                                </div><!--//col-->
-                                                <div class="container pt-1">
-                                                    <label for="main" class="drop-container">
-                                                        {{ html()->file('main')->accept('image/png, image/gif, image/jpeg')->required()->attributes(['onchange'=>'loadFile(event)']) }}
-                                                        @error('icon')
-                                                        <p class="alert alert-message">{{ $message }}</p>
-                                                        @enderror
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="item app-card-settings border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                {{ html()->checkbox('active',$item->active,1)->attributes(['id'=>'title','class'=>'form-check-input']) }}
-                                                <label class="form-check-label" for="active">Active</label>
-                                            </div><!--//col-->
-                                        </div><!--//row-->
-                                    </div><!--//item-->
-
-                                </div>
-                            </div>
-                        </div>--}}
                         <div class="col-12 col-lg-8">
                             <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
                                 <div class="app-card-body px-4 w-100">
-
-
                                     <div class="item border-bottom py-3">
-
-
-
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-12">
                                                 <div class="item-label"><strong>Title</strong></div>
@@ -86,10 +41,10 @@
 
 
                                 </div><!--//app-card-body-->
-                                <div class="app-card-footer p-4 mt-auto">
-                                    {{ html()->submit('Зберегти')->attributes(['class'=>'btn app-btn-secondary']) }}
-                                    <a class="btn app-btn-secondary"  href="{{ route('admin.projects.index') }}">Назад</a>
-                                    <div class="item border-bottom py-3">
+                                <div class="col-12 p-3">
+                                    <a class="btn app-btn-secondary float-start"  href="{{ route('admin.projects.index') }}">Назад</a>
+                                    {{ html()->submit('Зберегти')->attributes(['class'=>'btn app-btn-primary float-end']) }}
+                                    <div class="item py-3">
                                         @if($errors->any())
                                             <label for="setting-input-1" class="form-label badge bg-danger">{{ $errors->first() }}
                                                 <span class="ms-2" data-container="body" data-bs-toggle="popover" data-trigger="hover" data-placement="top" data-content="This is a Bootstrap popover example. You can use popover to provide extra info.">
@@ -131,6 +86,7 @@
             $('.slider-images').imageUploader({
                 extensions: ['.jpg', '.jpeg', '.png', '.gif'],
                 mimes: ['image/jpeg', 'image/png', 'image/gif'],
+                preloaded: window.images,
                 imagesInputName: 'slider',
                 preloadedInputName: 'images_id_left'
             });

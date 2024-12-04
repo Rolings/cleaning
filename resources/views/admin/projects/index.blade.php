@@ -14,7 +14,6 @@
                     <div class="col-auto">
                         <div class="page-utilities">
                             <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
-
                                 <div class="col-auto">
                                     <a class="btn app-btn-primary" href="{{ route('admin.projects.create') }}">
                                         Додати проект
@@ -32,7 +31,7 @@
                             <div class="app-card app-card-doc shadow-sm h-100">
                                 <div class="app-card-thumb-holder p-3">
                                     <div class="app-card-thumb">
-                                        <img class="thumb-image" src="{{ $item->image?->url }}" alt="">
+                                        <img class="thumb-image" src="{{ $item->image() }}" alt="">
                                     </div>
                                     <span class="badge bg-success"></span>
                                     <a class="app-card-link-mask" href="{{ route('admin.projects.edit',$item) }}"></a>
@@ -44,9 +43,6 @@
                                         <ul class="list-unstyled mb-0">
                                             <li><span class="text-muted">Створено:</span> {{ $item->created_at->format('Y-m-d H:i:s') }}</li>
                                             <li><span class="text-muted">Змінено:</span> {{ $item->created_at->format('Y-m-d H:i:s') }}</li>
-                                            {{--
-
-                                                                                        <li><span class="text-muted">Uploaded:</span> 3 mins ago</li>--}}
                                         </ul>
                                     </div><!--//app-doc-meta-->
 

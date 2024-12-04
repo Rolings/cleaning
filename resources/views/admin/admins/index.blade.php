@@ -40,12 +40,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($admins as $admin)
+                                    @foreach($items as $item)
                                         <tr>
-                                            <td class="cell">#{{ $admin->id }}</td>
-                                            <td class="cell">{{ $admin->fullName }}</td>
-                                            <td class="cell"><span></span><span class="note">{{ $admin->phone }}</span></td>
-                                            <td class="cell"><span></span><span class="note">{{ $admin->email }}</span></td>
+                                            <td class="cell">#{{ $item->id }}</td>
+                                            <td class="cell">{{ $item->fullName }}</td>
+                                            <td class="cell"><span></span><span class="note">{{ $item->phone }}</span></td>
+                                            <td class="cell"><span></span><span class="note">{{ $item->email }}</span></td>
                                             <td class="cell"><span class="badge bg-success">Paid</span></td>
                                             <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
                                         </tr>
@@ -57,7 +57,7 @@
                     </div><!--//app-card-body-->
                 </div><!--//app-card-->
 
-                {{ $admins->withQueryString()->links("admin.section.pagination") }}
+                {{ $items->withQueryString()->links("admin.section.pagination") }}
 
 
             </div><!--//container-fluid-->

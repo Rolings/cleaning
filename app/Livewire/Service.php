@@ -13,7 +13,7 @@ class Service extends Component
     {
         $services = ModelsService::orderBy('created_at')->paginate(8);
 
-        return view('main.services.section.service',[
+        return view('main.section.livewire.service',[
             'services' => $services
         ]);
     }

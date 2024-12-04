@@ -11,7 +11,7 @@
         <!-- Page Header End -->
 
         <!-- About Start -->
-        @include('main.about.section.description')
+        <livewire:about />
         <!-- About End -->
 
         <!-- Story Start -->

@@ -15,6 +15,14 @@ class StoreRequest extends FormRequest
         return true;
     }
 
+
+    public function prepareForValidation(): void
+    {
+        $this->merge([
+            'slug' => Str::slug($this->slug ?? $this->title),
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -23,10 +31,9 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'       => ['sometimes', 'nullable', 'string', 'max:255'],
-            'slug'        => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string'],
-            'image'       => ['required', 'image', 'max:15120', 'mimes:jpg,png'],
+            'title'  => ['sometimes', 'nullable', 'string', 'max:255'],
+            'slug'   => ['nullable', 'string', 'max:255'],
+            'slider' => ['sometimes', 'nullable', 'array'],
         ];
     }
 }

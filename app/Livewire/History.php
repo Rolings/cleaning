@@ -11,7 +11,7 @@ class History extends Component
     {
         $history = HistoryModel::orderByDesc('event_date_at')->get();
 
-        return view('main.about.section.story',[
+        return view('main.section.livewire.story',[
             'history' => $history,
         ]);
     }

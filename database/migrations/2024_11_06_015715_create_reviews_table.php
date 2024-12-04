@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\File;
 
 return new class extends Migration
 {
@@ -13,6 +14,11 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(File::class,'image_id')->nullable();
+            $table->string('name');
+            $table->string('email')->nullable();
+            $table->text('comment');
+            $table->enum('rating',[1,2,3,4,5])->default(5);
             $table->boolean('active')->default(true);
             $table->timestamps();
         });

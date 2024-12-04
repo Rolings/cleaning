@@ -85,10 +85,10 @@
                                     </div><!--//row-->
                                 </div><!--//item-->
                             </div><!--//app-card-body-->
-                            <div class="app-card-footer p-4 mt-auto">
-                                {{ html()->submit('Зберегти')->attributes(['class'=>'btn app-btn-secondary']) }}
-                                <a class="btn app-btn-secondary"  href="{{ route('admin.services.index') }}">Назад</a>
-                                <div class="item border-bottom py-3">
+                            <div class="col-12 p-3">
+                                <a class="btn app-btn-secondary float-start"  href="{{ route('admin.services.index') }}">Назад</a>
+                                {{ html()->submit('Зберегти')->attributes(['class'=>'btn app-btn-primary float-end']) }}
+                                <div class="item  py-3">
                                     @if($errors->any())
                                         <label for="setting-input-1" class="form-label badge bg-danger">{{ $errors->first() }}
                                             <span class="ms-2" data-container="body" data-bs-toggle="popover" data-trigger="hover" data-placement="top" data-content="This is a Bootstrap popover example. You can use popover to provide extra info.">

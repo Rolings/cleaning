@@ -17,7 +17,7 @@ class AdminController extends Controller
         $admins = User::admin()->paginate(10);
 
         return view('admin.admins.index', [
-            'admins' => $admins
+            'items' => $admins
         ]);
     }
 

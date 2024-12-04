@@ -30,10 +30,9 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'slug'        => ['required', 'string','max:255'],
-            'title'       => ['required', 'string','max:255'],
-            'description' => ['required', 'string'],
-            'image'       => ['required', 'image', 'max:15120', 'mimes:jpg,png'],
+            'slug'   => ['required', 'string', 'max:255'],
+            'title'  => ['nullable', 'string', 'max:255'],
+            'slider' => ['sometimes', 'nullable', 'array'],
         ];
     }
 }

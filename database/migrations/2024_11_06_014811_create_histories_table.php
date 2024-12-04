@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->dateTime('event_date_at');
             $table->boolean('active')->default(true);
             $table->timestamps();

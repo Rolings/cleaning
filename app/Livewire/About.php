@@ -4,10 +4,10 @@ namespace App\Livewire;
 
 use Livewire\Component;
 
-class TopQuestions extends Component
+class About extends Component
 {
     public function render()
     {
-        return view('livewire.top-questions');
+        return view('main.section.livewire.about');
     }
 }

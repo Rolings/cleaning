@@ -56,21 +56,21 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($callbacks as $callback)
+                                        @foreach($items as $item)
                                             <tr>
-                                                <td class="cell"># {{ $callback->id }}</td>
-                                                <td class="cell"><span class="truncate">{{ $callback->name }}</span></td>
-                                                <td class="cell"><span>{{ $callback->created_at->format('F d Y') }}</span><span class="note">{{ $callback->created_at->format(' h:i A') }}</span></td>
+                                                <td class="cell"># {{ $item->id }}</td>
+                                                <td class="cell"><span class="truncate">{{ $item->name }}</span></td>
+                                                <td class="cell"><span>{{ $item->created_at->format('F d Y') }}</span><span class="note">{{ $item->created_at->format(' h:i A') }}</span></td>
                                                 <td class="cell">
-                                                    @if($callback->is_read)
+                                                    @if($item->is_read)
                                                         <span class="badge bg-success">Прочитано</span>
                                                     @else
                                                         <span class="badge bg-warning">Нове</span>
                                                     @endif
                                                 </td>
                                                 <td class="cell">
-                                                    <span class="btn-sm app-btn-secondary cursor-pointer show-callback" data-action="{{ route('admin.callbacks.show',$callback) }}"
-                                                          data-id="{{ $callback->id }}">    Деталі</span>
+                                                    <span class="btn-sm app-btn-secondary cursor-pointer show-callback" data-action="{{ route('admin.callbacks.show',$item) }}"
+                                                          data-id="{{ $item->id }}">    Деталі</span>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -81,7 +81,7 @@
                             </div><!--//app-card-body-->
                         </div><!--//app-card-->
                         <nav class="app-pagination">
-                            {{ $callbacks->withQueryString()->links("admin.section.pagination") }}
+                            {{ $items->withQueryString()->links("admin.section.pagination") }}
                         </nav><!--//app-pagination-->
                     </div><!--//tab-pane-->
 
@@ -100,21 +100,21 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($callbacks as $callback)
+                                        @foreach($items as $item)
                                             <tr>
-                                                <td class="cell"># {{ $callback->id }}</td>
-                                                <td class="cell"><span class="truncate">{{ $callback->name }}</span></td>
-                                                <td class="cell"><span>{{ $callback->created_at->format('F d Y') }}</span><span class="note">{{ $callback->created_at->format(' h:i A') }}</span></td>
+                                                <td class="cell"># {{ $item->id }}</td>
+                                                <td class="cell"><span class="truncate">{{ $item->name }}</span></td>
+                                                <td class="cell"><span>{{ $item->created_at->format('F d Y') }}</span><span class="note">{{ $item->created_at->format(' h:i A') }}</span></td>
                                                 <td class="cell">
-                                                    @if($callback->is_read)
+                                                    @if($item->is_read)
                                                         <span class="badge bg-success">Прочитано</span>
                                                     @else
                                                         <span class="badge bg-warning">Нове</span>
                                                     @endif
                                                 </td>
                                                 <td class="cell">
-                                                    <span class="btn-sm app-btn-secondary cursor-pointer show-callback" data-action="{{ route('admin.callbacks.show',$callback) }}"
-                                                          data-id="{{ $callback->id }}">Деталі</span>
+                                                    <span class="btn-sm app-btn-secondary cursor-pointer show-callback" data-action="{{ route('admin.callbacks.show',$item) }}"
+                                                          data-id="{{ $item->id }}">Деталі</span>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -125,7 +125,7 @@
                             </div><!--//app-card-body-->
                         </div><!--//app-card-->
                         <nav class="app-pagination">
-                            {{ $callbacks->withQueryString()->links("admin.section.pagination") }}
+                            {{ $items->withQueryString()->links("admin.section.pagination") }}
                         </nav><!--//app-pagination-->
                     </div><!--//tab-pane-->
 
@@ -144,21 +144,21 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($callbacks as $callback)
+                                        @foreach($items as $item)
                                             <tr>
-                                                <td class="cell"># {{ $callback->id }}</td>
-                                                <td class="cell"><span class="truncate">{{ $callback->name }}</span></td>
-                                                <td class="cell"><span>{{ $callback->created_at->format('F d Y') }}</span><span class="note">{{ $callback->created_at->format(' h:i A') }}</span></td>
+                                                <td class="cell"># {{ $item->id }}</td>
+                                                <td class="cell"><span class="truncate">{{ $item->name }}</span></td>
+                                                <td class="cell"><span>{{ $item->created_at->format('F d Y') }}</span><span class="note">{{ $item->created_at->format(' h:i A') }}</span></td>
                                                 <td class="cell">
-                                                    @if($callback->is_read)
+                                                    @if($item->is_read)
                                                         <span class="badge bg-success">Прочитано</span>
                                                     @else
                                                         <span class="badge bg-warning">Нове</span>
                                                     @endif
                                                 </td>
                                                 <td class="cell">
-                                                    <span class="btn-sm app-btn-secondary cursor-pointer show-callback" data-action="{{ route('admin.callbacks.show',$callback) }}"
-                                                          data-id="{{ $callback->id }}">    Деталі</span>
+                                                    <span class="btn-sm app-btn-secondary cursor-pointer show-callback" data-action="{{ route('admin.callbacks.show',$item) }}"
+                                                          data-id="{{ $item->id }}">    Деталі</span>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -169,7 +169,7 @@
                             </div><!--//app-card-body-->
                         </div><!--//app-card-->
                         <nav class="app-pagination">
-                            {{ $callbacks->withQueryString()->links("admin.section.pagination") }}
+                            {{ $items->withQueryString()->links("admin.section.pagination") }}
                         </nav><!--//app-pagination-->
                     </div><!--//tab-pane-->
 

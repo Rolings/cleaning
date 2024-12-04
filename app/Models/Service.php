@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\PropertiesTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -9,19 +10,21 @@ use Illuminate\Support\Str;
 
 class Service extends Model
 {
-    use HasFactory;
+    use HasFactory, PropertiesTrait;
 
     protected $fillable = [
         'title',
         'slug',
         'description',
         'image_id',
+        'active',
     ];
 
     protected $casts = [
         'image_id'   => 'integer',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'active'     => 'boolean',
     ];
 
     /**

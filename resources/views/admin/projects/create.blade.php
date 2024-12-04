@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Додати сервіс')
+@section('title', 'Додати проект')
 
 @section('content')
     @include('admin.section.header')
@@ -10,85 +10,39 @@
 
                 <div class="row g-3 mb-4 align-items-center justify-content-between">
                     <div class="col-auto">
-                        <h1 class="app-page-title mb-0">Додати сервіс</h1>
+                        <h1 class="app-page-title mb-0">Додати проект</h1>
                     </div>
                 </div><!--//row-->
-                {{ html()->form()->route('admin.services.store')->acceptsFiles()->open() }}
+                {{ html()->form()->route('admin.projects.store')->acceptsFiles()->open() }}
                 <div class="row gy-4">
-                    <div class="col-12 col-lg-4">
-                        <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
-                            <div class="app-card-body px-4 w-100">
-
-                                <div class="app-card app-card-setting sp-4">
-                                    <div class="app-card-body">
-
-                                        <div class="mb-3 row justify-content-between align-items-center">
-                                            <div class="col-12">
-                                                <div class="item-label mb-2"><strong>Иконка</strong></div>
-                                                <div class="item-data">
-                                                    <img class="profile-image" width="300" src="" id="image" alt="">
-                                                </div>
-                                            </div><!--//col-->
-                                            <div class="container pt-1">
-                                                <label for="images" class="drop-container">
-                                                    {{ html()->file('image')->accept('.png.jpg.jpeg')->required()->attributes(['onchange'=>'loadFile(event)']) }}
-                                                    @error('icon')
-                                                    <p class="alert alert-message">{{ $message }}</p>
-                                                    @enderror
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="item app-card-settings border-bottom py-3">
-                                    <div class="row justify-content-between align-items-center">
-                                        <div class="col-auto">
-                                            {{ html()->checkbox('active',null,1)->attributes(['id'=>'title','class'=>'form-check-input']) }}
-                                            <label class="form-check-label" for="active">Active</label>
-                                        </div><!--//col-->
-                                    </div><!--//row-->
-                                </div><!--//item-->
-
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-12 col-lg-8">
                         <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
                             <div class="app-card-body px-4 w-100">
-
                                 <div class="item border-bottom py-3">
                                     <div class="row justify-content-between align-items-center">
-                                        <div class="col-auto">
-                                            <div class="item-label"><strong>Slug</strong></div>
-                                            {{ html()->text('slug')->attributes(['id'=>'slug','class'=>'form-control']) }}
+                                        <div class="col-12">
+                                            <div class="item-label"><strong>Заголовок</strong></div>
+                                            {{ html()->text('title')->attributes(['id'=>'title','class'=>'form-control']) }}
                                         </div><!--//col-->
                                     </div><!--//row-->
+
+                                    <div class="mb-3 row justify-content-between align-items-center">
+                                        <div class="col-12">
+                                            <div class="item-label mb-2"><strong>Рекламные картинки для слайдера</strong></div>
+                                            <div id="slider-list" class="item-data"></div>
+                                        </div><!--//col-->
+                                        <div class="container pt-1">
+                                            <div class="slider-images"></div>
+                                        </div>
+                                    </div>
                                 </div><!--//item-->
 
-                                <div class="item border-bottom py-3">
-                                    <div class="row justify-content-between align-items-center">
-                                        <div class="col-auto">
-                                            <div class="item-label"><strong>Title</strong></div>
-                                            {{ html()->text('title')->required()->attributes(['id'=>'title','class'=>'form-control']) }}
-                                        </div><!--//col-->
-                                    </div><!--//row-->
-                                </div><!--//item-->
 
-                                <div class="item border-bottom py-3">
-                                    <div class="row justify-content-between align-items-center">
-                                        <div class="col-auto">
-                                            <div class="item-label"><strong>Description</strong></div>
-                                            {{ html()->textarea('description')->required()->attributes(['id'=>'description','class'=>'form-control textarea','cols'=>'100','rows'=>'30','style'=>'height:300px;']) }}
-                                        </div><!--//col-->
-                                    </div><!--//row-->
-                                </div><!--//item-->
                             </div><!--//app-card-body-->
-                            <div class="app-card-footer p-4 mt-auto">
-                                {{ html()->submit('Зберегти')->attributes(['class'=>'btn app-btn-secondary']) }}
-                                <a class="btn app-btn-secondary"  href="{{ route('admin.services.index') }}">Назад</a>
-                                <div class="item border-bottom py-3">
+                            <div class="col-12 p-3">
+                                <a class="btn app-btn-secondary float-start"  href="{{ route('admin.projects.index') }}">Назад</a>
+                                {{ html()->submit('Зберегти')->attributes(['class'=>'btn app-btn-primary float-end']) }}
+                                <div class="item py-3">
                                     @if($errors->any())
                                         <label for="setting-input-1" class="form-label badge bg-danger">{{ $errors->first() }}
                                             <span class="ms-2" data-container="body" data-bs-toggle="popover" data-trigger="hover" data-placement="top" data-content="This is a Bootstrap popover example. You can use popover to provide extra info.">
@@ -126,6 +80,14 @@
                 URL.revokeObjectURL(output.src) // free memory
             }
         };
-
+        window.onload = function (){
+            $('.slider-images').imageUploader({
+                extensions: ['.jpg', '.jpeg', '.png', '.gif'],
+                mimes: ['image/jpeg', 'image/png', 'image/gif'],
+                imagesInputName: 'slider',
+                preloadedInputName: 'images_id_left'
+            });
+        }
     </script>
 @endsection
+

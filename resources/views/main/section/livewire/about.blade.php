@@ -10,7 +10,7 @@
                 <div class="about-text">
                     <h2>{{ $about_title }}</h2>
                     <div>
-                        {!! $about_limit_description !!}
+                        {!! $about_description !!}
                     </div>
 
                     <a class="btn" href="{{ route('about.index') }}">Learn More</a>
