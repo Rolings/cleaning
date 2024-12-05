@@ -4,14 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Service;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use App\Services\File\FileService;
 use App\Http\Requests\Admin\Service\{StoreRequest, UpdateRequest};
 
 class ServiceController extends Controller
 {
-    public function index()
+    /**
+     * @return View
+     */
+    public function index(): View
     {
         $services = Service::with('image')
             ->orderBy('created_at')
@@ -22,11 +25,20 @@ class ServiceController extends Controller
         ]);
     }
 
-    public function create()
+    /**
+     * @return View
+     */
+    public function create(): View
     {
         return view('admin.services.create');
     }
 
+    /**
+     * @param StoreRequest $request
+     * @param Service $service
+     * @param FileService $fileService
+     * @return RedirectResponse
+     */
     public function store(StoreRequest $request, Service $service, FileService $fileService): RedirectResponse
     {
         $file = $request->hasFile('image')
@@ -40,8 +52,11 @@ class ServiceController extends Controller
         return redirect()->route('admin.services.index');
     }
 
-
-    public function edit(Service $service)
+    /**
+     * @param Service $service
+     * @return View
+     */
+    public function edit(Service $service): View
     {
         $service->load('image');
 
@@ -50,6 +65,12 @@ class ServiceController extends Controller
         ]);
     }
 
+    /**
+     * @param UpdateRequest $request
+     * @param Service $service
+     * @param FileService $fileService
+     * @return RedirectResponse
+     */
     public function update(UpdateRequest $request, Service $service, FileService $fileService): RedirectResponse
     {
         $file = $request->hasFile('image')
@@ -63,8 +84,12 @@ class ServiceController extends Controller
         return redirect()->route('admin.services.index');
     }
 
-
-    public function destroy(Service $service, FileService $fileService)
+    /**
+     * @param Service $service
+     * @param FileService $fileService
+     * @return RedirectResponse
+     */
+    public function destroy(Service $service, FileService $fileService): RedirectResponse
     {
         $service->load('image');
 

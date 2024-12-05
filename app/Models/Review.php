@@ -6,6 +6,7 @@ use App\Traits\PropertiesTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Str;
 
 class Review extends Model
 {
@@ -32,5 +33,13 @@ class Review extends Model
     public function image(): HasOne
     {
         return $this->hasOne(File::class, 'id', 'image_id');
+    }
+
+    /**
+     * @return string
+     */
+    public function getLimitCommentAttribute(): string
+    {
+        return Str::limit($this->comment,50);
     }
 }

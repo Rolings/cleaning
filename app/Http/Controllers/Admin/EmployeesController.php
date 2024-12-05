@@ -14,7 +14,11 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        //
+        $items = User::employees()->paginate(10);
+
+        return view('admin.employees.index', [
+            'items' => $items
+        ]);
     }
 
     /**

@@ -11,7 +11,17 @@ class UpdateReviewRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
+    }
+
+    /**
+     * @return void
+     */
+    public function prepareForValidation(): void
+    {
+        $this->merge([
+            'active' => isset($this->active)
+        ]);
     }
 
     /**
@@ -22,7 +32,12 @@ class UpdateReviewRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'image'   => ['required', 'image', 'max:15120', 'mimes:jpg,png'],
+            'name'    => ['required', 'string'],
+            'email'   => ['required', 'email'],
+            'comment' => ['required', 'string'],
+            'rating'  => ['required', 'integer', 'min:1', 'max:5'],
+            'active'  => ['required', 'boolean'],
         ];
     }
 }

@@ -16,7 +16,7 @@
                             <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
 
                                 <div class="col-auto">
-                                    <a class="btn app-btn-primary" href="{{ route('admin.services.create') }}">
+                                    <a class="btn app-btn-primary" href="{{ route('admin.reviews.create') }}">
                                         Додати відгук
                                     </a>
                                 </div>
@@ -25,42 +25,63 @@
                     </div><!--//col-auto-->
                 </div><!--//row-->
 
-                @foreach($items as $item)
-                    <div class="app-card app-card-notification shadow-sm mb-4">
-                        <div class="app-card-header px-4 py-3">
-                            <div class="row g-3 align-items-center">
-                                <div class="col-12 col-lg-auto text-center text-lg-start">
-                                    <img class="profile-image" src="assets/images/profiles/profile-1.png" alt="">
-                                </div><!--//col-->
-                                <div class="col-12 col-lg-auto text-center text-lg-start">
-                                    <div class="notification-type mb-2"><span class="badge bg-info">Project</span></div>
-                                    <h4 class="notification-title mb-1">Notification Heading Lorem Ipsum</h4>
+                <div class="app-card app-card-orders-table shadow-sm mb-5">
+                    <div class="app-card-body">
+                        <div class="table-responsive">
+                            <table class="table app-table-hover mb-0 text-left">
+                                <thead>
+                                <tr>
+                                    <th class="cell">№</th>
+                                    <th class="cell">Ім'я</th>
+                                    <th class="cell">Відгук</th>
+                                    <th class="cell">Рейтинг</th>
+                                    <th class="cell">Дата</th>
+                                    <th class="cell">Статус</th>
+                                    <th class="cell" colspan="2"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($items as $item)
+                                    <tr>
+                                        <td class="cell">#{{ $item->id }}</td>
+                                        <td class="cell"><span>{{ $item->name }}</span><span class="note">{{ $item->email }}</span></td>
+                                        <td class="cell">{{ $item->limitComment }}</td>
+                                        <td class="cell">{{ $item->rating }}</td>
+                                        <td class="cell"><span>{{ $item->created_at->format('F d Y') }}</span><span class="note">{{ $item->created_at->format(' h:i A') }}</span></td>
+                                        <td class="cell">
+                                            @if($item->active)
+                                                <span class="badge bg-success">Активно</span>
+                                            @else
+                                                <span class="badge bg-warning">Неактивно</span>
+                                            @endif
+                                        </td>
+                                        <td class="cell"><a class="btn-sm app-btn-secondary" href="{{ route('admin.reviews.edit',$item) }}">Редагувати</a></td>
+                                        <td class="cell">
+                                            {{ html()->form('delete')->route('admin.reviews.destroy', $item)->open() }}
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="dropdown-item">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash me-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                    <path fill-rule="evenodd"
+                                                          d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                </svg>
+                                                Видалити
+                                            </button>
+                                            {{ html()->form()->close() }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div><!--//table-responsive-->
 
-                                    <ul class="notification-meta list-inline mb-0">
-                                        <li class="list-inline-item">2 hrs ago</li>
-                                        <li class="list-inline-item">|</li>
-                                        <li class="list-inline-item">Amy Doe</li>
-                                    </ul>
-
-                                </div><!--//col-->
-                            </div><!--//row-->
-                        </div><!--//app-card-header-->
-                        <div class="app-card-body p-4">
-                            <div class="notification-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed ultrices dolor, ac maximus ligula. Donec ex orci, mollis ac purus vel, tempor pulvinar justo.
-                                Praesent nibh massa, posuere non mollis vel, molestie non mauris. Aenean consequat facilisis orci, sed sagittis mauris interdum at.
-                            </div>
-                        </div><!--//app-card-body-->
-                        <div class="app-card-footer px-4 py-3">
-                            <a class="action-link" href="#">View all
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right ms-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"></path>
-                                </svg>
-                            </a>
-                        </div><!--//app-card-footer-->
-                    </div>
-                @endforeach
+                    </div><!--//app-card-body-->
+                </div><!--//app-card-->
 
                 {{ $items->withQueryString()->links("admin.section.pagination") }}
+
 
             </div><!--//container-fluid-->
         </div><!--//app-content-->

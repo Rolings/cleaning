@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Review\StoreReviewRequest;
 use App\Http\Requests\Admin\Review\UpdateReviewRequest;
 use App\Models\Review;
+use App\Services\File\FileService;
 
 class ReviewController extends Controller
 {
@@ -14,9 +15,9 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        $reviews = Review::paginate(15);
+        $reviews = Review::orderBy('created_at')->paginate(15);
 
-        return view('admin.reviews.index',[
+        return view('admin.reviews.index', [
             'items' => $reviews
         ]);
     }
@@ -26,46 +27,65 @@ class ReviewController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.reviews.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreReviewRequest $request)
+    public function store(StoreReviewRequest $request, Review $review, FileService $fileService)
     {
-        //
+        $file = $request->hasFile('image')
+            ? $fileService->setParams($request, 'image', 'public')->storeFile()->id
+            : null;
+
+        $review->fill(array_merge($request->validated(), [
+            'image_id' => $file,
+        ]))->save();
+
+        return redirect()->route('admin.reviews.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Review $review)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Review $review)
     {
-        //
+        return view('admin.reviews.edit', [
+            'item' => $review
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateReviewRequest $request, Review $review)
+    public function update(UpdateReviewRequest $request, Review $review, FileService $fileService)
     {
-        //
+        $file = $request->hasFile('image')
+            ? $fileService->setParams($request, 'image', 'public')->storeFile($review->image_id)->id
+            : $review->image_id;
+
+        $review->fill(array_merge($request->all(), [
+            'image_id' => $file
+        ]))->save();
+
+        return redirect()->route('admin.reviews.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Review $review)
+    public function destroy(Review $review, FileService $fileService)
     {
-        //
+        $review->load('image');
+
+        if (!is_null($review->image)) {
+            $fileService->remove($review->image);
+        }
+
+        $review->delete();
+
+        return redirect()->route('admin.reviews.index');
     }
 }

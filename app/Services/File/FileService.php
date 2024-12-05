@@ -58,7 +58,7 @@ class FileService
      * @param string $disk
      * @return $this
      */
-    public function setParams(Request $request, string $name, string $disk = 'avatar'): self
+    public function setParams(Request $request, string $name, string $disk = 'public'): self
     {
         $this->request = $request;
         $this->fileName = $name;
@@ -74,7 +74,7 @@ class FileService
      * @param int|null $id
      * @return File
      */
-    public function setUploadFile(UploadedFile $file, string $name, string $disk = 'avatar', int $id = null)
+    public function setUploadFile(UploadedFile $file, string $name, string $disk = 'public', int $id = null)
     {
         $this->fileName = $name;
         $this->disk = $disk;

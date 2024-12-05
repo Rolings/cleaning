@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\User\UserTypeEnum;
+use App\Traits\PropertiesTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,7 +14,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, PropertiesTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -49,6 +50,8 @@ class User extends Authenticatable
         'active'            => 'boolean'
     ];
 
+
+
     /**
      * @return HasOne
      */
@@ -72,6 +75,15 @@ class User extends Authenticatable
     public function scopeClient(Builder $builder): Builder
     {
         return $builder->where('type', UserTypeEnum::CLIENT->value);
+    }
+
+    /**
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function scopeEmployees(Builder $builder): Builder
+    {
+        return $builder->where('type', UserTypeEnum::EMPLOYEES->value);
     }
 
     /**

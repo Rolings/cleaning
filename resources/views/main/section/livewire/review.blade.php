@@ -6,12 +6,14 @@
         <div class="owl-carousel testimonials-carousel">
             @foreach($items as $item)
                 <div class="testimonial-item">
-                    <div class="testimonial-img">
-                        <img src="build/images/main/testimonial-1.jpg" alt="">
-                    </div>
+                    @if(!is_null($item->image))
+                        <div class="testimonial-img">
+                            <img src="{{ $item->image?->url }}" alt="">
+                        </div>
+                    @endif
+
                     <div class="testimonial-content">
                         <h3>{{ $item->name }}</h3>
-                        <h4>Profession</h4>
                         <p>{{ $item->comment }}</p>
                     </div>
                 </div>

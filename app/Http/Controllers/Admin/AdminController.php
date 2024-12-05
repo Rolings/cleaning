@@ -14,10 +14,10 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admins = User::admin()->paginate(10);
+        $items = User::admin()->paginate(10);
 
         return view('admin.admins.index', [
-            'items' => $admins
+            'items' => $items
         ]);
     }
 
@@ -26,7 +26,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.admins.create');
     }
 
     /**
@@ -38,19 +38,13 @@ class AdminController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(User $admin)
     {
-        //
+        return view('admin.admins.edit', [
+            'item' => $admin
+        ]);
     }
 
     /**

@@ -40,4 +40,15 @@ class CallbackController extends Controller
 
         return new ShowResource($callback);
     }
+
+    /**
+     * @param Callback $callback
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Request $request, Callback $callback, string $option = null)
+    {
+        $callback->delete();
+
+        return redirect()->route(is_null($option) ? 'admin.callbacks.index' : 'admin.callbacks.index.' . $option);
+    }
 }

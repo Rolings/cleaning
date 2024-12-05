@@ -25,7 +25,11 @@
 
         <!-- FAQs Start -->
         @include('main.home.section.faq')
-        <!-- FAQs End -->
+        <!-- FAQs End
+
+        <!-- Review Start -->
+        <livewire:review />
+        <!-- Review End -->
 
         @include('main.section.footer')
 

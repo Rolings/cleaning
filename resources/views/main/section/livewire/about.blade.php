@@ -12,7 +12,6 @@
                     <div>
                         {!! $about_description !!}
                     </div>
-
                     <a class="btn" href="{{ route('about.index') }}">Learn More</a>
                 </div>
             </div>

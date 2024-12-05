@@ -18,7 +18,8 @@ class UpdateRequest extends FormRequest
     public function prepareForValidation(): void
     {
         $this->merge([
-            'slug' => Str::slug($this->slug ?? $this->title),
+            'slug'   => Str::slug($this->slug ?? $this->title),
+            'active' => isset($this->active)
         ]);
     }
 
@@ -30,10 +31,11 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'slug'        => ['required', 'string','max:255'],
-            'title'       => ['required', 'string','max:255'],
+            'slug'        => ['required', 'string', 'max:255'],
+            'title'       => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
             'image'       => ['required', 'image', 'max:15120', 'mimes:jpg,png'],
+            'active'      => ['required', 'boolean'],
         ];
     }
 }

@@ -14,7 +14,11 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        $items = User::client()->paginate(10);
+
+        return view('admin.clients.index', [
+            'items' => $items
+        ]);
     }
 
     /**

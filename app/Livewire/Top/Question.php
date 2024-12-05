@@ -12,7 +12,8 @@ class Question extends Component
         $questions = ModelsQuestion::onlyTop()
             ->onlyActive()
             ->orderBy('created_at')
-            ->limit(5)->get();
+            ->limit(5)
+            ->get();
 
         return view('main.section.livewire.top.question', [
             'items' => $questions
