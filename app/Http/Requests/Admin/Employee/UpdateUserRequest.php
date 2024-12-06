@@ -19,6 +19,14 @@ class UpdateUserRequest extends FormRequest
 
     public function prepareForValidation(): void
     {
+        $data = collect($this->all());
+
+        if (is_null($this->password)) {
+            $data->forget(['password', 'password_confirmation']);
+        }
+
+        $this->replace($data->toArray());
+
         $this->merge([
             'type'   => UserTypeEnum::EMPLOYEES->value,
             'active' => isset($this->active),
@@ -33,18 +41,18 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name'      => ['required', 'string'],
-            'last_name'       => ['sometimes', 'nullable', 'string'],
-            'middle_name'     => ['sometimes', 'nullable', 'string'],
-            'title'           => ['sometimes', 'nullable', 'string'],
-            'avatar'          => ['sometimes', 'nullable', 'image', 'mimes:jpeg,jpg,png', 'max:15048'],
-            'type'            => ['sometimes', 'nullable', 'string'],
-            'phone'           => ['required', 'string', Rule::unique(User::class, 'phone')->ignore($this->employees->id)],
-            'email'           => ['required', 'string', Rule::unique(User::class, 'email')->ignore($this->employees->id)],
-            'password'        => ['required', 'string'],
-            'repeat_password' => ['required', 'string', 'same:password'],
-            'top'             => ['required', 'boolean'],
-            'active'          => ['required', 'boolean'],
+            'first_name'            => ['required', 'string'],
+            'last_name'             => ['sometimes', 'nullable', 'string'],
+            'middle_name'           => ['sometimes', 'nullable', 'string'],
+            'title'                 => ['sometimes', 'nullable', 'string'],
+            'avatar'                => ['sometimes', 'nullable', 'image', 'mimes:jpeg,jpg,png', 'max:15048'],
+            'type'                  => ['sometimes', 'nullable', 'string'],
+            'phone'                 => ['required', 'string', Rule::unique(User::class, 'phone')->ignore($this->employee->id)],
+            'email'                 => ['required', 'string', Rule::unique(User::class, 'email')->ignore($this->employee->id)],
+            'password'              => ['sometimes', 'nullable', 'string'],
+            'password_confirmation' => ['sometimes', 'nullable', 'string', 'same:password'],
+            'top'                   => ['required', 'boolean'],
+            'active'                => ['required', 'boolean'],
         ];
     }
 }

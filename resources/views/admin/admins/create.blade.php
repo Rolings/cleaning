@@ -52,11 +52,6 @@
                                         </div><!--//col-->
 
                                         <div class="col-12 mb-3">
-                                            <div class="item-label"><strong>Посада</strong></div>
-                                            {{ html()->text('title')->attributes(['id'=>'title','class'=>'form-control']) }}
-                                        </div><!--//col-->
-
-                                        <div class="col-12 mb-3">
                                             <div class="item-label"><strong>Email</strong></div>
                                             {{ html()->text('email')->required()->attributes(['id'=>'email','class'=>'form-control']) }}
                                         </div><!--//col-->
@@ -72,7 +67,7 @@
                                         </div><!--//col-->
                                         <div class="col-6 mb-3">
                                             <div class="item-label"><strong>Повторити пароль</strong></div>
-                                            {{ html()->text('repeat_password')->attributes(['id'=>'repeat_password','class'=>'form-control']) }}
+                                            {{ html()->text('password_confirmation')->attributes(['id'=>'password_confirmation','class'=>'form-control']) }}
                                         </div><!--//col-->
                                     </div><!--//row-->
                                 </div><!--//item-->
@@ -82,10 +77,6 @@
                                         <div class="col-6">
                                             {{ html()->checkbox('active',true,1)->attributes(['id'=>'active','class'=>'form-check-input']) }}
                                             <label class="form-check-label" for="active">Активний</label>
-                                        </div><!--//col-->
-                                        <div class="col-6">
-                                            {{ html()->checkbox('top',true,1)->attributes(['id'=>'top','class'=>'form-check-input']) }}
-                                            <label class="form-check-label" for="top">Топ</label>
                                         </div><!--//col-->
                                     </div><!--//row-->
                                 </div><!--//item-->

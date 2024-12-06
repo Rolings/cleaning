@@ -64,7 +64,7 @@ class EmployeesController extends Controller
     {
         $file = $request->hasFile('avatar')
             ? $fileService->setParams($request, 'avatar', 'public')->storeFile($employee->avatar_id)->id
-            : null;
+            : $employee->avatar_id;
 
         $employee->fill(array_merge($request->validated(), [
             'avatar_id' => $file,
@@ -78,7 +78,7 @@ class EmployeesController extends Controller
      */
     public function destroy(User $employee, FileService $fileService): RedirectResponse
     {
-        $employee->load('image');
+        $employee->load('avatar');
 
         if (!is_null($employee->avatar)) {
             $fileService->remove($employee->avatar);

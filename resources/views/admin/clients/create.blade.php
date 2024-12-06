@@ -7,7 +7,7 @@
 
         <div class="app-content pt-3 p-md-3 p-lg-4">
             <div class="container-xl">
-                {{ html()->form('post')->route('admin.admins.store')->acceptsFiles()->open() }}
+                {{ html()->form('post')->route('admin.clients.store')->acceptsFiles()->open() }}
                 <div class="row gy-4">
 
                     <div class="col-12 col-md-4">
@@ -52,27 +52,13 @@
                                         </div><!--//col-->
 
                                         <div class="col-12 mb-3">
-                                            <div class="item-label"><strong>Посада</strong></div>
-                                            {{ html()->text('title')->attributes(['id'=>'title','class'=>'form-control']) }}
-                                        </div><!--//col-->
-
-                                        <div class="col-12 mb-3">
                                             <div class="item-label"><strong>Email</strong></div>
-                                            {{ html()->text('email')->required()->attributes(['id'=>'email','class'=>'form-control']) }}
+                                            {{ html()->text('email')->attributes(['id'=>'email','class'=>'form-control']) }}
                                         </div><!--//col-->
 
                                         <div class="col-12 mb-3">
-                                            <div class="item-label"><strong>Телефон</strong></div>
+                                            <div class="item-label"><strong>Телефон*</strong></div>
                                             {{ html()->text('phone')->required()->attributes(['id'=>'phone','class'=>'form-control']) }}
-                                        </div><!--//col-->
-
-                                        <div class="col-6 mb-3">
-                                            <div class="item-label"><strong>Пароль</strong></div>
-                                            {{ html()->text('password')->attributes(['id'=>'password','class'=>'form-control']) }}
-                                        </div><!--//col-->
-                                        <div class="col-6 mb-3">
-                                            <div class="item-label"><strong>Повторити пароль</strong></div>
-                                            {{ html()->text('repeat_password')->attributes(['id'=>'repeat_password','class'=>'form-control']) }}
                                         </div><!--//col-->
                                     </div><!--//row-->
                                 </div><!--//item-->
@@ -83,16 +69,12 @@
                                             {{ html()->checkbox('active',true,1)->attributes(['id'=>'active','class'=>'form-check-input']) }}
                                             <label class="form-check-label" for="active">Активний</label>
                                         </div><!--//col-->
-                                        <div class="col-6">
-                                            {{ html()->checkbox('top',true,1)->attributes(['id'=>'top','class'=>'form-check-input']) }}
-                                            <label class="form-check-label" for="top">Топ</label>
-                                        </div><!--//col-->
                                     </div><!--//row-->
                                 </div><!--//item-->
 
                             </div><!--//app-card-body-->
                             <div class="col-12 p-3">
-                                <a class="btn app-btn-secondary float-start" href="{{ route('admin.admins.index') }}">Назад</a>
+                                <a class="btn app-btn-secondary float-start" href="{{ route('admin.clients.index') }}">Назад</a>
                                 {{ html()->submit('Зберегти')->attributes(['class'=>'btn app-btn-primary float-end']) }}
                                 <div class="item py-3">
                                     @if($errors->any())

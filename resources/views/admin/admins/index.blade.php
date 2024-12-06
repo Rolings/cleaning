@@ -32,6 +32,7 @@
                                 <thead>
                                 <tr>
                                     <th class="cell">№</th>
+                                    <th class="cell">Фото</th>
                                     <th class="cell">Ім'я</th>
                                     <th class="cell">Телефон</th>
                                     <th class="cell">Email</th>
@@ -43,6 +44,7 @@
                                     @foreach($items as $item)
                                         <tr>
                                             <td class="cell">#{{ $item->id }}</td>
+                                            <td class="cell"><img src="{{ $item->avatarUrl }}"  width="40" alt=""></td>
                                             <td class="cell">{{ $item->fullName }}</td>
                                             <td class="cell"><span></span><span class="note">{{ $item->phone }}</span></td>
                                             <td class="cell"><span></span><span class="note">{{ $item->email }}</span></td>

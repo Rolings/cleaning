@@ -32,6 +32,7 @@
                                 <thead>
                                 <tr>
                                     <th class="cell">№</th>
+                                    <th class="cell">Фото</th>
                                     <th class="cell">Ім'я</th>
                                     <th class="cell">Телефон</th>
                                     <th class="cell">Email</th>

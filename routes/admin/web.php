@@ -28,15 +28,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('destroy/{callback}/{option?}', [CallbackController::class, 'destroy'])->name('destroy');
     });
 
+    Route::resource('admins', AdminController::class);
     Route::resource('clients', ClientController::class);
     Route::resource('employees', EmployeesController::class);
+
     Route::resource('orders', OrderController::class);
     Route::resource('history', HistoryController::class);
     Route::resource('services', ServiceController::class);
     Route::resource('projects', ProjectController::class);
     Route::resource('questions', QuestionController::class);
     Route::resource('reviews', ReviewController::class);
-    Route::resource('admins', AdminController::class);
+
 
     Route::prefix('settings')->name('settings.')->group(function () {
         Route::get('/', [SettingController::class, 'index'])->name('index');

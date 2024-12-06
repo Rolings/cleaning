@@ -72,7 +72,7 @@
                                         </div><!--//col-->
                                         <div class="col-6 mb-3">
                                             <div class="item-label"><strong>Повторити пароль</strong></div>
-                                            {{ html()->text('repeat_password')->attributes(['id'=>'repeat_password','class'=>'form-control']) }}
+                                            {{ html()->text('password_confirmation')->attributes(['id'=>'password_confirmation','class'=>'form-control']) }}
                                         </div><!--//col-->
                                     </div><!--//row-->
                                 </div><!--//item-->

@@ -37,7 +37,7 @@ class StoreUserRequest extends FormRequest
             'avatar'      => ['sometimes', 'nullable', 'image', 'mimes:jpeg,jpg,png', 'max:15048'],
             'type'        => ['sometimes', 'nullable', 'string'],
             'phone'       => ['required', 'string', 'unique:users,phone'],
-            'email'       => ['required', 'string', 'email', 'unique:users,email'],
+            'email'       => ['sometimes', 'nullable', 'string', 'email', 'unique:users,email'],
             'active'      => ['required', 'boolean'],
         ];
     }

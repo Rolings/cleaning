@@ -65,11 +65,7 @@ class AdminController extends Controller
     {
         $file = $request->hasFile('avatar')
             ? $fileService->setParams($request, 'avatar', 'public')->storeFile($admin->avatar_id)->id
-            : null;
-
-        if (is_null($request->password)) {
-            $request->request->remove('password');
-        }
+            : $admin->avatar_id;
 
         $admin->fill(array_merge($request->validated(), [
             'avatar_id' => $file,
@@ -83,7 +79,7 @@ class AdminController extends Controller
      */
     public function destroy(User $admin, FileService $fileService): RedirectResponse
     {
-        $admin->load('image');
+        $admin->load('avatar');
 
         if (!is_null($admin->avatar)) {
             $fileService->remove($admin->avatar);

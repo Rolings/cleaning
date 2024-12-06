@@ -18,7 +18,7 @@ class ClientController extends Controller
     {
         $items = User::client()->paginate(10);
 
-        return view('admin.admins.index', [
+        return view('admin.clients.index', [
             'items' => $items
         ]);
     }
@@ -64,7 +64,7 @@ class ClientController extends Controller
     {
         $file = $request->hasFile('avatar')
             ? $fileService->setParams($request, 'avatar', 'public')->storeFile($client->avatar_id)->id
-            : null;
+            : $client->avatar_id;
 
         $client->fill(array_merge($request->validated(), [
             'avatar_id' => $file,
@@ -78,7 +78,7 @@ class ClientController extends Controller
      */
     public function destroy(User $client, FileService $fileService): RedirectResponse
     {
-        $client->load('image');
+        $client->load('avatar');
 
         if (!is_null($client->avatar)) {
             $fileService->remove($client->avatar);

@@ -17,6 +17,14 @@ class StoreUserRequest extends FormRequest
 
     public function prepareForValidation(): void
     {
+        $data = collect($this->all());
+
+        if (is_null($this->password)) {
+            $data->forget(['password', 'password_confirmation']);
+        }
+
+        $this->replace($data->toArray());
+
         $this->merge([
             'type'   => UserTypeEnum::EMPLOYEES->value,
             'active' => isset($this->active),
@@ -31,17 +39,17 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name'      => ['required', 'string'],
-            'last_name'       => ['sometimes', 'nullable', 'string'],
-            'middle_name'     => ['sometimes', 'nullable', 'string'],
-            'avatar'          => ['sometimes', 'nullable', 'image', 'mimes:jpeg,jpg,png', 'max:15048'],
-            'type'            => ['sometimes', 'nullable', 'string'],
-            'phone'           => ['required', 'string', 'unique:users,phone'],
-            'email'           => ['required', 'string', 'email', 'unique:users,email'],
-            'password'        => ['required', 'string'],
-            'repeat_password' => ['required', 'string', 'same:password'],
-            'top'             => ['required', 'boolean'],
-            'active'          => ['required', 'boolean'],
+            'first_name'            => ['required', 'string'],
+            'last_name'             => ['sometimes', 'nullable', 'string'],
+            'middle_name'           => ['sometimes', 'nullable', 'string'],
+            'avatar'                => ['sometimes', 'nullable', 'image', 'mimes:jpeg,jpg,png', 'max:15048'],
+            'type'                  => ['sometimes', 'nullable', 'string'],
+            'phone'                 => ['required', 'string', 'unique:users,phone'],
+            'email'                 => ['required', 'string', 'email', 'unique:users,email'],
+            'password'              => ['required', 'string'],
+            'password_confirmation' => ['required', 'string', 'same:password'],
+            'top'                   => ['required', 'boolean'],
+            'active'                => ['required', 'boolean'],
         ];
     }
 }

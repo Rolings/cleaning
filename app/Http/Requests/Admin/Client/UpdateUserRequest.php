@@ -39,7 +39,7 @@ class UpdateUserRequest extends FormRequest
             'avatar'      => ['sometimes', 'nullable', 'image', 'mimes:jpeg,jpg,png', 'max:15048'],
             'type'        => ['sometimes', 'nullable', 'string'],
             'phone'       => ['required', 'string', Rule::unique(User::class, 'phone')->ignore($this->client->id)],
-            'email'       => ['required', 'string', Rule::unique(User::class, 'email')->ignore($this->client->id)],
+            'email'       => ['sometimes', 'nullable', 'string', Rule::unique(User::class, 'email')->ignore($this->client->id)],
             'active'      => ['required', 'boolean'],
         ];
     }
