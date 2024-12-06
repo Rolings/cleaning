@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 class File extends Model
 {
     use PropertiesTrait;
+
     const NO_IMAGE = 'https://tgtdiagnostics.com/wp-content/themes/tgt/assets/svg/no.svg';
 
     protected $fillable = [
@@ -19,6 +20,16 @@ class File extends Model
         'active',
     ];
 
+    public static function noAvatar(): string
+    {
+        return asset("./build/images/library/no-image/no-avatar.png");
+    }
+
+    public static function noImage(): string
+    {
+        return asset("./build/images/library/no-image/no-image.png");
+    }
+
     /**
      * Function return file url
      *
@@ -28,6 +39,6 @@ class File extends Model
     {
         return Storage::disk($this->disk)->exists($this->name)
             ? Storage::disk($this->disk)->url($this->name)
-            : self::NO_IMAGE;
+            : self::noImage();
     }
 }

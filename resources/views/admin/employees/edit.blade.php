@@ -7,7 +7,7 @@
 
         <div class="app-content pt-3 p-md-3 p-lg-4">
             <div class="container-xl">
-                {{ html()->form('put')->route('admin.admins.update',$item)->acceptsFiles()->open() }}
+                {{ html()->form('put')->route('admin.employees.update',$item)->acceptsFiles()->open() }}
                 <div class="row gy-4">
 
                     <div class="col-12 col-md-4">
@@ -92,7 +92,7 @@
 
                             </div><!--//app-card-body-->
                             <div class="col-12 p-3">
-                                <a class="btn app-btn-secondary float-start" href="{{ route('admin.admins.index') }}">Назад</a>
+                                <a class="btn app-btn-secondary float-start" href="{{ route('admin.employees.index') }}">Назад</a>
                                 {{ html()->submit('Зберегти')->attributes(['class'=>'btn app-btn-primary float-end']) }}
                                 <div class="item py-3">
                                     @if($errors->any())

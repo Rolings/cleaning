@@ -26,3 +26,6 @@ Route::get('/privacy-policy', [PrivacyPolicyController::class, 'index'])->name('
 Route::get('/terms-condition', [TermsConditionController::class, 'index'])->name('terms.condition');
 Route::get('/cookies', [CookiesController::class, 'index'])->name('cookies');
 
+/*Route::get('/test',function (){
+    return view('test');
+});*/

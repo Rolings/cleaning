@@ -28,9 +28,15 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('admin'),
             ]);
 
-        User::factory()->count(25)->create([
-            'type' => UserTypeEnum::EMPLOYEES->value
-        ]);
+        User::factory()->count(25)
+            ->sequence(function (Sequence $sequence) {
+                return [
+                    'top' => $sequence->index < 4,
+                ];
+            })
+            ->create([
+                'type' => UserTypeEnum::EMPLOYEES->value
+            ]);
 
         User::factory()->count(150)->create([
             'type' => UserTypeEnum::CLIENT->value

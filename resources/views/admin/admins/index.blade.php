@@ -16,7 +16,7 @@
                             <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
 
                                 <div class="col-auto">
-                                    <a class="btn app-btn-primary" href="{{ route('admin.services.create') }}">
+                                    <a class="btn app-btn-primary" href="{{ route('admin.admins.create') }}">
                                         Додати адміністратора
                                     </a>
                                 </div>
@@ -46,7 +46,13 @@
                                             <td class="cell">{{ $item->fullName }}</td>
                                             <td class="cell"><span></span><span class="note">{{ $item->phone }}</span></td>
                                             <td class="cell"><span></span><span class="note">{{ $item->email }}</span></td>
-                                            <td class="cell"><span class="badge bg-success">Paid</span></td>
+                                            <td class="cell">
+                                                @if($item->active)
+                                                    <span class="badge bg-success">Активно</span>
+                                                @else
+                                                    <span class="badge bg-warning">Неактивно</span>
+                                                @endif
+                                            </td>
                                             <td class="cell"><a class="btn-sm app-btn-secondary" href="{{ route('admin.admins.edit',$item) }}">Редагувати</a></td>
                                             <td class="cell">
                                                 {{ html()->form('delete')->route('admin.admins.destroy',$item)->open() }}

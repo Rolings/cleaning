@@ -16,7 +16,7 @@
                             <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
 
                                 <div class="col-auto">
-                                    <a class="btn app-btn-primary" href="{{ route('admin.services.create') }}">
+                                    <a class="btn app-btn-primary" href="{{ route('admin.admins.create') }}">
                                         Додати адміністратора
                                     </a>
                                 </div>
@@ -36,7 +36,7 @@
                                     <th class="cell">Телефон</th>
                                     <th class="cell">Email</th>
                                     <th class="cell">Статус</th>
-                                    <th class="cell"></th>
+                                    <th class="cell" colspan="2"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -46,8 +46,29 @@
                                             <td class="cell">{{ $item->fullName }}</td>
                                             <td class="cell"><span></span><span class="note">{{ $item->phone }}</span></td>
                                             <td class="cell"><span></span><span class="note">{{ $item->email }}</span></td>
-                                            <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
+                                            <td class="cell">
+                                                @if($item->active)
+                                                    <span class="badge bg-success">Активно</span>
+                                                @else
+                                                    <span class="badge bg-warning">Неактивно</span>
+                                                @endif
+                                            </td>
+                                            <td class="cell"><a class="btn-sm app-btn-secondary" href="{{ route('admin.admins.edit',$item) }}">Редагувати</a></td>
+                                            <td class="cell">
+                                                {{ html()->form('delete')->route('admin.admins.destroy',$item)->open() }}
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="dropdown-item">
+                                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash me-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                        <path fill-rule="evenodd"
+                                                              d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                    </svg>
+                                                    Видалити
+                                                </button>
+                                                {{ html()->form()->close() }}
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

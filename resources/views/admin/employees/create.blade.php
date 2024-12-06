@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Змінити історію')
+@section('title', 'Додати історію')
 
 @section('content')
     @include('admin.section.header')
@@ -7,7 +7,7 @@
 
         <div class="app-content pt-3 p-md-3 p-lg-4">
             <div class="container-xl">
-                {{ html()->form('put')->route('admin.admins.update',$item)->acceptsFiles()->open() }}
+                {{ html()->form('post')->route('admin.employees.store')->acceptsFiles()->open() }}
                 <div class="row gy-4">
 
                     <div class="col-12 col-md-4">
@@ -18,7 +18,7 @@
                                     <div class="col-12">
                                         <div class="item-label mb-2"><strong>Аватар</strong></div>
                                         <div class="item-data">
-                                            <img class="profile-image" width="300" src="{{ is_null($item->avatar) ? $no_avatar : $item->avatar?->url}}" id="avatar" alt="">
+                                            <img class="profile-image" width="300" src="{{ $no_avatar }}" id="avatar" alt="">
                                         </div>
                                     </div><!--//col-->
                                     <div class="container pt-1">
@@ -38,32 +38,32 @@
                                     <div class="row justify-content-between align-items-center">
                                         <div class="col-12 mb-3">
                                             <div class="item-label"><strong>Ім'я</strong></div>
-                                            {{ html()->text('first_name',$item->first_name)->required()->attributes(['id'=>'first_name','class'=>'form-control']) }}
+                                            {{ html()->text('first_name')->required()->attributes(['id'=>'first_name','class'=>'form-control']) }}
                                         </div><!--//col-->
 
                                         <div class="col-12 mb-3">
                                             <div class="item-label"><strong>Прізвище</strong></div>
-                                            {{ html()->text('last_name',$item->last_name)->required()->attributes(['id'=>'last_name','class'=>'form-control']) }}
+                                            {{ html()->text('last_name')->attributes(['id'=>'last_name','class'=>'form-control']) }}
                                         </div><!--//col-->
 
                                         <div class="col-12 mb-3">
                                             <div class="item-label"><strong>По батькові</strong></div>
-                                            {{ html()->text('middle_name',$item->middle_name)->required()->attributes(['id'=>'middle_name','class'=>'form-control']) }}
+                                            {{ html()->text('middle_name')->attributes(['id'=>'middle_name','class'=>'form-control']) }}
                                         </div><!--//col-->
 
                                         <div class="col-12 mb-3">
                                             <div class="item-label"><strong>Посада</strong></div>
-                                            {{ html()->text('title',$item->title)->required()->attributes(['id'=>'title','class'=>'form-control']) }}
+                                            {{ html()->text('title')->attributes(['id'=>'title','class'=>'form-control']) }}
                                         </div><!--//col-->
 
                                         <div class="col-12 mb-3">
                                             <div class="item-label"><strong>Email</strong></div>
-                                            {{ html()->text('email',$item->email)->required()->attributes(['id'=>'email','class'=>'form-control']) }}
+                                            {{ html()->text('email')->required()->attributes(['id'=>'email','class'=>'form-control']) }}
                                         </div><!--//col-->
 
                                         <div class="col-12 mb-3">
                                             <div class="item-label"><strong>Телефон</strong></div>
-                                            {{ html()->text('phone',$item->phone)->required()->attributes(['id'=>'phone','class'=>'form-control']) }}
+                                            {{ html()->text('phone')->required()->attributes(['id'=>'phone','class'=>'form-control']) }}
                                         </div><!--//col-->
 
                                         <div class="col-6 mb-3">
@@ -80,11 +80,11 @@
                                 <div class="item app-card-settings border-bottom py-3">
                                     <div class="row justify-content-between align-items-center">
                                         <div class="col-6">
-                                            {{ html()->checkbox('active',$item->active,1)->attributes(['id'=>'active','class'=>'form-check-input']) }}
+                                            {{ html()->checkbox('active',true,1)->attributes(['id'=>'active','class'=>'form-check-input']) }}
                                             <label class="form-check-label" for="active">Активний</label>
                                         </div><!--//col-->
                                         <div class="col-6">
-                                            {{ html()->checkbox('top',$item->top,1)->attributes(['id'=>'top','class'=>'form-check-input']) }}
+                                            {{ html()->checkbox('top',true,1)->attributes(['id'=>'top','class'=>'form-check-input']) }}
                                             <label class="form-check-label" for="top">Топ</label>
                                         </div><!--//col-->
                                     </div><!--//row-->
@@ -92,7 +92,7 @@
 
                             </div><!--//app-card-body-->
                             <div class="col-12 p-3">
-                                <a class="btn app-btn-secondary float-start" href="{{ route('admin.admins.index') }}">Назад</a>
+                                <a class="btn app-btn-secondary float-start" href="{{ route('admin.employees.index') }}">Назад</a>
                                 {{ html()->submit('Зберегти')->attributes(['class'=>'btn app-btn-primary float-end']) }}
                                 <div class="item py-3">
                                     @if($errors->any())
@@ -233,4 +233,3 @@
         }
     </style>
 @endsection
-

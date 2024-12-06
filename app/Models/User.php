@@ -25,12 +25,14 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'middle_name',
+        'title',
         'avatar_id',
         'type',
         'phone',
         'email',
         'password',
-        'active'
+        'top',
+        'active',
     ];
 
     /**
@@ -47,9 +49,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'created_at'        => 'datetime',
         'updated_at'        => 'datetime',
-        'active'            => 'boolean'
+        'top'               => 'boolean',
+        'active'            => 'boolean',
     ];
-
 
 
     /**
@@ -66,6 +68,23 @@ class User extends Authenticatable
     public function getFullNameAttribute(): string
     {
         return $this->first_name . ' ' . $this->middle_name . ' ' . $this->last_name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatarUrlAttribute(): string
+    {
+        return is_null($this->avatar) ? File::noAvatar() : $this->avatar->url;
+    }
+
+    /**
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeOnlyTop(Builder $query): Builder
+    {
+        return $query->where('top', true);
     }
 
     /**

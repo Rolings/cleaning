@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Services\File\FileService;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\Admin\Employee\{StoreUserRequest,UpdateUserRequest};
 use App\Models\User;
 
 class EmployeesController extends Controller
@@ -12,7 +14,7 @@ class EmployeesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         $items = User::employees()->paginate(10);
 
@@ -24,48 +26,66 @@ class EmployeesController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('admin.employees.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request, User $employee, FileService $fileService): RedirectResponse
     {
-        //
-    }
+        $file = $request->hasFile('avatar')
+            ? $fileService->setParams($request, 'avatar', 'public')->storeFile()->id
+            : null;
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
-    {
-        //
+        $employee->fill(array_merge($request->validated(), [
+            'avatar_id' => $file,
+        ]))->save();
+
+        return redirect()->route('admin.employees.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(User $employee): View
     {
-        //
+        return view('admin.employees.edit', [
+            'item' => $employee
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, User $employee, FileService $fileService): RedirectResponse
     {
-        //
+        $file = $request->hasFile('avatar')
+            ? $fileService->setParams($request, 'avatar', 'public')->storeFile($employee->avatar_id)->id
+            : null;
+
+        $employee->fill(array_merge($request->validated(), [
+            'avatar_id' => $file,
+        ]))->save();
+
+        return redirect()->route('admin.employees.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(User $employee, FileService $fileService): RedirectResponse
     {
-        //
+        $employee->load('image');
+
+        if (!is_null($employee->avatar)) {
+            $fileService->remove($employee->avatar);
+        }
+
+        $employee->delete();
+
+        return redirect()->route('admin.employees.index');
     }
 }

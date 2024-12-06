@@ -14,15 +14,17 @@ return new class extends Migration {
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(File::class, 'avatar_id')->nullable();
             $table->string('first_name');
             $table->string('last_name')->nullable();
             $table->string('middle_name')->nullable();
-            $table->foreignIdFor(File::class, 'avatar_id')->nullable();
-            $table->enum('type', UserTypeEnum::all())->default(UserTypeEnum::CLIENT->value);
+            $table->string('title')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable()->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('type', UserTypeEnum::all())->default(UserTypeEnum::CLIENT->value);
+            $table->boolean('top')->default(false);
             $table->boolean('active')->default(true);
             $table->rememberToken();
             $table->timestamps();

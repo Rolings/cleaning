@@ -23,7 +23,7 @@
                                     </div><!--//col-->
                                     <div class="container pt-1">
                                         <label for="images" class="drop-container">
-                                            {{ html()->file('avatar')->accept('image/png, image/gif, image/jpeg')->attributes(['onchange'=>'loadFile(event)']) }}
+                                            {{ html()->file('avatar')->accept('image/png, image/gif, image/jpeg')->required()->attributes(['onchange'=>'loadFile(event)']) }}
                                         </label>
                                     </div>
                                 </div>
@@ -68,11 +68,11 @@
 
                                         <div class="col-6 mb-3">
                                             <div class="item-label"><strong>Пароль</strong></div>
-                                            {{ html()->text('password')->attributes(['id'=>'password','class'=>'form-control']) }}
+                                            {{ html()->text('password')->required()->attributes(['id'=>'password','class'=>'form-control']) }}
                                         </div><!--//col-->
                                         <div class="col-6 mb-3">
                                             <div class="item-label"><strong>Повторити пароль</strong></div>
-                                            {{ html()->text('repeat_password')->attributes(['id'=>'repeat_password','class'=>'form-control']) }}
+                                            {{ html()->text('repeat_password')->required()->attributes(['id'=>'repeat_password','class'=>'form-control']) }}
                                         </div><!--//col-->
                                     </div><!--//row-->
                                 </div><!--//item-->

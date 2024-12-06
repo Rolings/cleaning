@@ -33,7 +33,8 @@ class AppServiceProvider extends ServiceProvider
         if (!App::runningInConsole()) {
             View::share('new_callbacks_count', Callback::unread()->count());
             View::share('new_order_count', Order::unread()->count());
-            View::share('no_image', File::NO_IMAGE);
+            View::share('no_image', File::noImage());
+            View::share('no_avatar', File::noAvatar());
             View::share('contact_phone', Setting::findByKey('contact_phone')?->value);
             View::share('contact_email', Setting::findByKey('contact_email')?->value);
             View::share('contact_address', Setting::findByKey('contact_address')?->value);
