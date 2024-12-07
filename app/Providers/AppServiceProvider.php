@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Helpers\AdminMenu;
 use App\Models\{Callback, File, Order, Setting};
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Spatie\Html\Facades\Html;
@@ -47,5 +49,26 @@ class AppServiceProvider extends ServiceProvider
             View::share('about_description', Setting::findByKey('about_description')?->value);
             View::share('about_limit_description', Setting::findByKey('about_description')?->limit_value);
         }
+
+        $this->configureCommands();
+       // $this->configureModels();
+    }
+
+    /**
+     * @return void
+     */
+    private function configureCommands(): void
+    {
+        DB::prohibitDestructiveCommands(
+            $this->app->isProduction(),
+        );
+    }
+
+    /**
+     * @return void
+     */
+    private function configureModels(): void
+    {
+        Model::shouldBeStrict();
     }
 }

@@ -39,7 +39,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('questions', QuestionController::class);
     Route::resource('reviews', ReviewController::class);
 
-
     Route::prefix('settings')->name('settings.')->group(function () {
         Route::get('/', [SettingController::class, 'index'])->name('index');
         Route::put('/update', [SettingController::class, 'update'])->name('update');

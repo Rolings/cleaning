@@ -19,7 +19,7 @@
         <!-- Story End -->
 
         <!-- Team Start -->
-        @include('main.about.section.team')
+        <livewire:top.member />
         <!-- Team End -->
 
         @include('main.section.footer')

@@ -9,7 +9,7 @@ class Review extends Component
 {
     public function render()
     {
-        $reviews = ModelsReview::all();
+        $reviews = ModelsReview::with(['image'])->get();
 
         return view('main.section.livewire.review', [
             'items' => $reviews

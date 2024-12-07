@@ -11,7 +11,7 @@ class Service extends Component
 {
     public function render()
     {
-        $services = ModelsService::orderBy('created_at')->paginate(8);
+        $services = ModelsService::with('image')->orderBy('created_at')->paginate(8);
 
         return view('main.section.livewire.service',[
             'services' => $services

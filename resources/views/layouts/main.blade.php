@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
-    <meta charset="utf-8">
-    <title>@yield('title','')</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-    <!-- Author Meta -->
-    <meta name="author" content="colorlib">
-    <!-- Meta Description -->
-    <meta name="description" content="">
-    <!-- Meta Keyword -->
-    <meta name="keywords" content="">
-    <!-- meta character set -->
     <meta charset="UTF-8">
-
+    <title>@yield('title','')</title>
+    <meta property="og:title" content="@yield('title','')">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="canonical" href="{{ canonicaUrl() }}">
+
+    @if(isRobotIndex())
+        <meta name="robots" content="index, follow">
+    @endif
+
+    <meta name="description" content="{{ getDescription() }}">
+    <meta name="keywords" content="{{ getKeywords() }}">
+
+    <meta property="og:description" content="{{ getDescription() }}">
+    <meta property="og:image" content="https://www.example.com/image.jpg">
+    <meta property="og:url" content="{{ canonicaUrl() }}">
+
     <!-- Favicon -->
     <link href="build/images/main/favicon.ico" rel="icon">
 

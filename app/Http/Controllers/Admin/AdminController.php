@@ -37,6 +37,8 @@ class AdminController extends Controller
      */
     public function store(StoreUserRequest $request, User $admin, FileService $fileService): RedirectResponse
     {
+        $admin->load('avatar');
+
         $file = $request->hasFile('avatar')
             ? $fileService->setParams($request, 'avatar', 'public')->storeFile()->id
             : null;
@@ -63,9 +65,12 @@ class AdminController extends Controller
      */
     public function update(UpdateUserRequest $request, User $admin, FileService $fileService): RedirectResponse
     {
+        $admin->load('avatar');
+
         $file = $request->hasFile('avatar')
             ? $fileService->setParams($request, 'avatar', 'public')->storeFile($admin->avatar_id)->id
             : $admin->avatar_id;
+
 
         $admin->fill(array_merge($request->validated(), [
             'avatar_id' => $file,

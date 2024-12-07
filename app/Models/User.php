@@ -75,6 +75,8 @@ class User extends Authenticatable
      */
     public function getAvatarUrlAttribute(): string
     {
+        $this->load('avatar');
+
         return is_null($this->avatar) ? File::noAvatar() : $this->avatar->url;
     }
 
