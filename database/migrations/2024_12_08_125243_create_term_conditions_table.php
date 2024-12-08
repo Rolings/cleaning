@@ -4,19 +4,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('pages', function (Blueprint $table) {
+        Schema::create('term_conditions', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('title')->nullable();
             $table->string('slug')->unique();
             $table->text('description')->nullable();
-            $table->text('keywords')->nullable();
-            $table->boolean('robot_index')->default(true);
+            $table->timestamps();
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('pages');
+        Schema::dropIfExists('term_conditions');
     }
 };

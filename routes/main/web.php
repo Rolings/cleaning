@@ -23,9 +23,8 @@ Route::middleware(MetaDataMiddleware::class)->group(function () {
     Route::resource('services', ServiceController::class)->only(['index', 'show']);
     Route::resource('frequently-questions', QuestionController::class)->only(['index']);
     Route::resource('reviews', ReviewController::class)->only(['index']);
-    Route::resource('pages', ReviewController::class)->only(['index']);
 
-    Route::get('privacy-policy', [PrivacyPolicyController::class, 'index'])->name('privacy.policy');
-    Route::get('terms-condition', [TermsConditionController::class, 'index'])->name('terms.condition');
-    Route::get('cookies', [CookiesController::class, 'index'])->name('cookies');
+    Route::resource('privacy-policy', PrivacyPolicyController::class)->only(['index']);
+    Route::resource('terms-condition', TermsConditionController::class)->only(['index']);
+    Route::resource('cookies', CookiesController::class)->only(['index']);
 });

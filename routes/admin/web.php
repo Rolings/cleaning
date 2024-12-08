@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\{
     HistoryController,
     ClientController,
     EmployeesController,
+    PageController,
+    TermsConditionController
 };
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +40,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('projects', ProjectController::class);
     Route::resource('questions', QuestionController::class);
     Route::resource('reviews', ReviewController::class);
+    Route::resource('pages', PageController::class);
+
+    Route::prefix('condition')->name('condition.')->group(function () {
+        Route::get('/terms-condition', [TermsConditionController::class, 'index'])->name('terms-condition.index');
+        Route::get('/privacy-policy', [TermsConditionController::class, 'index'])->name('privacy-policy.index');
+        Route::get('/cookies', [TermsConditionController::class, 'index'])->name('cookies.index');
+        Route::get('/update', [TermsConditionController::class, 'show'])->name('update');
+    });
 
     Route::prefix('settings')->name('settings.')->group(function () {
         Route::get('/', [SettingController::class, 'index'])->name('index');

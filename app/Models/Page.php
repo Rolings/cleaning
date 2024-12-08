@@ -12,7 +12,8 @@ class Page extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'page',
+        'name',
+        'slug',
         'description',
         'keywords',
         'robot_index',

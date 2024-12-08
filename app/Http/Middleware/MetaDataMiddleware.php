@@ -17,7 +17,7 @@ class MetaDataMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $metaData = Page::where('page', Route::currentRouteName())->first();
+        $metaData = Page::where('slug', Route::current()->uri())->first();
 
         view()->share('metaData', !is_null($metaData) ? $metaData->toArray() : []);
 

@@ -17,7 +17,8 @@ class PageFactory extends Factory
     public function definition(): array
     {
         return [
-            'page'        => $this->faker->unique()->slug(),
+            'name'        => $this->faker->unique()->slug(),
+            'slug'        => $this->faker->unique()->slug(),
             'description' => $this->faker->text(),
             'keywords'    => $this->faker->text(),
             'robot_index' => $this->faker->boolean(),

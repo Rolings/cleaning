@@ -69,9 +69,9 @@
     </div>
     <div class="container footer-menu">
         <div class="f-menu">
-            <a href="{{ route('terms.condition') }}">Terms of use</a>
-            <a href="{{ route('privacy.policy') }}">Privacy policy</a>
-            <a href="{{ route('cookies') }}">Cookies</a>
+            <a href="{{ route('terms-condition.index') }}">Terms of use</a>
+            <a href="{{ route('privacy-policy.index') }}">Privacy policy</a>
+            <a href="{{ route('cookies.index') }}">Cookies</a>
             <a href="{{ route('contact.index') }}">Contact us</a>
         </div>
     </div>
