@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Admin\TermsCondition;
 
+use App\Models\TermCondition;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateTermsConditionRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class UpdateTermsConditionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +24,8 @@ class UpdateTermsConditionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title'       => ['required', 'string', 'max:255', Rule::unique(TermCondition::class, 'title')->ignore($this->termCondition->id)],
+            'description' => ['required', 'string'],
         ];
     }
 }

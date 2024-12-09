@@ -7,7 +7,7 @@
 
         <div class="app-content pt-3 p-md-3 p-lg-4">
             <div class="container-xl">
-                {{ html()->form('put')->route('admin.pages.update',$item)->open() }}
+                {{ html()->form('put')->route('admin.condition.update',$item)->open() }}
                 <div class="row gy-4">
                     <div class="col-12 col-lg-12">
                         <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">

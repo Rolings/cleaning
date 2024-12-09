@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Додати історію')
+@section('title', 'Змінити історію')
 
 @section('content')
     @include('admin.section.header')
@@ -7,7 +7,7 @@
 
         <div class="app-content pt-3 p-md-3 p-lg-4">
             <div class="container-xl">
-                {{ html()->form('post')->route('admin.pages.store')->open() }}
+                {{ html()->form('put')->route('admin.condition.update',$item)->open() }}
                 <div class="row gy-4">
                     <div class="col-12 col-lg-12">
                         <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
@@ -17,26 +17,8 @@
                                 <div class="item border-bottom py-3">
                                     <div class="row justify-content-between align-items-center">
                                         <div class="col-12">
-                                            <div class="item-label"><strong>Назва</strong></div>
-                                            {{ html()->text('name')->required()->attributes(['id'=>'name','class'=>'form-control']) }}
-                                        </div><!--//col-->
-                                    </div><!--//row-->
-                                </div><!--//item-->
-
-                                <div class="item border-bottom py-3">
-                                    <div class="row justify-content-between align-items-center">
-                                        <div class="col-12">
-                                            <div class="item-label"><strong>Сторінка</strong></div>
-                                            {{ html()->select('slug',$urls)->required()->attributes(['id'=>'slug','class'=>'form-control','onchange'=>'loadName()']) }}
-                                        </div><!--//col-->
-                                    </div><!--//row-->
-                                </div><!--//item-->
-
-                                <div class="item border-bottom py-3">
-                                    <div class="row justify-content-between align-items-center">
-                                        <div class="col-12">
-                                            <div class="item-label"><strong>Ключові слова (keywords)</strong></div>
-                                            {{ html()->text('keywords')->attributes(['id'=>'keywords','class'=>'form-control']) }}
+                                            <div class="item-label"><strong>Заголовок</strong></div>
+                                            {{ html()->text('title',$item->title)->required()->attributes(['id'=>'title','class'=>'form-control']) }}
                                         </div><!--//col-->
                                     </div><!--//row-->
                                 </div><!--//item-->
@@ -44,24 +26,14 @@
                                 <div class="item border-bottom py-3">
                                     <div class="row justify-content-between align-items-center">
                                         <div class="col-auto">
-                                            <div class="item-label"><strong>Опис (description)</strong></div>
-                                            {{ html()->textarea('description')->attributes(['id'=>'description','class'=>'form-control textarea','cols'=>'150','rows'=>'30','style'=>'height:300px;']) }}
+                                            <div class="item-label"><strong>Текст</strong></div>
+                                            {{ html()->textarea('description',$item->description)->required()->attributes(['id'=>'description','class'=>'form-control textarea','cols'=>'150','rows'=>'30','style'=>'height:300px;']) }}
                                         </div><!--//col-->
                                     </div><!--//row-->
                                 </div><!--//item-->
-
-                                <div class="item app-card-settings border-bottom py-3">
-                                    <div class="row justify-content-between align-items-center">
-                                        <div class="col-auto">
-                                            {{ html()->checkbox('robot_index',true,1)->attributes(['id'=>'robot_index','class'=>'form-check-input']) }}
-                                            <label class="form-check-label" for="robot_index">Індексація сторінки</label>
-                                        </div><!--//col-->
-                                    </div><!--//row-->
-                                </div><!--//item-->
-
                             </div><!--//app-card-body-->
                             <div class="col-12 p-3">
-                                <a class="btn app-btn-secondary float-start" href="{{ route('admin.pages.index') }}">Назад</a>
+                                <a class="btn app-btn-secondary float-start" href="{{ redirect()->back() }}">Назад</a>
                                 {{ html()->submit('Зберегти')->attributes(['class'=>'btn app-btn-primary float-end']) }}
                                 <div class="item py-3">
                                     @if($errors->any())

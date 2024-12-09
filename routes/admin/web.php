@@ -43,10 +43,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('pages', PageController::class);
 
     Route::prefix('condition')->name('condition.')->group(function () {
-        Route::get('/terms-condition', [TermsConditionController::class, 'index'])->name('terms-condition.index');
-        Route::get('/privacy-policy', [TermsConditionController::class, 'index'])->name('privacy-policy.index');
-        Route::get('/cookies', [TermsConditionController::class, 'index'])->name('cookies.index');
-        Route::get('/update', [TermsConditionController::class, 'show'])->name('update');
+        Route::get('/terms-condition', [TermsConditionController::class, 'edit'])->name('terms-condition.edit');
+        Route::get('/privacy-policy', [TermsConditionController::class, 'edit'])->name('privacy-policy.edit');
+        Route::get('/cookies', [TermsConditionController::class, 'edit'])->name('cookies.edit');
+        Route::put('/update/{termCondition}', [TermsConditionController::class, 'update'])->name('update');
     });
 
     Route::prefix('settings')->name('settings.')->group(function () {

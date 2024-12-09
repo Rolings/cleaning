@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title','Terms condition')
+@section('title',$item->title)
 @section('content')
     <div class="wrapper">
         <!-- Header Start -->
@@ -7,8 +7,12 @@
         <!-- Header End -->
 
         <!-- Page Header Start -->
-        @include('main.section.breadcrumb',['title'=>'Terms condition'])
+        @include('main.section.breadcrumb',['title'=>$item->title])
         <!-- Page Header End -->
+
+        <div class="container">
+            {!! $item->description !!}
+        </div>
 
         <!-- Footer Start -->
         @include('main.section.footer')
