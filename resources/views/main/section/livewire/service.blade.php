@@ -1,7 +1,7 @@
 <div class="service">
     <div class="container">
         <div class="section-header">
-            <p>Our Services</p>
+            <h1>Our services</h1>
         </div>
         <div class="row">
             @foreach ($services as $service)
@@ -10,7 +10,7 @@
                         <img src="{{ $service->image?->url }}" width="100" alt="Service">
                         <h3>{{ $service->id }} {{ $service->title }}</h3>
                         <p>
-                            {{ $service->limitDescription }}
+                            {!! $service->limitDescription !!}
                         </p>
                         <a class="btn" href="{{ route('services.show',$service->slug) }}">Learn More</a>
                     </div>

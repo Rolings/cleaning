@@ -38,21 +38,20 @@
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="footer-link">
-                    <h2>Useful Link</h2>
-                    <a href="{{ route('about.index') }}">About Us</a>
+                    <h2>Service</h2>
+
                     <a href="{{ route('services.index') }}">Services</a>
                     <a href="{{ route('projects.index') }}">Projects</a>
-                    <a href="{{ route('contact.index') }}">Contact</a>
+
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="footer-link">
-                    <h2>Useful Link</h2>
-                    <a href="">Our Clients</a>
-                    <a href="">Clients Review</a>
-                    <a href="">Ongoing Project</a>
-                    <a href="">Customer Support</a>
-                    <a href="">FAQs</a>
+                    <h2>Contact</h2>
+                    <a href="{{ route('about.index') }}">About Us</a>
+                    <a href="{{ route('contact.index') }}">Contact</a>
+                    <a href="{{ route('reviews.index') }}">Review</a>
+                    <a href="{{ route('frequently-questions.index') }}">FAQs</a>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">

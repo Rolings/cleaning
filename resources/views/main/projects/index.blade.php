@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title','Projects')
+@section('title','Our projects')
 @section('content')
     <div class="wrapper">
         <!-- Header Start -->
@@ -7,12 +7,12 @@
         <!-- Header End -->
 
         <!-- Page Header Start -->
-        @include('main.section.breadcrumb',['title'=>'Projects'])
+        @include('main.section.breadcrumb',['title'=>'Our projects'])
         <!-- Page Header End -->
 
-        <!-- Portfolio Start -->
+        <!-- Projects Start -->
         <livewire:project />
-        <!-- Portfolio Start -->
+        <!-- Projects Start -->
 
         @include('main.section.footer')
 

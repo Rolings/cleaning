@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
+use App\Services\File\FileService;
 
 class Setting extends Model
 {
@@ -19,9 +20,25 @@ class Setting extends Model
      * @param string $key
      * @return $this
      */
-    public static function findByKey(string $key)
+    public static function findByKey(string $key): ?self
     {
         return self::key($key)->first();
+    }
+
+    /**
+     * @param string $key
+     * @return File|null
+     */
+    public static function findFileByKey(string $key)
+    {
+        $setting = self::findByKey($key);
+
+        if (is_null($setting))
+            return null;
+
+        $fileService = new FileService();
+
+        return $fileService->findFile($setting->value);
     }
 
     /**
@@ -47,7 +64,7 @@ class Setting extends Model
     /**
      * @return string
      */
-    public function getLimitValueAttribute():string
+    public function getLimitValueAttribute(): string
     {
         return Str::limit($this->attributes['value'], 300);
     }

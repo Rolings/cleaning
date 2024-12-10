@@ -10,7 +10,7 @@
                         <img src="{{ $item->image?->url }}" width="100" alt="Service">
                         <h3>{{ $item->id }} {{ $item->title }}</h3>
                         <p>
-                            {{ $item->limitDescription }}
+                            {!! $item->limitDescription !!}
                         </p>
                         <a class="btn" href="{{ route('services.show',$item->slug) }}">Learn More</a>
                     </div>

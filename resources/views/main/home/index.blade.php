@@ -8,7 +8,7 @@
         <!-- Header End -->
 
         <!-- About Start -->
-        <livewire:about />
+        <livewire:top.about />
         <!-- About End -->
 
         <!-- Service Start -->

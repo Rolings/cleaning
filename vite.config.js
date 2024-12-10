@@ -30,6 +30,7 @@ export default defineConfig({
                 'resources/js/library/chart.js',
                 'resources/js/library/jquery.toast.js',
                 'resources/js/library/jquery.mask.js',
+                'resources/js/library/tinymce.js',
 
                 // Admin resources
                 'resources/css/admin/portal.css',

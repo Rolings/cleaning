@@ -5,12 +5,12 @@
                 <div class="card">
                     <div class="card-header">
                         <a class="card-link  @if(!$loop->index) collapsed @endif" data-toggle="collapse" href="#collapse-{{ $loop->index }}" aria-expanded="true">
-                            <span>{{ $loop->index }}</span> {{ $item->limitQuestion }}
+                            <span>{{ $loop->index }}</span> {!! $item->limitQuestion !!}
                         </a>
                     </div>
                     <div id="collapse-{{ $loop->index }}" class="collapse @if(!$loop->index) show @endif" data-parent="#accordion">
                         <div class="card-body">
-                            {{ $item->answer }}
+                            {!! $item->answer !!}
                         </div>
                     </div>
                 </div>

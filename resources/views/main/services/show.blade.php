@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title','Services')
+@section('title',$service->title)
 @section('content')
     <div class="wrapper">
         <!-- Header Start -->
@@ -7,7 +7,10 @@
         <!-- Header End -->
 
         <!-- Page Header Start -->
-        @include('main.section.breadcrumb',['title'=>'Services'])
+        @include('main.section.breadcrumb',['breadcrumbs'=>[
+                ['route'=>'services.index','title'=>'Our services'],
+                ['title'=>$service->title]]
+                ])
         <!-- Page Header End -->
 
         <!-- Single Page Start -->

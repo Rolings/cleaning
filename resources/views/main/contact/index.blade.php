@@ -14,8 +14,7 @@
         <div class="contact">
             <div class="container">
                 <div class="section-header">
-                    <p>Contact Us</p>
-                    <h2>Find Your Answer / Send Message</h2>
+                    <h1>Contact</h1>
                 </div>
                 <div class="row">
                     <livewire:top.question />

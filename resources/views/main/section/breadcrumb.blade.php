@@ -2,11 +2,19 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h2>{{ $title }}</h2>
-            </div>
-            <div class="col-12">
                 <a href="{{ route('index') }}">Home</a>
-                <span>{{ $title }}</span>
+                @isset($breadcrumbs)
+                    @foreach($breadcrumbs as $breadcrumb)
+                        @if($loop->index===count($breadcrumbs)-1)
+                            <span>{{ $breadcrumb['title'] }}</span>
+                        @else
+                            <a href="{{ route($breadcrumb['route'])  }}">{{ $breadcrumb['title'] }}</a>
+                        @endif
+                    @endforeach
+                @else
+                    <span>{{ $title }}</span>
+                @endisset
+
             </div>
         </div>
     </div>

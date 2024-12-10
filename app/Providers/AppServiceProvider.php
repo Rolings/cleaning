@@ -46,6 +46,7 @@ class AppServiceProvider extends ServiceProvider
             View::share('contact_youtube', Setting::findByKey('contact_youtube')?->value);
             View::share('contact_linkedin', Setting::findByKey('contact_linkedin')?->value);
             View::share('about_title', Setting::findByKey('about_title')?->value);
+            View::share('about_image', Setting::findFileByKey('about_image')?->url);
             View::share('about_description', Setting::findByKey('about_description')?->value);
             View::share('about_limit_description', Setting::findByKey('about_description')?->limit_value);
         }

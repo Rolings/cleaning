@@ -1,8 +1,5 @@
 <div class="about">
     <div class="container">
-        <div class="section-header">
-            <h1>About</h1>
-        </div>
         <div class="row">
             <div class="col-lg-5 col-md-6">
                 <div class="about-img">
@@ -15,6 +12,7 @@
                     <div>
                         {!! $about_description !!}
                     </div>
+                    <a class="btn" href="{{ route('about.index') }}">Learn More</a>
                 </div>
             </div>
         </div>

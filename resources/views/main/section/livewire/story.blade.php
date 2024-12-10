@@ -2,7 +2,6 @@
     <div class="container">
         <div class="section-header">
             <p>Company Story</p>
-            <h2>Learn About Our Journey</h2>
         </div>
         <div class="row">
             <div class="col-lg-12">
@@ -25,7 +24,7 @@
                                             <div class="story-text">
                                                 <h3>{{ $item->title }}</h3>
                                                 <p>
-                                                    {{ $item->description }}
+                                                     {!! $item->description !!}
                                                 </p>
                                             </div>
                                         </div>
@@ -56,7 +55,7 @@
                                 </div>
                             @endif
                         @endforeach
-                        
+
                     </div>
                     <div class="story-start">
                         <p>Launch</p>

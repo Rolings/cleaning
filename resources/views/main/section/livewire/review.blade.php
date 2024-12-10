@@ -14,7 +14,7 @@
 
                     <div class="testimonial-content">
                         <h3>{{ $item->name }}</h3>
-                        <p>{{ $item->comment }}</p>
+                        <p>{!! $item->comment  !!}</p>
                     </div>
                 </div>
             @endforeach

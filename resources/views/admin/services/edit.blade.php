@@ -21,7 +21,6 @@
 
                                     <div class="app-card app-card-settings p-4">
                                         <div class="app-card-body">
-
                                             <div class="mb-3 row justify-content-between align-items-center">
                                                 <div class="col-12">
                                                     <div class="item-label mb-2"><strong>Иконка</strong></div>
@@ -78,9 +77,9 @@
 
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
+                                            <div class="col-12">
                                                 <div class="item-label"><strong>Description</strong></div>
-                                                {{ html()->textarea('description',$item->description)->required()->attributes(['id'=>'description','class'=>'form-control textarea','cols'=>'100','rows'=>'30','style'=>'height:300px;']) }}
+                                                {{ html()->textarea('description',$item->description)->required()->attributes(['id'=>'description','class'=>'form-control textarea textarea-editor','cols'=>'100','rows'=>'30','style'=>'height:300px;']) }}
                                             </div><!--//col-->
                                         </div><!--//row-->
                                     </div><!--//item-->
@@ -117,7 +116,6 @@
     </div><!--//app-wrapper-->
 @endsection
 @section('js')
-
     <script>
         var loadFile = function (event) {
             var output = document.getElementById('image');
@@ -126,6 +124,5 @@
                 URL.revokeObjectURL(output.src) // free memory
             }
         };
-
     </script>
 @endsection

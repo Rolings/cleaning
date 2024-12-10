@@ -9,7 +9,7 @@
             <div class="container-xl">
                 {{ html()->form('put')->route('admin.questions.update',$item)->open() }}
                 <div class="row gy-4">
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12 col-lg-4">
                         <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
                             <div class="app-card-body px-4 w-100">
 
@@ -58,27 +58,25 @@
                             </div>
                         </div>
                     </div>
-
-
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12 col-lg-8">
                         <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
                             <div class="app-card-body px-4 w-100">
 
 
                                 <div class="item border-bottom py-3">
                                     <div class="row justify-content-between align-items-center">
-                                        <div class="col-auto">
+                                        <div class="col-12">
                                             <div class="item-label"><strong>Питання</strong></div>
-                                            {{ html()->textarea('question',$item->question)->required()->attributes(['id'=>'question','class'=>'form-control textarea','cols'=>'100','rows'=>'30','style'=>'height:300px;']) }}
+                                            {{ html()->textarea('question',$item->question)->required()->attributes(['id'=>'question','class'=>'form-control textarea textarea-editor','cols'=>'100','rows'=>'30','style'=>'height:300px;']) }}
                                         </div><!--//col-->
                                     </div><!--//row-->
                                 </div><!--//item-->
 
                                 <div class="item border-bottom py-3">
                                     <div class="row justify-content-between align-items-center">
-                                        <div class="col-auto">
+                                        <div class="col-12">
                                             <div class="item-label"><strong>Відповідь</strong></div>
-                                            {{ html()->textarea('answer',$item->answer)->required()->attributes(['id'=>'answer','class'=>'form-control textarea','cols'=>'100','rows'=>'30','style'=>'height:300px;']) }}
+                                            {{ html()->textarea('answer',$item->answer)->required()->attributes(['id'=>'answer','class'=>'form-control textarea textarea-editor','cols'=>'100','rows'=>'30','style'=>'height:300px;']) }}
                                         </div><!--//col-->
                                     </div><!--//row-->
                                 </div><!--//item-->

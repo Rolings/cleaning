@@ -32,6 +32,7 @@
         'resources/js/library/bootstrap.bundle.js',
         'resources/js/library/popper.js',
         'resources/js/library/image-uploader.js',
+        'resources/js/library/tinymce.js',
         'resources/js/admin/main-script.js',
 ])
 @yield('js')

@@ -1,7 +1,7 @@
 <div class="project">
     <div class="container">
         <div class="section-header">
-            <p>Our Project</p>
+            <h1>Our projects</h1>
         </div>
         <div class="row">
             @foreach($projects as $project)

@@ -74,9 +74,9 @@
 
                                 <div class="item border-bottom py-3">
                                     <div class="row justify-content-between align-items-center">
-                                        <div class="col-auto">
+                                        <div class="col-12">
                                             <div class="item-label"><strong>Відгук</strong></div>
-                                            {{ html()->textarea('comment',$item->comment)->required()->attributes(['id'=>'comment','class'=>'form-control textarea','cols'=>'100','rows'=>'30','style'=>'height:300px;']) }}
+                                            {{ html()->textarea('comment',$item->comment)->required()->attributes(['id'=>'comment','class'=>'form-control textarea textarea-editor','cols'=>'100','rows'=>'30','style'=>'height:300px;']) }}
                                         </div><!--//col-->
                                     </div><!--//row-->
                                 </div><!--//item-->
