@@ -53,7 +53,7 @@
 
                                         <div class="col-12 mb-3">
                                             <div class="item-label"><strong>Посада</strong></div>
-                                            {{ html()->text('title',$item->title)->required()->attributes(['id'=>'title','class'=>'form-control']) }}
+                                            {{ html()->text('name',$item->name)->required()->attributes(['id'=>'name','class'=>'form-control']) }}
                                         </div><!--//col-->
 
                                         <div class="col-12 mb-3">

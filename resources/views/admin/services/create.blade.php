@@ -41,11 +41,19 @@
                                     </div>
                                 </div>
 
+                                <div class="item app-card-settings border-bottom py-3">
+                                    <div class="row justify-content-between align-items-center">
+                                        <div class="col-auto">
+                                            <div class="item-label"><strong>Додаткові послуги</strong></div>
+                                            {{ html()->multiselect('additional',$additionalServices->plucK('name','id'))->attributes(['id'=>'additional','class'=>'form-control']) }}
+                                        </div><!--//col-->
+                                    </div><!--//row-->
+                                </div><!--//item-->
 
                                 <div class="item app-card-settings border-bottom py-3">
                                     <div class="row justify-content-between align-items-center">
                                         <div class="col-auto">
-                                            {{ html()->checkbox('active',null,1)->attributes(['id'=>'title','class'=>'form-check-input']) }}
+                                            {{ html()->checkbox('active',null,1)->attributes(['id'=>'name','class'=>'form-check-input']) }}
                                             <label class="form-check-label" for="active">Active</label>
                                         </div><!--//col-->
                                     </div><!--//row-->
@@ -61,7 +69,7 @@
                                 <div class="item border-bottom py-3">
                                     <div class="row justify-content-between align-items-center">
                                         <div class="col-auto">
-                                            <div class="item-label"><strong>Slug</strong></div>
+                                            <div class="item-label"><strong>Url</strong></div>
                                             {{ html()->text('slug')->attributes(['id'=>'slug','class'=>'form-control']) }}
                                         </div><!--//col-->
                                     </div><!--//row-->
@@ -71,7 +79,7 @@
                                     <div class="row justify-content-between align-items-center">
                                         <div class="col-auto">
                                             <div class="item-label"><strong>Title</strong></div>
-                                            {{ html()->text('title')->required()->attributes(['id'=>'title','class'=>'form-control']) }}
+                                            {{ html()->text('name')->required()->attributes(['id'=>'name','class'=>'form-control']) }}
                                         </div><!--//col-->
                                     </div><!--//row-->
                                 </div><!--//item-->
@@ -117,7 +125,6 @@
     </div><!--//app-wrapper-->
 @endsection
 @section('js')
-
     <script>
         var loadFile = function (event) {
             var output = document.getElementById('image');
@@ -127,5 +134,16 @@
             }
         };
 
+        window.onload = () => {
+            $('select[multiple]').multiselect({
+                columns  : 1,
+                search   : true,
+                selectAll: true,
+                texts    : {
+                    placeholder: 'Вибрати додаткові послуги',
+                    search     : 'Вибрати додаткові послуги'
+                }
+            });
+        }
     </script>
 @endsection

@@ -16,7 +16,7 @@ class Project extends Model
     use HasFactory, HasUuids, PropertiesTrait;
 
     protected $fillable = [
-        'title',
+        'name',
         'slug',
         'active'
     ];

@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title',$service->title)
+@section('title',$service->name)
 @section('content')
     <div class="wrapper">
         <!-- Header Start -->
@@ -9,7 +9,7 @@
         <!-- Page Header Start -->
         @include('main.section.breadcrumb',['breadcrumbs'=>[
                 ['route'=>'services.index','title'=>'Our services'],
-                ['title'=>$service->title]]
+                ['title'=>$service->name]]
                 ])
         <!-- Page Header End -->
 
@@ -17,14 +17,25 @@
         <div class="single">
             <div class="container">
                 <div class="section-header">
-                    <h2>{{ $service->title }}</h2>
+                    <h1>{{ $service->name }}</h1>
                 </div>
                 <div class="row">
-                    <div class="col-12">
-                        <p>
-                            {{ $service->description }}
-                        </p>
+                    <div class="col-lg-5 col-md-6">
+                        <div class="about-img">
+                            <img src="{{ $service->imageUrl }}" alt="About" class="col-12" title="About">
+                        </div>
                     </div>
+                    <div class="col-lg-7 col-md-6">
+                        <div class="about-text">
+                            <div>
+                                {!! $service->description !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <a class="btn-global" href="{{ route('checkout',$service) }}">Checkout now</a>
                 </div>
             </div>
         </div>

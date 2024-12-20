@@ -16,7 +16,7 @@
                                 @endforeach
                             @endif
                         </div>
-                        <span class="project-title p-3">{{ $project->title }}</span>
+                        <span class="project-title p-3">{{ $project->name }}</span>
                     </div>
                 </div>
             @endforeach

@@ -15,7 +15,6 @@ class Order extends Model
     protected $fillable = [
         'phone',
         'email',
-        'service_id',
         'address',
         'order_at',
         'comment'
@@ -26,16 +25,6 @@ class Order extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
-
-    /**
-     * Relation with Service model
-     *
-     * @return BelongsTo
-     */
-    public function service(): BelongsTo
-    {
-        return $this->belongsTo(Service::class);
-    }
 
     /**
      * @param Builder $query

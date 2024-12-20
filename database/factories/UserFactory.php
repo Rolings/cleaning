@@ -27,7 +27,7 @@ class UserFactory extends Factory
             'first_name'        => fake()->firstName,
             'last_name'         => fake()->lastName,
             'middle_name'       => fake()->lastName,
-            'title'             => fake()->title,
+            'name'             => fake()->title,
             'avatar_id'         => null,
             'phone'             => fake()->unique()->phoneNumber(),
             'email'             => fake()->unique()->safeEmail(),

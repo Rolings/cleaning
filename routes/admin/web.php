@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\{
     ProjectController,
     QuestionController,
     ServiceController,
+    AdditionalServiceController,
+    OfferController,
     SettingController,
     ReviewController,
     AdminController,
@@ -34,8 +36,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('employees', EmployeesController::class);
 
     Route::resource('orders', OrderController::class);
+    Route::resource('offers', OfferController::class);
     Route::resource('history', HistoryController::class);
     Route::resource('services', ServiceController::class);
+
+    Route::prefix('additional-services')->name('additional-services.')->group(function () {
+        Route::resource('/', AdditionalServiceController::class)->parameter('', 'additionalService');
+        Route::get('/destroy-icon/{additionalService}', [AdditionalServiceController::class, 'destroyIcon'])->name('destroy-icon');
+    });
+
     Route::resource('projects', ProjectController::class);
     Route::resource('questions', QuestionController::class);
     Route::resource('reviews', ReviewController::class);

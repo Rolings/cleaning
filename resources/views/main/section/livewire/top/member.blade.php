@@ -12,7 +12,7 @@
                         </div>
                         <div class="team-text">
                             <h2>{{ $item->fullName }}</h2>
-                            <h3>{{ $item->title }}</h3>
+                            <h3>{{ $item->name }}</h3>
                         </div>
                     </div>
                 </div>

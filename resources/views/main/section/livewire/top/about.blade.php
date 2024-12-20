@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-5 col-md-6">
                 <div class="about-img">
-                    <img src="{{ $about_image }}" alt="About" title="About">
+                    <img src="{{ $about_image??$no_image }}" alt="About" title="About">
                 </div>
             </div>
             <div class="col-lg-7 col-md-6">

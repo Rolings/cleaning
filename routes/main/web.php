@@ -10,7 +10,8 @@ use App\Http\Controllers\Main\{
     ServiceController,
     TermsConditionController,
     QuestionController,
-    ReviewController
+    ReviewController,
+    CheckoutController
 };
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\MetaDataMiddleware;
@@ -27,4 +28,6 @@ Route::middleware(MetaDataMiddleware::class)->group(function () {
     Route::resource('privacy-policy', PrivacyPolicyController::class)->only(['index']);
     Route::resource('terms-condition', TermsConditionController::class)->only(['index']);
     Route::resource('cookies', CookiesController::class)->only(['index']);
+
+    Route::get('checkout/{service}', [CheckoutController::class, 'index'])->name('checkout');
 });

@@ -18,7 +18,7 @@ class UpdateRequest extends FormRequest
     public function prepareForValidation(): void
     {
         $this->merge([
-            'slug' => Str::slug($this->slug ?? $this->title),
+            'slug' => Str::slug($this->slug ?? $this->name),
         ]);
     }
 

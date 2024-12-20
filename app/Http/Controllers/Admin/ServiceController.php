@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdditionalService;
 use App\Models\Service;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -30,7 +31,11 @@ class ServiceController extends Controller
      */
     public function create(): View
     {
-        return view('admin.services.create');
+        $additionalServices = AdditionalService::onlyActive()->get();
+
+        return view('admin.services.create', [
+            'additionalServices' => $additionalServices
+        ]);
     }
 
     /**
@@ -60,8 +65,11 @@ class ServiceController extends Controller
     {
         $service->load('image');
 
+        $additionalServices = AdditionalService::onlyActive()->get();
+
         return view('admin.services.edit', [
-            'item' => $service
+            'item'               => $service,
+            'additionalServices' => $additionalServices
         ]);
     }
 

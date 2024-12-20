@@ -22,7 +22,7 @@
                                     <div class="col-md-6">
                                         <div class="story-box">
                                             <div class="story-text">
-                                                <h3>{{ $item->title }}</h3>
+                                                <h3>{{ $item->name }}</h3>
                                                 <p>
                                                      {!! $item->description !!}
                                                 </p>
@@ -45,7 +45,7 @@
                                     <div class="col-md-6">
                                         <div class="story-box">
                                             <div class="story-text">
-                                                <h3>{{ $item->title }}</h3>
+                                                <h3>{{ $item->name }}</h3>
                                                 <p>
                                                     {{ $item->description }}
                                                 </p>
@@ -63,7 +63,7 @@
                     <div class="story-launch">
                         <div class="story-box">
                             <div class="story-text">
-                                <h3>{{ $history->last()->title }}</h3>
+                                <h3>{{ $history->last()->name }}</h3>
                                 <p>
                                     {{ $history->last()->description }}
                                 </p>

@@ -213,8 +213,12 @@ class FileService
      *
      * @param File $file
      */
-    public function remove(File $file): void
+    public function remove(?File $file): void
     {
+        if (is_null($file)) {
+            return;
+        }
+
         if ($file && Storage::disk($file->disk)->exists($file->name)) {
             Storage::disk($file->disk)->delete($file->name);
             $file->delete();

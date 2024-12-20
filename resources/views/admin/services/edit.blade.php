@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', $item->title)
+@section('title', $item->name)
 
 @section('content')
     @include('admin.section.header')
@@ -10,7 +10,7 @@
 
                 <div class="row g-3 mb-4 align-items-center justify-content-between">
                     <div class="col-auto">
-                        <h1 class="app-page-title mb-0">{{ $item->title }}</h1>
+                        <h1 class="app-page-title mb-0">{{ $item->name }}</h1>
                     </div>
                 </div><!--//row-->
                 {{ html()->form('put')->route('admin.services.update', $item->slug)->acceptsFiles()->open() }}
@@ -40,11 +40,20 @@
                                         </div>
                                     </div>
 
+                                    <div class="item app-card-settings border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-12">
+                                                <div class="item-label"><strong>Додаткові послуги</strong></div>
+                                                {{ html()->multiselect('additional',$additionalServices->pluck('name','id'))->required()->attributes(['id'=>'additional','class'=>'form-control']) }}
+                                            </div><!--//col-->
+                                        </div><!--//row-->
+                                    </div><!--//item-->
+
 
                                     <div class="item app-card-settings border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                {{ html()->checkbox('active',$item->active,1)->attributes(['id'=>'title','class'=>'form-check-input']) }}
+                                                {{ html()->checkbox('active',$item->active,1)->attributes(['id'=>'active','class'=>'form-check-input']) }}
                                                 <label class="form-check-label" for="active">Active</label>
                                             </div><!--//col-->
                                         </div><!--//row-->
@@ -60,7 +69,7 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
-                                                <div class="item-label"><strong>Slug</strong></div>
+                                                <div class="item-label"><strong>Url</strong></div>
                                                 {{ html()->text('slug',$item->slug)->attributes(['id'=>'slug','class'=>'form-control']) }}
                                             </div><!--//col-->
                                         </div><!--//row-->
@@ -70,7 +79,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-auto">
                                                 <div class="item-label"><strong>Title</strong></div>
-                                                {{ html()->text('title',$item->title)->required()->attributes(['id'=>'title','class'=>'form-control']) }}
+                                                {{ html()->text('name',$item->name)->required()->attributes(['id'=>'name','class'=>'form-control']) }}
                                             </div><!--//col-->
                                         </div><!--//row-->
                                     </div><!--//item-->
@@ -118,11 +127,24 @@
 @section('js')
     <script>
         var loadFile = function (event) {
+
+
             var output = document.getElementById('image');
             output.src = URL.createObjectURL(event.target.files[0]);
             output.onload = function () {
                 URL.revokeObjectURL(output.src) // free memory
             }
         };
+        window.onload = () => {
+            $('select[multiple]').multiselect({
+                columns  : 1,
+                search   : true,
+                selectAll: true,
+                texts    : {
+                    placeholder: 'Вибрати додаткові послуги',
+                    search     : 'Вибрати додаткові послуги'
+                }
+            });
+        }
     </script>
 @endsection

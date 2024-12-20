@@ -456,8 +456,8 @@ a.btn-global{
 /*******************************/
 .page-header {
     position: relative;
-    margin-bottom: 45px;
-    padding: 20px 0;
+    margin-bottom: 5px;
+    padding: 5px 0;
     text-align: center;
     background: #FFD662;
 }
@@ -1838,7 +1838,6 @@ a.btn-global{
     padding: 45px 0 65px 0;
 }
 
-.single h1,
 .single h2,
 .single h3,
 .single h4,

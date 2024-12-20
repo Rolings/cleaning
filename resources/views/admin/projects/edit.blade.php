@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', $item->title)
+@section('title', $item->name)
 
 @section('content')
     @include('admin.section.header')
@@ -10,7 +10,7 @@
 
                 <div class="row g-3 mb-4 align-items-center justify-content-between">
                     <div class="col-auto">
-                        <h1 class="app-page-title mb-0">{{ $item->title }}</h1>
+                        <h1 class="app-page-title mb-0">{{ $item->name }}</h1>
                     </div>
                 </div><!--//row-->
                 {{ html()->form('put')->route('admin.projects.update', $item)->acceptsFiles()->open() }}
@@ -22,7 +22,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-12">
                                                 <div class="item-label"><strong>Title</strong></div>
-                                                {{ html()->text('title',$item->title)->attributes(['id'=>'title','class'=>'form-control']) }}
+                                                {{ html()->text('name',$item->name)->attributes(['id'=>'name','class'=>'form-control']) }}
                                             </div><!--//col-->
                                         </div><!--//row-->
 

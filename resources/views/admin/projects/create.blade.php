@@ -22,7 +22,7 @@
                                     <div class="row justify-content-between align-items-center">
                                         <div class="col-12">
                                             <div class="item-label"><strong>Заголовок</strong></div>
-                                            {{ html()->text('title')->attributes(['id'=>'title','class'=>'form-control']) }}
+                                            {{ html()->text('name')->attributes(['id'=>'name','class'=>'form-control']) }}
                                         </div><!--//col-->
                                     </div><!--//row-->
 

@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             PageSeeder::class,
             UserSeeder::class,
             ServiceSeeder::class,
+            AdditionalServiceSeeder::class,
             ProjectSeeder::class,
             HistorySeeder::class,
             QuestionSeeder::class,

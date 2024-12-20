@@ -9,7 +9,7 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="service-item">
                         <img src="build/images/main/service-1.jpg" alt="Service">
-                        <h3>{{ $service->id }} {{ $service->title }}</h3>
+                        <h3>{{ $service->id }} {{ $service->name }}</h3>
                         <p>
                             {{ $service->limitDescription }}
                         </p>

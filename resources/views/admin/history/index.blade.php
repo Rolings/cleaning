@@ -43,7 +43,7 @@
                                 @foreach($items as $item)
                                     <tr>
                                         <td class="cell">#{{ $item->id }}</td>
-                                        <td class="cell">{{ $item->title }}</td>
+                                        <td class="cell">{{ $item->name }}</td>
                                         <td class="cell"><span>{{ $item->event_date_at->format('F d Y') }}</span><span class="note">{{ $item->event_date_at->format(' h:i A') }}</span></td>
                                         <td class="cell"><span>{{ $item->created_at->format('F d Y') }}</span><span class="note">{{ $item->created_at    ->format(' h:i A') }}</span></td>
                                         <td class="cell">

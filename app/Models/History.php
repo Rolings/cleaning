@@ -11,7 +11,7 @@ class History extends Model
     use HasFactory, PropertiesTrait;
 
     protected $fillable = [
-        'title',
+        'name',
         'description',
         'event_date_at',
         'active'

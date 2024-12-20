@@ -19,6 +19,7 @@ export default defineConfig({
                 'resources/css/library/owl.carousel.css',
                 'resources/css/library/image-uploader.css',
                 'resources/css/library/query.toast.css',
+                'resources/css/library/jquery.multiselect.css',
 
                 'resources/js/library/jquery.js',
                 'resources/js/library/bootstrap.js',
@@ -31,6 +32,7 @@ export default defineConfig({
                 'resources/js/library/jquery.toast.js',
                 'resources/js/library/jquery.mask.js',
                 'resources/js/library/tinymce.js',
+                'resources/js/library/jquery.multiselect.js',
 
                 // Admin resources
                 'resources/css/admin/portal.css',

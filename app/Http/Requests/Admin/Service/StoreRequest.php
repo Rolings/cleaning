@@ -18,7 +18,7 @@ class StoreRequest extends FormRequest
     public function prepareForValidation(): void
     {
         $this->merge([
-            'slug'   => Str::slug($this->slug ?? $this->title),
+            'slug'   => Str::slug($this->slug ?? $this->name),
             'active' => isset($this->active)
         ]);
     }
@@ -31,7 +31,7 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'       => ['sometimes', 'nullable', 'string', 'max:255'],
+            'name'        => ['sometimes', 'nullable', 'string', 'max:255'],
             'slug'        => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
             'image'       => ['required', 'image', 'max:15120', 'mimes:jpg,png'],
