@@ -9,7 +9,11 @@ class Service extends Component
 {
     public function render()
     {
-        $services = ModelsService::with(['image'])->orderBy('created_at')->limit(4)->get();
+        $services = ModelsService::with(['image'])
+            ->onlyActive()
+            ->orderBy('created_at')
+            ->limit(3)
+            ->get();
 
         return view('main.section.livewire.top.service', [
             'items' => $services

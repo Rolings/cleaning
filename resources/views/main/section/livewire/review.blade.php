@@ -1,8 +1,5 @@
 <div class="testimonial">
-    <div class="container">
-        <div class="section-header">
-            <p>Client Review</p>
-        </div>
+    <div class="container-fluid p-0">
         <div class="owl-carousel testimonials-carousel">
             @foreach($items as $item)
                 <div class="testimonial-item">

@@ -1,5 +1,5 @@
 <div class="about">
-    <div class="container">
+    <div class="container-fluid p-0">
         <div class="row">
             <div class="col-lg-5 col-md-6">
                 <div class="about-img">

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\Offer;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class StoreOfferRequest extends FormRequest
 {
@@ -11,7 +12,15 @@ class StoreOfferRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
+    }
+
+    public function prepareForValidation(): void
+    {
+        $this->merge([
+            'slug'   => Str::slug($this->slug ?? $this->name),
+            'active' => isset($this->active)
+        ]);
     }
 
     /**
@@ -22,7 +31,11 @@ class StoreOfferRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name'        => ['sometimes', 'nullable', 'string', 'max:255'],
+            'slug'        => ['required', 'string', 'max:255'],
+            'services'    => ['sometimes', 'nullable', 'array'],
+            'description' => ['sometimes', 'nullable', 'string'],
+            'active'      => ['required', 'boolean'],
         ];
     }
 }

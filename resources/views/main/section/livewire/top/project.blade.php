@@ -1,5 +1,5 @@
 <div class="project">
-    <div class="container">
+    <div class="container-fluid p-0">
         <div class="section-header">
             <p>Top Project</p>
         </div>

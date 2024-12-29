@@ -33,6 +33,7 @@ class StoreRequest extends FormRequest
         return [
             'name'        => ['sometimes', 'nullable', 'string', 'max:255'],
             'slug'        => ['required', 'string', 'max:255'],
+            'additional'  => ['sometimes', 'nullable', 'array'],
             'description' => ['required', 'string'],
             'image'       => ['required', 'image', 'max:15120', 'mimes:jpg,png'],
             'active'      => ['required', 'boolean'],

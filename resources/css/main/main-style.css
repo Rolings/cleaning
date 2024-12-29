@@ -30,6 +30,15 @@ a:focus {
     text-decoration: none;
 }
 
+input {
+    outline: none;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none !important;
+    box-shadow: none; /* Додатково видаляє тіні, якщо є */
+}
+
 .btn:focus {
     box-shadow: none;
 }
@@ -68,7 +77,7 @@ a:focus {
     padding-top: 10px;
 }
 
-a.btn-global{
+a.btn-global {
     position: relative;
     margin-bottom: 30px;
     padding: 10px 20px;
@@ -79,6 +88,51 @@ a.btn-global{
     border-radius: 5px;
     background: #ffd662;
     transition: .3s;
+}
+
+a.btn-round {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 30px;
+    padding: 10px 20px;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    background: #ffd662;
+    transition: .3s;
+}
+
+.item-shadow:hover {
+    box-shadow: 0px 10px 13px -15px #000;
+}
+
+.service-info {
+    position: relative;
+    padding: 25px 20px;
+}
+
+.service-title {
+    display: block;
+}
+
+.service-arrow {
+    height: 40px;
+    width: 40px;
+    padding: 6px;
+    border-radius: 50%;
+    border: 1px solid #eee;
+    position: absolute;
+    top: 40px;
+    right: 20px;
+    background: #fff;
+    transition: all ease .3s;
+}
+
+.service-arrow:hover {
+    background-color: #f3ad0e;
+    fill: white;
 }
 
 
@@ -94,7 +148,7 @@ a.btn-global{
 
 .header.home {
     margin-bottom: 45px;
-/*    background: linear-gradient(rgba(0, 83, 156, 1), rgba(0, 83, 156, .9), rgba(0, 83, 156, 1)), url(../images/main/header.jpg);*/
+    /*    background: linear-gradient(rgba(0, 83, 156, 1), rgba(0, 83, 156, .9), rgba(0, 83, 156, 1)), url(../images/main/header.jpg);*/
     background: linear-gradient(#12b590, rgba(29, 165, 143, 0.48), #12b590), url(../images/main/new-header.jpg);
     background-position: center;
     background-repeat: no-repeat;
@@ -148,6 +202,7 @@ a.btn-global{
 .header .brand-name .logo svg {
     width: 100%;
 }
+
 .header .brand-name .description {
     position: relative;
     display: block;
@@ -169,7 +224,6 @@ a.btn-global{
     line-height: 1;
     letter-spacing: 15px;
 }
-
 
 
 .header .topbar {
@@ -473,7 +527,7 @@ a.btn-global{
 .page-header a {
     position: relative;
     padding: 0 12px;
-    font-size: 22px;
+    font-size: 15px;
     font-weight: 300;
     color: #00539C;
 }
@@ -481,7 +535,7 @@ a.btn-global{
 .page-header span {
     position: relative;
     padding: 0 12px;
-    font-size: 22px;
+    font-size: 15px;
     font-weight: 300;
 }
 
@@ -502,6 +556,34 @@ a.btn-global{
 
 .page-header a:last-child::after {
     display: none;
+}
+
+.breadcrumb {
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 0rem 1rem;
+    margin-bottom: 0rem;
+    list-style: none;
+    background-color: #e9ecef00;
+    border-radius: .25rem;
+}
+
+.breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+    display: inline-block;
+    padding-right: .4rem;
+    color: #6c757d;
+    content: ">";
+}
+
+.breadcrumb .breadcrumb-item + .active {
+    color: #3CA0D0;
+}
+
+.breadcrumb a {
+    padding: 0 1px;
+    font-weight: 500;
+    color: #086FA1;
 }
 
 
@@ -636,7 +718,6 @@ a.btn-global{
     text-align: center;
     background: #ffffff;
     border-radius: 5px;
-    margin-bottom: 30px;
     box-shadow: 0 0 30px rgba(0, 0, 0, .1);
 }
 
@@ -967,15 +1048,15 @@ a.btn-global{
 .price .price-item {
     text-align: center;
     background: #ffffff;
-    border-radius: 5px;
-    box-shadow: 0 0 30px rgba(0, 0, 0, .1);
+    /*    border-radius: 5px;
+        box-shadow: 0 0 30px rgba(0, 0, 0, .1);*/
     margin-bottom: 30px;
 }
 
 .price .price-header {
     padding: 30px 0 50px 0;
     color: #000000;
-    background: #FFD662;
+    /*background: #FFD662;*/
     border-radius: 5px 5px 0 0;
 }
 
@@ -1032,7 +1113,7 @@ a.btn-global{
     font-size: 14px;
     font-weight: 300;
     padding: 5px;
-    border-bottom: 1px solid #eeeeee;
+    /*    border-bottom: 1px solid #eeeeee;*/
 }
 
 .price .price-des ul li:last-child {
@@ -1074,6 +1155,81 @@ a.btn-global{
 .price .featured-item .price-action a:hover {
     color: #000000;
     background: #FFD662;
+}
+
+/*******************************/
+/********** Summary price block *********/
+/*******************************/
+
+.services-list .item {
+    display: block;
+    background-color: #12b590;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+}
+
+.services-list .item:last-child {
+    display: block;
+    background-color: #1297b5;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+}
+
+.additional-services-list > .item {
+    flex: 1;
+    padding: 0.5rem;
+}
+
+.additional-services-list input[type="radio"], input[type="checkbox"] {
+    display: none;
+}
+
+.additional-services-list .additional-service-item .additional-services-label img {
+    filter: brightness(1);
+}
+
+.additional-services-list input[type="radio"]:not(:disabled), input[type="checkbox"]:not(:disabled) ~ .additional-services-label {
+    cursor: pointer;
+}
+
+.additional-services-list input[type="radio"]:disabled, input[type="checkbox"]:disabled ~ .additional-services-label {
+    color: hsla(150, 5%, 75%, 1);
+    border-color: hsla(150, 5%, 75%, 1);
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+.additional-services-list input[type="radio"]:checked, input[type="checkbox"]:checked + .additional-services-label {
+    background: #ffd662;
+    color: #000000cc;
+}
+
+.additional-services-list input[type="radio"]:checked, input[type="checkbox"]:checked + .additional-services-label img {
+    filter: hue-rotate(90deg) brightness(1000%) contrast(1.2);
+}
+
+.additional-services-list .additional-services-label {
+    height: 100%;
+    display: block;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: 5px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    margin: 1rem;
+    text-align: center;
+    box-shadow: 0px 3px 10px -2px hsla(150, 5%, 65%, 0.5);
+    position: relative;
+}
+
+@media only screen and (max-width: 700px) {
+    .additional-services-list {
+        flex-direction: column;
+    }
 }
 
 
@@ -1859,6 +2015,14 @@ a.btn-global{
     font-weight: 100;
 }
 
+.list-group-flush .price-amount span:first-child {
+    float: left;
+}
+
+.list-group-flush .price-amount span:last-child {
+    float: right;
+}
+
 
 /*******************************/
 /********* Footer CSS **********/
@@ -2053,6 +2217,6 @@ a.btn-global{
     transition: .3s;
 }
 
-.cursor-pointer{
+.cursor-pointer {
     cursor: pointer;
 }

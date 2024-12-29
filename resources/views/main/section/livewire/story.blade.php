@@ -1,8 +1,5 @@
 <div class="story">
-    <div class="container">
-        <div class="section-header">
-            <p>Company Story</p>
-        </div>
+    <div class="container-fluid p-0">
         <div class="row">
             <div class="col-lg-12">
                 <div class="story-container">

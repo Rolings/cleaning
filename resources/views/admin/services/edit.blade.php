@@ -30,7 +30,7 @@
                                                 </div><!--//col-->
                                                 <div class="container pt-1">
                                                     <label for="images" class="drop-container">
-                                                        {{ html()->file('image')->accept('image/png, image/gif, image/jpeg')->required()->attributes(['onchange'=>'loadFile(event)']) }}
+                                                        {{ html()->file('image')->accept('image/png, image/gif, image/jpeg')->attributes(['onchange'=>'loadFile(event)']) }}
                                                         @error('icon')
                                                         <p class="alert alert-message">{{ $message }}</p>
                                                         @enderror
@@ -44,7 +44,7 @@
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-12">
                                                 <div class="item-label"><strong>Додаткові послуги</strong></div>
-                                                {{ html()->multiselect('additional',$additionalServices->pluck('name','id'))->required()->attributes(['id'=>'additional','class'=>'form-control']) }}
+                                                {{ html()->multiselect('additional',$additionalServices->pluck('name','id'),$item->additional)->attributes(['id'=>'additional','class'=>'form-control']) }}
                                             </div><!--//col-->
                                         </div><!--//row-->
                                     </div><!--//item-->
@@ -127,8 +127,6 @@
 @section('js')
     <script>
         var loadFile = function (event) {
-
-
             var output = document.getElementById('image');
             output.src = URL.createObjectURL(event.target.files[0]);
             output.onload = function () {
@@ -147,4 +145,32 @@
             });
         }
     </script>
+@endsection
+@section('css')
+    <style>
+        input[type=file] {
+            width: 350px;
+            max-width: 100%;
+            color: #444;
+            padding: 5px;
+            background: #fff;
+            border-radius: 10px;
+            border: 1px solid #555;
+        }
+
+        input[type=file]::file-selector-button {
+            margin-right: 20px;
+            border: none;
+            background: #084cdf;
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+            transition: background .2s ease-in-out;
+        }
+
+        input[type=file]::file-selector-button:hover {
+            background: #0d45a5;
+        }
+    </style>
 @endsection

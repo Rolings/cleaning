@@ -50,7 +50,7 @@ class AdditionalService extends Model
     /**
      * @return string
      */
-    public function getLimitDescriptionAttribute(): string
+    public function getLimitDescriptionAttribute(): ?string
     {
         return Str::limit($this->description, 55);
     }

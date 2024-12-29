@@ -12,10 +12,7 @@
 
         <!-- Contact Start -->
         <div class="contact">
-            <div class="container">
-                <div class="section-header">
-                    <h1>Contact</h1>
-                </div>
+            <div class="container-fluid">
                 <div class="row">
                     <livewire:top.question />
 

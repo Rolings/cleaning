@@ -15,10 +15,11 @@ class Service extends Model
     use HasFactory, PropertiesTrait;
 
     protected $fillable = [
+        'image_id',
         'name',
         'slug',
+        'price',
         'description',
-        'image_id',
         'active',
     ];
 
@@ -47,9 +48,22 @@ class Service extends Model
         return $this->hasOne(File::class, 'id', 'image_id');
     }
 
+    /**
+     * Relation with mode AdditionalService
+     *
+     * @return BelongsToMany
+     */
     public function additional(): BelongsToMany
     {
-        return $this->belongsToMany(AdditionalService::class, AdditionalService::class, 'service_id', 'additional_service_id');
+        return $this->belongsToMany(AdditionalService::class, ServiceAdditionalService::class, 'service_id', 'additional_service_id');
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function offers(): BelongsToMany
+    {
+        return $this->belongsToMany(Offer::class, OfferService::class, 'service_id', 'offer_id');
     }
 
     /**
@@ -65,7 +79,7 @@ class Service extends Model
     /**
      * @return string
      */
-    public function getLimitDescriptionAttribute(): string
+    public function getLimitDescriptionAttribute(): ?string
     {
         return Str::limit($this->description, 55);
     }

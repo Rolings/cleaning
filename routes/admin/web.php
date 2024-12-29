@@ -33,7 +33,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('admins', AdminController::class);
     Route::resource('clients', ClientController::class);
-    Route::resource('employees', EmployeesController::class);
+    Route::resource ('employees', EmployeesController::class);
 
     Route::resource('orders', OrderController::class);
     Route::resource('offers', OfferController::class);

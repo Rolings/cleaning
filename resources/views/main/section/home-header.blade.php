@@ -17,20 +17,16 @@
             <div class="col-md-5">
                 <div class="form">
                     <h3>Quick order</h3>
-                    <form>
-                        <input class="form-control" type="text" placeholder="Your Name">
-                        <input class="form-control" type="text" placeholder="Mobile Number">
-                        <div class="control-group">
-                            <select class="custom-select">
-                                <option selected>Choose a service</option>
-                                <option value="1">House Cleaning</option>
-                                <option value="2">Apartment Cleaning</option>
-                                <option value="3">Office Cleaning</option>
-                            </select>
-                        </div>
-                        <textarea class="form-control" placeholder="Comment"></textarea>
-                        <button class="btn btn-block">Get A Quote</button>
-                    </form>
+                    {{ html()->form()->route('checkout')->open() }}
+                    {{ html()->text('name')->required()->placeholder('Your Name')->attributes(['id'=>'name','class'=>'form-control']) }}
+                    {{ html()->text('phone')->required()->placeholder('Mobile Number')->attributes(['id'=>'phone','class'=>'form-control']) }}
+                    <div class="control-group">
+                        {{ html()->select('offer_id',$offers->pluck('name','id'))->required()->attributes(['id'=>'offer_id','class'=>'custom-select']) }}
+                    </div>
+                    {{ html()->textarea('description')->attributes(['id'=>'description','class'=>'form-control','cols'=>'100','rows'=>'30','style'=>'height:100px;']) }}
+
+                    <button class="btn btn-block">Book now</button>
+                    {{ html()->form()->close() }}
                 </div>
             </div>
         </div>

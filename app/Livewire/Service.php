@@ -2,16 +2,19 @@
 
 namespace App\Livewire;
 
-use Illuminate\Support\Collection;
-use Livewire\Component;
 use App\Models\Service as ModelsService;
-use Livewire\Attributes\Computed;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class Service extends Component
 {
+    use WithPagination;
+
     public function render()
     {
-        $services = ModelsService::with('image')->orderBy('created_at')->paginate(8);
+        $services = ModelsService::with('image')
+            ->onlyActive()
+            ->paginate(6);
 
         return view('main.section.livewire.service',[
             'services' => $services

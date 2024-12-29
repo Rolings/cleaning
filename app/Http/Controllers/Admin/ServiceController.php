@@ -31,7 +31,9 @@ class ServiceController extends Controller
      */
     public function create(): View
     {
-        $additionalServices = AdditionalService::onlyActive()->get();
+        $additionalServices = AdditionalService::onlyActive()
+            ->orderBy('created_at')
+            ->get();
 
         return view('admin.services.create', [
             'additionalServices' => $additionalServices
@@ -54,6 +56,10 @@ class ServiceController extends Controller
             'image_id' => $file,
         ]))->save();
 
+        if ($request->has('additional')) {
+            $service->additional()->sync($request->additional);
+        }
+
         return redirect()->route('admin.services.index');
     }
 
@@ -63,7 +69,7 @@ class ServiceController extends Controller
      */
     public function edit(Service $service): View
     {
-        $service->load('image');
+        $service->load(['image','additional']);
 
         $additionalServices = AdditionalService::onlyActive()->get();
 
@@ -89,6 +95,10 @@ class ServiceController extends Controller
             'image_id' => $file
         ]))->save();
 
+        if ($request->has('additional')) {
+            $service->additional()->sync($request->additional);
+        }
+
         return redirect()->route('admin.services.index');
     }
 
@@ -99,11 +109,7 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service, FileService $fileService): RedirectResponse
     {
-        $service->load('image');
-
-        if (!is_null($service->image)) {
-            $fileService->remove($service->image);
-        }
+        $fileService->remove($service->image);
 
         $service->delete();
 

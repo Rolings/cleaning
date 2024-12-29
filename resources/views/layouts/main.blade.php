@@ -33,6 +33,7 @@
         'resources/css/library/lightbox.css',
         'resources/css/library/owl.carousel.css',
         'resources/css/library/query.toast.css',
+        'resources/css/library/select2.css',
 
         'resources/css/main/main-style.css',
     ])
@@ -51,6 +52,7 @@
     'resources/js/library/lightbox.js',
     'resources/js/library/jquery.toast.js',
     'resources/js/library/owl.carousel.js',
+    'resources/js/library/select2.js',
     'resources/js/main/main-script.js',
 ])
 @yield('js')

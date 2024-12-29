@@ -7,7 +7,7 @@
         <!-- Header End -->
 
         <!-- Page Header Start -->
-        @include('main.section.breadcrumb',['breadcrumbs'=>[
+        @include('main.section.breadcrumb',['title'=>$service->name,'breadcrumbs'=>[
                 ['route'=>'services.index','title'=>'Our services'],
                 ['title'=>$service->name]]
                 ])
@@ -15,16 +15,8 @@
 
         <!-- Single Page Start -->
         <div class="single">
-            <div class="container">
-                <div class="section-header">
-                    <h1>{{ $service->name }}</h1>
-                </div>
+            <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-5 col-md-6">
-                        <div class="about-img">
-                            <img src="{{ $service->imageUrl }}" alt="About" class="col-12" title="About">
-                        </div>
-                    </div>
                     <div class="col-lg-7 col-md-6">
                         <div class="about-text">
                             <div>

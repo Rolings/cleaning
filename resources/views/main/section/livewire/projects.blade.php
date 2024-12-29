@@ -1,8 +1,5 @@
 <div class="project">
-    <div class="container">
-        <div class="section-header">
-            <h1>Our projects</h1>
-        </div>
+    <div class="container-fluid p-0">
         <div class="row">
             @foreach($projects as $project)
                 <div class="col-lg-4 col-md-6">

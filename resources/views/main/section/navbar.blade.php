@@ -13,7 +13,7 @@
             <a href="{{ route('about.index') }}" class="nav-item nav-link @if(request()->route()->named('about.index')) active @endif">About</a>
             <a href="{{ route('contact.index') }}" class="nav-item nav-link @if(request()->route()->named('contact.index')) active @endif">Contact</a>
             <a href="{{ route('frequently-questions.index') }}" class="nav-item nav-link @if(request()->route()->named('frequently-questions.index')) active @endif">FAQs</a>
-            <a href="#" class="btn">Get A Quote</a>
+            <a href="{{ route('checkout') }}" class="btn">Free estimate</a>
         </div>
     </div>
 </div>

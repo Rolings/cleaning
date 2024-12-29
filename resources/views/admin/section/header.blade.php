@@ -140,5 +140,4 @@
         </div><!--//container-fluid-->
     </div><!--//app-header-inner-->
     @include('admin.section.sidebar')
-
 </header><!--//app-header-->

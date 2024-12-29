@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Service>
  */
-class ServiceFactory extends Factory
+class OfferFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,7 +19,6 @@ class ServiceFactory extends Factory
         return [
             'name'        => $this->faker->unique()->word(),
             'slug'        => $this->faker->unique()->slug,
-            'price'       => $this->faker->randomFloat(2, 10, 100),
             'description' => $this->faker->text,
         ];
     }

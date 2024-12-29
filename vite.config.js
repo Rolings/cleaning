@@ -20,6 +20,7 @@ export default defineConfig({
                 'resources/css/library/image-uploader.css',
                 'resources/css/library/query.toast.css',
                 'resources/css/library/jquery.multiselect.css',
+                'resources/css/library/select2.css',
 
                 'resources/js/library/jquery.js',
                 'resources/js/library/bootstrap.js',
@@ -33,6 +34,7 @@ export default defineConfig({
                 'resources/js/library/jquery.mask.js',
                 'resources/js/library/tinymce.js',
                 'resources/js/library/jquery.multiselect.js',
+                'resources/js/library/select2.js',
 
                 // Admin resources
                 'resources/css/admin/portal.css',
