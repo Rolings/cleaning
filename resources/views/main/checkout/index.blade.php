@@ -15,12 +15,13 @@
             <div class="container-fluid">
                 <h3>Complete your booking.</h3>
                 <livewire:checkout :request-data="$requestData"/>
+                <livewire:checkout-modal/>
             </div>
             {{ html()->form()->close() }}
         </div>
 
         @include('main.section.footer')
-        @include('main.checkout.include.service-modal')
+{{--        @include('main.checkout.include.service-modal')--}}
 
         <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
     </div>

@@ -1170,45 +1170,59 @@ a.btn-round {
     text-align: center;
 }
 
-.services-list .item:last-child {
-    display: block;
-    background-color: #1297b5;
-    color: #fff;
-    border-radius: 5px;
-    padding: 5px;
-    text-align: center;
-}
-
 .additional-services-list > .item {
     flex: 1;
     padding: 0.5rem;
 }
 
-.additional-services-list input[type="radio"], input[type="checkbox"] {
+.additional-services-list input[type="radio"],
+.additional-services-list input[type="checkbox"] {
     display: none;
 }
 
-.additional-services-list .additional-service-item .additional-services-label img {
-    filter: brightness(1);
+.additional-services-list .additional-service-item .additional-services-label span:first-child {
+    position: relative;
+    float: left;
+    width: 100%;
+    clear: both;
+    margin-bottom: 1em;
 }
 
-.additional-services-list input[type="radio"]:not(:disabled), input[type="checkbox"]:not(:disabled) ~ .additional-services-label {
+.additional-services-list .additional-service-item .additional-services-label span:first-child img {
+    filter: brightness(1);
+    max-width: 100%;
+    width: auto;
+}
+
+.additional-services-list .additional-service-item .additional-services-label span:last-child {
+    position: relative;
+    display: contents;
+    float: left;
+    width: 100%;
+    clear: both;
+}
+
+.additional-services-list input[type="radio"]:not(:disabled) ~ .additional-services-label,
+.additional-services-list input[type="checkbox"]:not(:disabled) ~ .additional-services-label {
     cursor: pointer;
 }
 
-.additional-services-list input[type="radio"]:disabled, input[type="checkbox"]:disabled ~ .additional-services-label {
+.additional-services-list input[type="radio"]:disabled ~ .additional-services-label,
+.additional-services-list input[type="checkbox"]:disabled ~ .additional-services-label {
     color: hsla(150, 5%, 75%, 1);
     border-color: hsla(150, 5%, 75%, 1);
     box-shadow: none;
     cursor: not-allowed;
 }
 
-.additional-services-list input[type="radio"]:checked, input[type="checkbox"]:checked + .additional-services-label {
+.additional-services-list input[type="radio"]:checked + .additional-services-label,
+.additional-services-list input[type="checkbox"]:checked + .additional-services-label {
     background: #ffd662;
     color: #000000cc;
 }
 
-.additional-services-list input[type="radio"]:checked, input[type="checkbox"]:checked + .additional-services-label img {
+.additional-services-list input[type="radio"]:checked + .additional-services-label span:first-child img,
+.additional-services-list input[type="checkbox"]:checked + .additional-services-label span:first-child img {
     filter: hue-rotate(90deg) brightness(1000%) contrast(1.2);
 }
 
@@ -2020,6 +2034,13 @@ a.btn-round {
 }
 
 .list-group-flush .price-amount span:last-child {
+    float: right;
+}
+
+.list-group-flush .price-amount:last-child span:last-child {
+    color: #1297b5;
+    font-size: 16px;
+    font-weight: 900;
     float: right;
 }
 

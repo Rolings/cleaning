@@ -91,7 +91,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-8 col-md-8 col-lg-4 d-sm-none d-md-none d-lg-block">
+        <div class="col-sm-8 col-md-8 col-lg-4 d-none d-sm-none d-md-none d-lg-block">
             <!--Info-->
             <div class="col-sm-12 p-0 mt-3">
                 <div class="row">
@@ -149,32 +149,34 @@
                     <div class="col-12">
                         <div class="form-group">
                             {{ html()->label('Including services') }}
-                        </div>
-                        <div class="col-12 row ml-0 mr-0 p-0">
-                            @foreach($services as $service)
-                                <span class=" item col-3 mb-1 mr-1 rounded shadow" title="{!! $service->description !!}">{{ $service->name }}</span>
-                            @endforeach
-                            <span class=" item col-3 mb-1 mr-1 rounded shadow c-pointer js-add-services">
+                            <span class="btn float-right col-1 mb-1 mr-1 rounded shadow c-pointer js-add-services">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
                                   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                                   <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
                                 </svg>
                             </span>
                         </div>
+                        <div class="col-12 row ml-0 mr-0 p-0">
+                            @foreach($services as $service)
+                                <span class="item col-3 col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-1 mr-1 rounded shadow" title="{!! $service->description !!}">{{ $service->name }}</span>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
 
                 <div class="row additional-services-list">
-                    <div class="col-12">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <div class="form-group">
                             {{ html()->label('Additional services') }}
                         </div>
                     </div>
                     @foreach($additionalServices as $service)
-                        <div class="additional-service-item col-4 col-sm-12 col-md-12 col-lg-6 col-xl-4 mb-4 p-0">
-                            {{ html()->checkbox('additional-services',false,$service->id)->attributes(['id'=>'additional-services-'.$service->id,'wire:model.live'=>'additionalSelectedServices']) }}
-                            <label class="d-flex additional-services-label" for="additional-services-{{$service->id}}" title="{!! $service->description !!}">
-                                <img src="{{ $service->iconUrl }}" alt="{{ $service->name }}">
+                        <div class="additional-service-item col-12 col-sm-12 col-md-4 col-lg-6 col-xl-4 mb-4 p-0">
+                            {{ html()->checkbox('additional-services',false,$service->id)->attributes(['id'=>'additional-services-'.$service->id,'wire:model.live'=>'selectedAdditionalServicesId']) }}
+                            <label class=" d-block additional-services-label" for="additional-services-{{$service->id}}" title="{!! $service->description !!}">
+                                <span>
+                                    <img src="{{ $service->iconUrl }}" alt="{{ $service->name }}">
+                                </span>
                                 <span>{{ $service->name }}</span>
                             </label>
                         </div>
@@ -215,20 +217,23 @@
                                     </span>
                                     <span>{{ $dateTime }}</span>
                                 </li>
-                                <li class="d-flex list-group-item price-amount">
-                                    <span>Including services: </span> <span>${{ $includingServicesPrice }}</span>
+                                <li class="list-group-item price-amount">
+                                    <span>Services: </span><span>${{ $costServices }}</span>
                                 </li>
                                 <li class="list-group-item price-amount">
-                                    <span>Additional services: </span> <span>${{ $additionalServicesPrice }}</span>
+                                    <span>Additional services: </span> <span>${{ $costAdditionalServices }}</span>
                                 </li>
                                 <li x-show="discountAmount" class="list-group-item price-amount">
                                     <span>Discount: </span><span>${{ $discountAmount }}</span>
                                 </li>
                                 <li x-show="taxAmount" class="list-group-item price-amount">
-                                    <span>Tax: </span><span>${{ $taxAmount }}</span>
+                                    <span>Sales tax: </span>
+                                    <span title="{{ $taxPercentage }}%">
+                                        ${{ $taxAmount }}
+                                    </span>
                                 </li>
                                 <li class="list-group-item price-amount">
-                                    <span>TOTAL</span> <span>${{ $totalPrice }}</span>
+                                    <span>TOTAL</span> <span>${{ $constTotal }}</span>
                                 </li>
                             </ul>
                             <div class="card-body text-center">

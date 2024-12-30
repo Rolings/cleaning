@@ -7,6 +7,7 @@ use App\Models\Offer;
 use App\Models\Service;
 use App\Models\Setting;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Livewire\Component;
 
 class Checkout extends Component
@@ -17,37 +18,33 @@ class Checkout extends Component
     public $last_name = null;
 
     public $phone = null;
-
     public $offer_id = null;
 
     public $description = null;
 
+
     // Current offer
     public Offer|null $offer = null;
 
-    // List
-    public $services = [];
 
-    public $additionalServices = [];
+    // List
+    public Collection $services;
+
+    public Collection $additionalServices;
 
     // Selected
-    public array $includingSelectedServices = [];
-    public array $additionalSelectedServices = [];
+    public Collection $selectedAdditionalServices;
 
-    public  $includingSelectedServiceList;
-    public  $additionalSelectedServiceList;
-
+    public array $selectedAdditionalServicesId = [];
 
     // Price
-    public $totalPrice = 0;
-
-    public $servicesPrice = 0;
-    public $includingServicesPrice = 0;
-    public $additionalServicesPrice = 0;
+    public $constTotal = 0;
+    public $costServices = 0;
+    public $costAdditionalServices = 0;
     public float $taxAmount = 0;
     public float $discountAmount = 0;
-    private float $taxPercentage = 0;
-    private float $discountPercentage = 0;
+    public float $taxPercentage = 0;
+    public float $discountPercentage = 0;
 
     // Date
     public string|null $date = null;
@@ -57,10 +54,17 @@ class Checkout extends Component
 
     public function __construct()
     {
+        $this->services = new Collection();
+        $this->additionalServices = new Collection();
+        $this->selectedAdditionalServices = new Collection();
+
+
         $this->taxPercentage = Setting::findByKey('tax_percentage')?->value ?? 0;
 
         $this->discountPercentage = Setting::findByKey('discount_percentage')?->value ?? 0;
     }
+
+    protected $listeners = ['updatedSelectServicesId'];
 
     public function mount(...$arguments): void
     {
@@ -73,6 +77,7 @@ class Checkout extends Component
         }
 
         if (!is_null($this->offer_id)) {
+
             $this->reloadService(Offer::find($this->offer_id));
 
             $this->calculationPrice();
@@ -86,10 +91,6 @@ class Checkout extends Component
         }
     }
 
-    /**
-     * @param Offer $offer
-     * @return void
-     */
     public function updatedOfferId(Offer $offer)
     {
         $this->reloadService($offer);
@@ -97,14 +98,11 @@ class Checkout extends Component
         $this->calculationPrice();
     }
 
-    /**
-     * @return void
-     */
-    public function updatedIncludingSelectedServices(): void
+    public function updatedSelectServicesId($payload)
     {
-        $this->includingSelectedServiceList = Service::find($this->includingSelectedServices);
+        $services = Service::find($payload['list']);
 
-        $this->includingServicesPrice = $this->includingSelectedServiceList->sum('price');
+        $this->services = is_null($this->offer) ? $services : $this->offer->services->merge($services);
 
         $this->calculationPrice();
     }
@@ -112,48 +110,58 @@ class Checkout extends Component
     /**
      * @return void
      */
-    public function updatedAdditionalSelectedServices(): void
+    public function updatedSelectedAdditionalServicesId(): void
     {
-        $this->additionalSelectedServiceList = AdditionalService::find($this->additionalSelectedServices);
-
-        $this->additionalServicesPrice = $this->additionalSelectedServiceList->sum('price');
+        $this->selectedAdditionalServices = AdditionalService::find($this->selectedAdditionalServicesId);
 
         $this->calculationPrice();
+    }
+
+    private function calculateCostServices(): void
+    {
+        $this->costServices = $this->services->sum('price');
+    }
+
+    private function calculateCostAdditionalServices()
+    {
+        $this->costAdditionalServices = $this->selectedAdditionalServices->sum('price');
     }
 
     private function calculationPrice(): void
     {
-        $sum = $this->servicesPrice + $this->includingServicesPrice + $this->additionalServicesPrice;
+        $this->calculateCostServices();
+
+        $this->calculateCostAdditionalServices();
+
+        $sum = $this->costServices + $this->costAdditionalServices;
 
         $this->discountAmount = round($sum / 100 * $this->discountPercentage, 2);
 
         $this->taxAmount = round(($sum - $this->discountAmount) / 100 * $this->taxPercentage, 2);
 
-        $this->totalPrice = round($sum + $this->taxAmount - $this->discountAmount, 2);
+        $this->constTotal = round($sum + $this->taxAmount - $this->discountAmount, 2);
     }
 
     private function reloadService(Offer $offer)
     {
-        $this->additionalSelectedServices = [];
-
         $this->offer = $offer->load(['services.additional']);
+
+        $this->selectedAdditionalServicesId = [];
 
         $this->services = $this->offer->services;
 
-        $this->servicesPrice = $this->services->sum('price');
-
         $this->additionalServices = $this->offer->services->pluck('additional')->flatten()->unique('id')->sortBy('name');
+
+        $this->calculateCostServices();
     }
 
 
     public function render()
     {
         $offers = Offer::onlyActive()->get();
-        $services = Service::onlyActive()->get();
 
         return view('main.section.livewire.checkout', [
-            'offers'   => $offers,
-            'services' => $services,
+            'offers' => $offers,
         ]);
     }
 }
