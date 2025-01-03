@@ -52,22 +52,22 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-5">
                         <div class="form-group">
                             {{ html()->label('City','city') }}
-                            {{ html()->text('city')->placeholder('')->attributes(['id'=>'city','class'=>'form-control']) }}
+                            {{ html()->text('city',$city)->placeholder('')->attributes(['id'=>'city','class'=>'form-control']) }}
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
-                            {{ html()->label('State *','state') }}
-                            {{ html()->text('state')->required()->placeholder('')->attributes(['id'=>'state','class'=>'form-control']) }}
+                            {{ html()->label('State *','state_id') }}
+                            {{ html()->select('state_id',$states->pluck('name','id'),$states->filter(fn($state) => $state->default)?->first()?->id)->required()->attributes(['id'=>'state_id','class'=>'custom-select','wire:model.live'=>'state_id']) }}
                         </div>
                     </div>
-                    <div class="col-2">
+                    <div class="col-3">
                         <div class="form-group">
                             {{ html()->label('Zip','zip') }}
-                            {{ html()->text('zip')->required()->placeholder('')->attributes(['id'=>'zip','class'=>'form-control']) }}
+                            {{ html()->text('zip',$zip)->required()->placeholder('')->attributes(['id'=>'zip','class'=>'form-control']) }}
                         </div>
                     </div>
                 </div>
@@ -76,16 +76,10 @@
             <div class="col-sm-12 p-0 mt-3">
                 <h5>SERVICE DATE</h5>
                 <div class="row">
-                    <div class="col-9">
+                    <div class="col-12">
                         <div class="form-group">
                             {{ html()->label('Date *','date') }}
-                            {{ html()->date('date')->required()->placeholder('')->attributes(['id'=>'date','class'=>'form-control','wire:model.live'=>'date']) }}
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="form-group">
-                            {{ html()->label('Time','time') }}
-                            {{ html()->time('time')->placeholder('')->attributes(['id'=>'time','class'=>'form-control','wire:model.live'=>'time']) }}
+                            {{ html()->text('order_at')->required()->placeholder('')->attributes(['id'=>'datetime','class'=>'form-control date-time-picker','wire:model.live'=>'datetime']) }}
                         </div>
                     </div>
                 </div>
@@ -155,6 +149,7 @@
                                   <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
                                 </svg>
                             </span>
+                            {{ html()->hidden('services_id',$services?->pluck('id')?->toJson()) }}
                         </div>
                         <div class="col-12 row ml-0 mr-0 p-0">
                             @foreach($services as $service)
@@ -169,11 +164,12 @@
                         <div class="form-group">
                             {{ html()->label('Additional services') }}
                         </div>
+                        {{ html()->hidden('additional_services_id',$selectedAdditionalServices?->pluck('id')?->toJson()) }}
                     </div>
                     @foreach($additionalServices as $service)
                         <div class="additional-service-item col-12 col-sm-12 col-md-4 col-lg-6 col-xl-4 mb-4 p-0">
                             {{ html()->checkbox('additional-services',false,$service->id)->attributes(['id'=>'additional-services-'.$service->id,'wire:model.live'=>'selectedAdditionalServicesId']) }}
-                            <label class=" d-block additional-services-label" for="additional-services-{{$service->id}}" title="{!! $service->description !!}">
+                            <label class=" d-block additional-services-label" for="additional-services-{{ $service->id }}" title="{!! $service->description !!}">
                                 <span>
                                     <img src="{{ $service->iconUrl }}" alt="{{ $service->name }}">
                                 </span>
@@ -215,7 +211,7 @@
                                             d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
                                     </svg>
                                     </span>
-                                    <span>{{ $dateTime }}</span>
+                                    <span>{{ $datetimeFormat??'Choose service date...' }}</span>
                                 </li>
                                 <li class="list-group-item price-amount">
                                     <span>Services: </span><span>${{ $costServices }}</span>
@@ -223,10 +219,10 @@
                                 <li class="list-group-item price-amount">
                                     <span>Additional services: </span> <span>${{ $costAdditionalServices }}</span>
                                 </li>
-                                <li x-show="discountAmount" class="list-group-item price-amount">
+                                <li class="list-group-item price-amount">
                                     <span>Discount: </span><span>${{ $discountAmount }}</span>
                                 </li>
-                                <li x-show="taxAmount" class="list-group-item price-amount">
+                                <li class="list-group-item price-amount">
                                     <span>Sales tax: </span>
                                     <span title="{{ $taxPercentage }}%">
                                         ${{ $taxAmount }}
@@ -237,8 +233,9 @@
                                 </li>
                             </ul>
                             <div class="card-body text-center">
-                                <button class="btn btn-outline-primary btn-lg" style="border-radius:30px">Select</button>
+                                <button type="submit" class="btn btn-outline-primary btn-lg">Book now</button>
                             </div>
+
                         </div>
                     </div>
                 </div>

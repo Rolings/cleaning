@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title','Checkout')
+@section('title','Cart')
 @section('content')
     <div class="wrapper">
         <!-- Header Start -->
@@ -7,7 +7,7 @@
         <!-- Header End -->
 
         <!-- Page Header Start -->
-        @include('main.section.breadcrumb',['title'=>'Checkout'])
+        @include('main.section.breadcrumb',['title'=>'Cart'])
         <!-- Page Header End -->
 
         <div class="service">
@@ -21,7 +21,6 @@
         </div>
 
         @include('main.section.footer')
-{{--        @include('main.checkout.include.service-modal')--}}
 
         <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
     </div>
@@ -30,8 +29,15 @@
     <script>
         window.onload = () => {
             $(document).on('click', ".js-add-services", function () {
-                console.log('12312')
                 $("#services-list").modal('show');
+            });
+
+            flatpickr(document.getElementsByClassName('date-time-picker')[0], {
+                enableTime: true,
+                noCalendar: false,
+                defaultDate: '{{ now()->format('m/d/Y h:i K') }}',
+                dateFormat: "m/d/Y h:i K",
+                time_24hr: false
             });
         }
     </script>

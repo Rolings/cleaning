@@ -6,6 +6,8 @@ use App\Models\AdditionalService;
 use App\Models\Offer;
 use App\Models\Service;
 use App\Models\Setting;
+use App\Models\State;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Livewire\Component;
@@ -18,7 +20,14 @@ class Checkout extends Component
     public $last_name = null;
 
     public $phone = null;
+
     public $offer_id = null;
+
+    public $state_id = null;
+    public $city = null;
+
+    public $zip = null;
+
 
     public $description = null;
 
@@ -47,17 +56,14 @@ class Checkout extends Component
     public float $discountPercentage = 0;
 
     // Date
-    public string|null $date = null;
-
-    public string|null $time = null;
-    public string $dateTime = 'Choose service date...';
+    public string|null $datetime = null;
+    public string|null $datetimeFormat = null;
 
     public function __construct()
     {
         $this->services = new Collection();
         $this->additionalServices = new Collection();
         $this->selectedAdditionalServices = new Collection();
-
 
         $this->taxPercentage = Setting::findByKey('tax_percentage')?->value ?? 0;
 
@@ -66,6 +72,10 @@ class Checkout extends Component
 
     protected $listeners = ['updatedSelectServicesId'];
 
+    /**
+     * @param ...$arguments
+     * @return void
+     */
     public function mount(...$arguments): void
     {
         if (isset($arguments[0]) && count($arguments[0])) {
@@ -84,25 +94,46 @@ class Checkout extends Component
         }
     }
 
-    public function updated($propertyName)
+    /**
+     * @param $propertyName
+     * @return void
+     */
+    public function updatedDatetime(string $datetime): void
     {
-        if (in_array($propertyName, ['date', 'time'])) {
-            $this->dateTime = Carbon::parse($this->date . '' . $this->time)->format('m/d/Y @ h:i: A');
-        }
+        $this->datetimeFormat = Carbon::parse($datetime)->format('d/m/Y @ h:i A');
     }
 
-    public function updatedOfferId(Offer $offer)
+    /**
+     * @param State $state
+     * @return void
+     */
+    public function updatedStateId(State $state): void
+    {
+        $this->setStateAddress($state);
+    }
+
+    /**
+     * @param Offer $offer
+     * @return void
+     */
+    public function updatedOfferId(Offer $offer): void
     {
         $this->reloadService($offer);
 
         $this->calculationPrice();
     }
 
-    public function updatedSelectServicesId($payload)
+    /**
+     * @param $payload
+     * @return void
+     */
+    public function updatedSelectServicesId($payload): void
     {
         $services = Service::find($payload['list']);
 
-        $this->services = is_null($this->offer) ? $services : $this->offer->services->merge($services);
+        $this->setServices($services);
+
+        $this->additionalServices = $this->services->pluck('additional')->flatten()->unique('id')->sortBy('name');
 
         $this->calculationPrice();
     }
@@ -117,16 +148,37 @@ class Checkout extends Component
         $this->calculationPrice();
     }
 
+    /**
+     * @param Collection|null $services
+     * @return void
+     */
+    private function setServices(?Collection $services = null): void
+    {
+        $services = $services ?? collect();
+
+        $this->services = is_null($this->offer) ? $services : $this->offer->services->merge($services);
+
+    }
+
+    /**
+     * @return void
+     */
     private function calculateCostServices(): void
     {
         $this->costServices = $this->services->sum('price');
     }
 
-    private function calculateCostAdditionalServices()
+    /**
+     * @return void
+     */
+    private function calculateCostAdditionalServices(): void
     {
         $this->costAdditionalServices = $this->selectedAdditionalServices->sum('price');
     }
 
+    /**
+     * @return void
+     */
     private function calculationPrice(): void
     {
         $this->calculateCostServices();
@@ -142,26 +194,49 @@ class Checkout extends Component
         $this->constTotal = round($sum + $this->taxAmount - $this->discountAmount, 2);
     }
 
-    private function reloadService(Offer $offer)
+    /**
+     * @param Offer|null $offer
+     * @return void
+     */
+    private function reloadService(?Offer $offer)
     {
         $this->offer = $offer->load(['services.additional']);
 
         $this->selectedAdditionalServicesId = [];
 
-        $this->services = $this->offer->services;
+        $this->setServices();
 
-        $this->additionalServices = $this->offer->services->pluck('additional')->flatten()->unique('id')->sortBy('name');
+        $this->additionalServices = $this->services->pluck('additional')->flatten()->unique('id')->sortBy('name');
 
         $this->calculateCostServices();
     }
 
+    private function setStateAddress(State $state): void
+    {
+        $this->city = $state->capital;
 
-    public function render()
+        $this->zip = $state->zip;
+    }
+
+    /**
+     * @return View
+     */
+    public function render(): View
     {
         $offers = Offer::onlyActive()->get();
+        $states = State::onlyActive()->get();
+
+        $default = $states->filter(fn($state) => $state->default)?->first()?->id;
+
+/*        if (!is_null($default)) {
+            $this->state_id = $default;
+            $this->setStateAddress(State::find($this->state_id));
+        }*/
+
 
         return view('main.section.livewire.checkout', [
             'offers' => $offers,
+            'states' => $states,
         ]);
     }
 }

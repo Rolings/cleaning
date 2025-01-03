@@ -53,6 +53,7 @@
     'resources/js/library/jquery.toast.js',
     'resources/js/library/owl.carousel.js',
     'resources/js/library/select2.js',
+    'resources/js/library/flatpickr.js',
     'resources/js/main/main-script.js',
 ])
 @yield('js')

@@ -21,6 +21,7 @@ export default defineConfig({
                 'resources/css/library/query.toast.css',
                 'resources/css/library/jquery.multiselect.css',
                 'resources/css/library/select2.css',
+                'resources/css/library/flatpickr.css',
 
                 'resources/js/library/jquery.js',
                 'resources/js/library/bootstrap.js',
@@ -35,6 +36,7 @@ export default defineConfig({
                 'resources/js/library/tinymce.js',
                 'resources/js/library/jquery.multiselect.js',
                 'resources/js/library/select2.js',
+                'resources/js/library/flatpickr.js',
 
                 // Admin resources
                 'resources/css/admin/portal.css',

@@ -2,22 +2,33 @@
 
 namespace App\Models;
 
+use Dom\Entity;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Order extends Model
 {
     use HasFactory, HasUuids;
 
     protected $fillable = [
+        'offer_id',
+        'state_id',
+        'first_name',
+        'last_name',
         'phone',
         'email',
         'address',
+        'apt_suite',
+        'city',
+        'zip',
         'order_at',
-        'comment'
+        'comment',
+        'is_read',
     ];
 
     protected $casts = [
@@ -25,6 +36,17 @@ class Order extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function offer(): BelongsTo
+    {
+        return $this->belongsTo(Offer::class);
+    }
+
+    public function entity(): BelongsToMany
+    {
+        return $this->belongsToMany(OrderEntity::class);
+
+    }
 
     /**
      * @param Builder $query

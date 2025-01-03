@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class OrderEntity extends Model
 {
@@ -13,4 +14,12 @@ class OrderEntity extends Model
         'entity',
         'entity_id'
     ];
+
+    /**
+     * @return MorphTo
+     */
+    public function entities(): MorphTo
+    {
+        return $this->morphTo(__FUNCTION__, 'entity', 'entity_id');
+    }
 }

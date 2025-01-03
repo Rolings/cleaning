@@ -2241,3 +2241,8 @@ a.btn-round {
 .cursor-pointer {
     cursor: pointer;
 }
+
+.date-time-picker[readonly] {
+    background-color: #fff;
+    opacity: 1;
+}

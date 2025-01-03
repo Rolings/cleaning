@@ -1,0 +1,432 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\State;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class StateSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+
+        $states = [
+            [
+                "name"                => "Alabama",
+                "abbreviation"        => "Ala.",
+                "postal_abbreviation" => "AL",
+                "capital"             => "Montgomery",
+                "zip"                 => "35004-36925",
+                "coordinates"         => [32.366805, -86.299969]
+            ],
+            [
+                "name"                => "Alaska",
+                "abbreviation"        => "Alaska",
+                "postal_abbreviation" => "AK",
+                "capital"             => "Juneau",
+                "zip"                 => "99501-99950",
+                "coordinates"         => [58.301935, -134.419740]
+            ],
+            [
+                "name"                => "Arizona",
+                "abbreviation"        => "Ariz.",
+                "postal_abbreviation" => "AZ",
+                "capital"             => "Phoenix",
+                "zip"                 => "85001-86556",
+                "coordinates"         => [33.448376, -112.074036]
+            ],
+            [
+                "name"                => "Arkansas",
+                "abbreviation"        => "Ark.",
+                "postal_abbreviation" => "AR",
+                "capital"             => "Little Rock",
+                "zip"                 => "71601-72959",
+                "coordinates"         => [34.746481, -92.289595]
+            ],
+            [
+                "name"                => "California",
+                "abbreviation"        => "Calif.",
+                "postal_abbreviation" => "CA",
+                "capital"             => "Sacramento",
+                "zip"                 => "90001-96162",
+                "coordinates"         => [38.581572, -121.494400]
+            ],
+            [
+                "name"                => "Colorado",
+                "abbreviation"        => "Colo.",
+                "postal_abbreviation" => "CO",
+                "capital"             => "Denver",
+                "zip"                 => "80001-81658",
+                "coordinates"         => [39.739236, -104.990251]
+            ],
+            [
+                "name"                => "Connecticut",
+                "abbreviation"        => "Conn.",
+                "postal_abbreviation" => "CT",
+                "capital"             => "Hartford",
+                "zip"                 => "06001-06928",
+                "coordinates"         => [41.765804, -72.673372]
+            ],
+            [
+                "name"                => "Delaware",
+                "abbreviation"        => "Del.",
+                "postal_abbreviation" => "DE",
+                "capital"             => "Dover",
+                "zip"                 => "19701-19980",
+                "coordinates"         => [39.158168, -75.524368]
+            ],
+            [
+                "name"                => "Florida",
+                "abbreviation"        => "Fla.",
+                "postal_abbreviation" => "FL",
+                "capital"             => "Tallahassee",
+                "zip"                 => "32003-34997",
+                "coordinates"         => [30.438256, -84.280733]
+            ],
+            [
+                "name"                => "Georgia",
+                "abbreviation"        => "Ga.",
+                "postal_abbreviation" => "GA",
+                "capital"             => "Atlanta",
+                "zip"                 => "30002-39901",
+                "coordinates"         => [33.749099, -84.390185]
+            ],
+            [
+                'name'                => 'Hawaii',
+                'abbreviation'        => 'Hawaii',
+                'postal_abbreviation' => 'HI',
+                'capital'             => 'Honolulu',
+                'zip'                 => '96801',
+                'coordinates'         => [21.307, -157.858],
+            ],
+            [
+                'name'                => 'Idaho',
+                'abbreviation'        => 'Idaho',
+                'postal_abbreviation' => 'ID',
+                'capital'             => 'Boise',
+                'zip'                 => '83701',
+                'coordinates'         => [43.615, -116.202],
+            ],
+            [
+                'name'                => 'Illinois',
+                'abbreviation'        => 'Ill.',
+                'postal_abbreviation' => 'IL',
+                'capital'             => 'Springfield',
+                'zip'                 => '62701',
+                'coordinates'         => [39.798, -89.644],
+            ],
+            [
+                'name'                => 'Indiana',
+                'abbreviation'        => 'Ind.',
+                'postal_abbreviation' => 'IN',
+                'capital'             => 'Indianapolis',
+                'zip'                 => '46201',
+                'coordinates'         => [39.768, -86.158],
+            ],
+            [
+                'name'                => 'Iowa',
+                'abbreviation'        => 'Iowa',
+                'postal_abbreviation' => 'IA',
+                'capital'             => 'Des Moines',
+                'zip'                 => '50301',
+                'coordinates'         => [41.591, -93.603],
+            ],
+            [
+                'name'                => 'Kansas',
+                'abbreviation'        => 'Kan.',
+                'postal_abbreviation' => 'KS',
+                'capital'             => 'Topeka',
+                'zip'                 => '66601',
+                'coordinates'         => [39.048, -95.678],
+            ],
+            [
+                'name'                => 'Kentucky',
+                'abbreviation'        => 'Ky.',
+                'postal_abbreviation' => 'KY',
+                'capital'             => 'Frankfort',
+                'zip'                 => '40601',
+                'coordinates'         => [38.197, -84.863],
+            ],
+            [
+                'name'                => 'Louisiana',
+                'abbreviation'        => 'La.',
+                'postal_abbreviation' => 'LA',
+                'capital'             => 'Baton Rouge',
+                'zip'                 => '70801',
+                'coordinates'         => [30.451, -91.187],
+            ],
+            [
+                'name'                => 'Maine',
+                'abbreviation'        => 'Maine',
+                'postal_abbreviation' => 'ME',
+                'capital'             => 'Augusta',
+                'zip'                 => '04330',
+                'coordinates'         => [44.310, -69.779],
+            ],
+            [
+                'name'                => 'Maryland',
+                'abbreviation'        => 'Md.',
+                'postal_abbreviation' => 'MD',
+                'capital'             => 'Annapolis',
+                'zip'                 => '21401',
+                'coordinates'         => [38.978, -76.492],
+            ],
+            [
+                'name'                => 'Massachusetts',
+                'abbreviation'        => 'Mass.',
+                'postal_abbreviation' => 'MA',
+                'capital'             => 'Boston',
+                'zip'                 => '02108',
+                'coordinates'         => [42.3601, -71.0589],
+            ],
+            [
+                'name'                => 'Michigan',
+                'abbreviation'        => 'Mich.',
+                'postal_abbreviation' => 'MI',
+                'capital'             => 'Lansing',
+                'zip'                 => '48901',
+                'coordinates'         => [42.7325, -84.5555],
+            ],
+            [
+                'name'                => 'Minnesota',
+                'abbreviation'        => 'Minn.',
+                'postal_abbreviation' => 'MN',
+                'capital'             => 'Saint Paul',
+                'zip'                 => '55101',
+                'coordinates'         => [44.9537, -93.09],
+            ],
+            [
+                'name'                => 'Mississippi',
+                'abbreviation'        => 'Miss.',
+                'postal_abbreviation' => 'MS',
+                'capital'             => 'Jackson',
+                'zip'                 => '39201',
+                'coordinates'         => [32.2988, -90.1848],
+            ],
+            [
+                'name'                => 'Missouri',
+                'abbreviation'        => 'Mo.',
+                'postal_abbreviation' => 'MO',
+                'capital'             => 'Jefferson City',
+                'zip'                 => '65101',
+                'coordinates'         => [38.5767, -92.1735],
+            ],
+            [
+                'name'                => 'Montana',
+                'abbreviation'        => 'Mont.',
+                'postal_abbreviation' => 'MT',
+                'capital'             => 'Helena',
+                'zip'                 => '59601',
+                'coordinates'         => [46.5891, -112.0391],
+            ],
+            [
+                'name'                => 'Nebraska',
+                'abbreviation'        => 'Nebr.',
+                'postal_abbreviation' => 'NE',
+                'capital'             => 'Lincoln',
+                'zip'                 => '68501',
+                'coordinates'         => [40.8136, -96.7026],
+            ],
+            [
+                'name'                => 'Nevada',
+                'abbreviation'        => 'Nev.',
+                'postal_abbreviation' => 'NV',
+                'capital'             => 'Carson City',
+                'zip'                 => '89701',
+                'coordinates'         => [39.1638, -119.7674],
+            ],
+            [
+                'name'                => 'New Hampshire',
+                'abbreviation'        => 'N.H.',
+                'postal_abbreviation' => 'NH',
+                'capital'             => 'Concord',
+                'zip'                 => '03301',
+                'coordinates'         => [43.2081, -71.5376],
+            ],
+            [
+                'name'                => 'New Jersey',
+                'abbreviation'        => 'N.J.',
+                'postal_abbreviation' => 'NJ',
+                'capital'             => 'Trenton',
+                'zip'                 => '08601',
+                'coordinates'         => [40.2206, -74.7597],
+            ],
+            [
+                'name'                => 'New Mexico',
+                'abbreviation'        => 'N.M.',
+                'postal_abbreviation' => 'NM',
+                'capital'             => 'Santa Fe',
+                'zip'                 => '87501',
+                'coordinates'         => [35.687, -105.937],
+            ],
+            [
+                'name'                => 'New York',
+                'abbreviation'        => 'N.Y.',
+                'postal_abbreviation' => 'NY',
+                'capital'             => 'Albany',
+                'zip'                 => '12201',
+                'coordinates'         => [42.6526, -73.7562],
+            ],
+            [
+                'name'                => 'North Carolina',
+                'abbreviation'        => 'N.C.',
+                'postal_abbreviation' => 'NC',
+                'capital'             => 'Raleigh',
+                'zip'                 => '27601',
+                'coordinates'         => [35.7796, -78.6382],
+            ],
+            [
+                'name'                => 'North Dakota',
+                'abbreviation'        => 'N.D.',
+                'postal_abbreviation' => 'ND',
+                'capital'             => 'Bismarck',
+                'zip'                 => '58501',
+                'coordinates'         => [46.8083, -100.7837],
+            ],
+            [
+                'name'                => 'Ohio',
+                'abbreviation'        => 'Ohio',
+                'postal_abbreviation' => 'OH',
+                'capital'             => 'Columbus',
+                'zip'                 => '43215',
+                'coordinates'         => [39.9612, -82.9988],
+            ],
+            [
+                'name'                => 'Oklahoma',
+                'abbreviation'        => 'Okla.',
+                'postal_abbreviation' => 'OK',
+                'capital'             => 'Oklahoma City',
+                'zip'                 => '73102',
+                'coordinates'         => [35.4676, -97.5164],
+            ],
+            [
+                'name'                => 'Oregon',
+                'abbreviation'        => 'Ore.',
+                'postal_abbreviation' => 'OR',
+                'capital'             => 'Salem',
+                'zip'                 => '97301',
+                'coordinates'         => [44.9429, -123.0351],
+            ],
+            [
+                'name'                => 'Pennsylvania',
+                'abbreviation'        => 'Pa.',
+                'postal_abbreviation' => 'PA',
+                'capital'             => 'Harrisburg',
+                'zip'                 => '17101',
+                'coordinates'         => [40.2732, -76.8867],
+            ],
+            [
+                'name'                => 'Rhode Island',
+                'abbreviation'        => 'R.I.',
+                'postal_abbreviation' => 'RI',
+                'capital'             => 'Providence',
+                'zip'                 => '02901',
+                'coordinates'         => [41.824, -71.4128],
+            ],
+            [
+                'name'                => 'South Carolina',
+                'abbreviation'        => 'S.C.',
+                'postal_abbreviation' => 'SC',
+                'capital'             => 'Columbia',
+                'zip'                 => '29201',
+                'coordinates'         => [34.0007, -81.0348],
+            ],
+            [
+                'name'                => 'South Dakota',
+                'abbreviation'        => 'S.D.',
+                'postal_abbreviation' => 'SD',
+                'capital'             => 'Pierre',
+                'zip'                 => '57501',
+                'coordinates'         => [44.3683, -100.351],
+            ],
+            [
+                'name'                => 'Tennessee',
+                'abbreviation'        => 'Tenn.',
+                'postal_abbreviation' => 'TN',
+                'capital'             => 'Nashville',
+                'zip'                 => '37201',
+                'coordinates'         => [36.1627, -86.7816],
+            ],
+            [
+                'name'                => 'Texas',
+                'abbreviation'        => 'Tex.',
+                'postal_abbreviation' => 'TX',
+                'capital'             => 'Austin',
+                'zip'                 => '73301',
+                'coordinates'         => [30.2672, -97.7431],
+            ],
+            [
+                'name'                => 'Utah',
+                'abbreviation'        => 'Utah',
+                'postal_abbreviation' => 'UT',
+                'capital'             => 'Salt Lake City',
+                'zip'                 => '84101',
+                'coordinates'         => [40.7608, -111.891],
+            ],
+            [
+                'name'                => 'Vermont',
+                'abbreviation'        => 'Vt.',
+                'postal_abbreviation' => 'VT',
+                'capital'             => 'Montpelier',
+                'zip'                 => '05602',
+                'coordinates'         => [44.2601, -72.5754],
+            ],
+            [
+                'name'                => 'Virginia',
+                'abbreviation'        => 'Va.',
+                'postal_abbreviation' => 'VA',
+                'capital'             => 'Richmond',
+                'zip'                 => '23218',
+                'coordinates'         => [37.5407, -77.436],
+            ],
+            [
+                'name'                => 'Washington',
+                'abbreviation'        => 'Wash.',
+                'postal_abbreviation' => 'WA',
+                'capital'             => 'Olympia',
+                'zip'                 => '98501',
+                'coordinates'         => [47.0379, -122.9007],
+            ],
+            [
+                'name'                => 'West Virginia',
+                'abbreviation'        => 'W.Va.',
+                'postal_abbreviation' => 'WV',
+                'capital'             => 'Charleston',
+                'zip'                 => '25301',
+                'coordinates'         => [38.3498, -81.6326],
+            ],
+            [
+                'name'                => 'Wisconsin',
+                'abbreviation'        => 'Wis.',
+                'postal_abbreviation' => 'WI',
+                'capital'             => 'Madison',
+                'zip'                 => '53703',
+                'coordinates'         => [43.0731, -89.4012],
+            ],
+            [
+                'name'                => 'Wyoming',
+                'abbreviation'        => 'Wyo.',
+                'postal_abbreviation' => 'WY',
+                'capital'             => 'Cheyenne',
+                'zip'                 => '82001',
+                'coordinates'         => [41.1399, -104.8202],
+            ],
+        ];
+
+        collect($states)->each(function ($state) {
+            State::create([
+                'name'                => $state['name'],
+                'abbreviation'        => $state['abbreviation'],
+                'postal_abbreviation' => $state['postal_abbreviation'],
+                'capital'             => $state['capital'],
+                'zip'                 => $state['zip'],
+                'latitude'            => $state['coordinates'][0],
+                'longitude'           => $state['coordinates'][1],
+            ]);
+        });
+    }
+}

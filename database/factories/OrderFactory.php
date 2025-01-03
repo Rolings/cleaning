@@ -24,13 +24,16 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
+            'state_id'   => fake()->numberBetween(1, 50),
+            'first_name' => fake()->firstName(),
+            'last_name'  => fake()->firstName(),
             'phone'      => fake()->unique()->phoneNumber(),
             'email'      => fake()->unique()->email(),
             'address'    => fake()->address(),
             'order_at'   => fake()->dateTimeBetween(now()->subDays(365), now()),
             'comment'    => fake()->text(),
             'created_at' => fake()->dateTimeBetween(now()->subDays(365), now()),
-            'is_read'    => rand(0,1) == 1,
+            'is_read'    => rand(0, 1) == 1,
         ];
     }
 }

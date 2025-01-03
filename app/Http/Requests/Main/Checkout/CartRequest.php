@@ -4,7 +4,7 @@ namespace App\Http\Requests\Main\Checkout;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexCheckout extends FormRequest
+class CartRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class IndexCheckout extends FormRequest
             $this->merge([
                 'first_name' => $fullName[0],
                 'last_name'  => $fullName[1] ?? '',
-                'phone'      => $this->input('phone')
+                'order_at'      => $this->input('phone')
             ]);
         }
     }
@@ -35,13 +35,13 @@ class IndexCheckout extends FormRequest
     public function rules(): array
     {
         return [
-            'name'        => ['sometimes', 'nullable', 'string'],
-            'first_name'  => ['sometimes', 'nullable', 'string'],
-            'last_name'   => ['sometimes', 'nullable', 'string'],
-            'offer_id'    => ['sometimes', 'nullable', 'integer', 'exists:offers,id'],
-            'phone'       => ['sometimes', 'nullable'],
-           // 'phone'       => ['sometimes', 'nullable', 'regex:/^(?:\+1\s?)?(\(\d{3}\)|\d{3})([\s.-]?)\d{3}([\s.-]?)\d{4}$/'],
-            'description' => ['sometimes', 'nullable', 'string'],
+            'name'       => ['sometimes', 'nullable', 'string'],
+            'first_name' => ['sometimes', 'nullable', 'string'],
+            'last_name'  => ['sometimes', 'nullable', 'string'],
+            'offer_id'   => ['sometimes', 'nullable', 'integer', 'exists:offers,id'],
+            'phone'      => ['sometimes', 'nullable'],
+            // 'phone'       => ['sometimes', 'nullable', 'regex:/^(?:\+1\s?)?(\(\d{3}\)|\d{3})([\s.-]?)\d{3}([\s.-]?)\d{4}$/'],
+            'comment'    => ['sometimes', 'nullable', 'string'],
         ];
     }
 }

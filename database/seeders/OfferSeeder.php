@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 use App\Models\{Service, Offer};
 
 class OfferSeeder extends Seeder
@@ -14,6 +15,13 @@ class OfferSeeder extends Seeder
     public function run(): void
     {
         $services = Service::onlyActive()->get();
+
+        Offer::create([
+            'name'        => 'Custom cleaning',
+            'slug'        => Str::slug('Custom cleaning'),
+            'description' => '',
+            'active'      => true
+        ]);
 
         Offer::factory()->count(5)->create()->each(function ($offer) use ($services) {
             $offer->services()->attach(

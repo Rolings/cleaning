@@ -29,5 +29,6 @@ Route::middleware(MetaDataMiddleware::class)->group(function () {
     Route::resource('terms-condition', TermsConditionController::class)->only(['index']);
     Route::resource('cookies', CookiesController::class)->only(['index']);
 
-    Route::match(['get', 'post'], 'checkout', [CheckoutController::class, 'index'])->name('checkout');
+    Route::match(['get', 'post'], 'cart', [CheckoutController::class, 'index'])->name('cart');
+    Route::post('checkout', [CheckoutController::class, 'checkout'])->name('checkout');
 });
