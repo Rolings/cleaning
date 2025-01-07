@@ -226,14 +226,6 @@ class Checkout extends Component
         $offers = Offer::onlyActive()->get();
         $states = State::onlyActive()->get();
 
-        $default = $states->filter(fn($state) => $state->default)?->first()?->id;
-
-/*        if (!is_null($default)) {
-            $this->state_id = $default;
-            $this->setStateAddress(State::find($this->state_id));
-        }*/
-
-
         return view('main.section.livewire.checkout', [
             'offers' => $offers,
             'states' => $states,

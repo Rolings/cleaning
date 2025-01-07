@@ -26,89 +26,64 @@
                 </div><!--//row-->
 
                 <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
-                    <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">All</a>
-                    <a class="flex-sm-fill text-sm-center nav-link"  id="orders-paid-tab" data-bs-toggle="tab" href="#orders-paid" role="tab" aria-controls="orders-paid" aria-selected="false">Paid</a>
-                    <a class="flex-sm-fill text-sm-center nav-link" id="orders-pending-tab" data-bs-toggle="tab" href="#orders-pending" role="tab" aria-controls="orders-pending" aria-selected="false">Pending</a>
-                    <a class="flex-sm-fill text-sm-center nav-link" id="orders-cancelled-tab" data-bs-toggle="tab" href="#orders-cancelled" role="tab" aria-controls="orders-cancelled" aria-selected="false">Cancelled</a>
+                    <a class="flex-sm-fill text-sm-center nav-link @if(request()->route()->named('admin.orders.index')) active @endif" id="orders-all-tab" href="{{ route('admin.orders.index') }}"
+                       role="tab">Всі</a>
+                    <a class="flex-sm-fill text-sm-center nav-link @if(request()->route()->named('admin.orders.index.new')) active @endif" id="orders-new-tab" href="{{ route('admin.orders.index.new') }}"
+                       role="tab">Нові</a>
+                    <a class="flex-sm-fill text-sm-center nav-link @if(request()->route()->named('admin.orders.index.read')) active @endif" id="orders-read-tab" href="{{ route('admin.orders.index.read') }}"
+                       role="tab">Прочитані</a>
                 </nav>
 
 
                 <div class="tab-content" id="orders-table-tab-content">
-                    <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+                    <div class="tab-pane fade @if(request()->route()->named('admin.orders.index')) show active @endif" id="orders-all" role="tabpanel">
                         <div class="app-card app-card-orders-table shadow-sm mb-5">
                             <div class="app-card-body">
                                 <div class="table-responsive">
                                     <table class="table app-table-hover mb-0 text-left">
                                         <thead>
                                         <tr>
-                                            <th class="cell">Order</th>
-                                            <th class="cell">Product</th>
-                                            <th class="cell">Customer</th>
-                                            <th class="cell">Date</th>
-                                            <th class="cell">Status</th>
-                                            <th class="cell">Total</th>
-                                            <th class="cell"></th>
+                                            <th class="cell">#</th>
+                                            <th class="cell">Ім'я клієнта</th>
+                                            <th class="cell">Дата</th>
+                                            <th class="cell">Статус</th>
+                                            <th class="cell" colspan="2"></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td class="cell">#15346</td>
-                                            <td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget volutpat erat</span></td>
-                                            <td class="cell">John Sanders</td>
-                                            <td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span></td>
-                                            <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                            <td class="cell">$259.35</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="cell">#15345</td>
-                                            <td class="cell"><span class="truncate">Consectetur adipiscing elit</span></td>
-                                            <td class="cell">Dylan Ambrose</td>
-                                            <td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
-                                            <td class="cell"><span class="badge bg-warning">Pending</span></td>
-                                            <td class="cell">$96.20</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="cell">#15344</td>
-                                            <td class="cell"><span class="truncate">Pellentesque diam imperdiet</span></td>
-                                            <td class="cell">Teresa Holland</td>
-                                            <td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
-                                            <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                            <td class="cell">$123.00</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="cell">#15343</td>
-                                            <td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed mollis ipsum</span></td>
-                                            <td class="cell">Jayden Massey</td>
-                                            <td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
-                                            <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                            <td class="cell">$199.00</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="cell">#15342</td>
-                                            <td class="cell"><span class="truncate">Justo feugiat neque</span></td>
-                                            <td class="cell">Reina Brooks</td>
-                                            <td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
-                                            <td class="cell"><span class="badge bg-danger">Cancelled</span></td>
-                                            <td class="cell">$59.00</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="cell">#15341</td>
-                                            <td class="cell"><span class="truncate">Morbi vulputate lacinia neque et sollicitudin</span></td>
-                                            <td class="cell">Raymond Atkins</td>
-                                            <td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
-                                            <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                            <td class="cell">$678.26</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                        </tr>
-
+                                        @foreach($items as $item)
+                                            <tr>
+                                                <td class="cell"># {{ $item->id }}</td>
+                                                <td class="cell"><span class="truncate">{{ $item->name }}</span></td>
+                                                <td class="cell"><span>{{ $item->created_at->format('F d Y') }}</span><span class="note">{{ $item->created_at->format(' h:i A') }}</span></td>
+                                                <td class="cell">
+                                                    @if($item->is_read)
+                                                        <span class="badge bg-success">Прочитано</span>
+                                                    @else
+                                                        <span class="badge bg-warning">Нове</span>
+                                                    @endif
+                                                </td>
+                                                <td class="cell">
+                                                    <span class="btn-sm app-btn-secondary cursor-pointer show-order" data-action="{{ route('admin.orders.show',$item) }}"
+                                                          data-id="{{ $item->id }}">    Деталі</span>
+                                                </td>
+                                                <td class="cell">
+                                                    {{ html()->form('delete')->route('admin.orders.destroy', $item)->open() }}
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="dropdown-item">
+                                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash me-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                            <path fill-rule="evenodd"
+                                                                  d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                        </svg>
+                                                        Видалити
+                                                    </button>
+                                                    {{ html()->form()->close() }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div><!--//table-responsive-->
@@ -116,156 +91,183 @@
                             </div><!--//app-card-body-->
                         </div><!--//app-card-->
                         <nav class="app-pagination">
-                            <ul class="pagination justify-content-center">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                </li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
-                            </ul>
+                            {{ $items->withQueryString()->links("admin.section.pagination") }}
                         </nav><!--//app-pagination-->
-
                     </div><!--//tab-pane-->
 
-                    <div class="tab-pane fade" id="orders-paid" role="tabpanel" aria-labelledby="orders-paid-tab">
-                        <div class="app-card app-card-orders-table mb-5">
+                    <div class="tab-pane fade @if(request()->route()->named('admin.orders.index.new')) show active @endif" id="orders-new" role="tabpanel">
+                        <div class="app-card app-card-orders-table shadow-sm mb-5">
                             <div class="app-card-body">
                                 <div class="table-responsive">
-
-                                    <table class="table mb-0 text-left">
+                                    <table class="table app-table-hover mb-0 text-left">
                                         <thead>
                                         <tr>
-                                            <th class="cell">Order</th>
-                                            <th class="cell">Product</th>
-                                            <th class="cell">Customer</th>
-                                            <th class="cell">Date</th>
-                                            <th class="cell">Status</th>
-                                            <th class="cell">Total</th>
-                                            <th class="cell"></th>
+                                            <th class="cell">#</th>
+                                            <th class="cell">Ім'я клієнта</th>
+                                            <th class="cell">Дата</th>
+                                            <th class="cell">Статус</th>
+                                            <th class="cell" colspan="2"></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td class="cell">#15346</td>
-                                            <td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget volutpat erat</span></td>
-                                            <td class="cell">John Sanders</td>
-                                            <td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span></td>
-                                            <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                            <td class="cell">$259.35</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="cell">#15344</td>
-                                            <td class="cell"><span class="truncate">Pellentesque diam imperdiet</span></td>
-                                            <td class="cell">Teresa Holland</td>
-                                            <td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
-                                            <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                            <td class="cell">$123.00</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="cell">#15343</td>
-                                            <td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed mollis ipsum</span></td>
-                                            <td class="cell">Jayden Massey</td>
-                                            <td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
-                                            <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                            <td class="cell">$199.00</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td class="cell">#15341</td>
-                                            <td class="cell"><span class="truncate">Morbi vulputate lacinia neque et sollicitudin</span></td>
-                                            <td class="cell">Raymond Atkins</td>
-                                            <td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
-                                            <td class="cell"><span class="badge bg-success">Paid</span></td>
-                                            <td class="cell">$678.26</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                        </tr>
-
+                                        @foreach($items as $item)
+                                            <tr>
+                                                <td class="cell"># {{ $item->id }}</td>
+                                                <td class="cell"><span class="truncate">{{ $item->name }}</span></td>
+                                                <td class="cell"><span>{{ $item->created_at->format('F d Y') }}</span><span class="note">{{ $item->created_at->format(' h:i A') }}</span></td>
+                                                <td class="cell">
+                                                    @if($item->is_read)
+                                                        <span class="badge bg-success">Прочитано</span>
+                                                    @else
+                                                        <span class="badge bg-warning">Нове</span>
+                                                    @endif
+                                                </td>
+                                                <td class="cell">
+                                                    <span class="btn-sm app-btn-secondary cursor-pointer show-order" data-action="{{ route('admin.orders.show',$item) }}"
+                                                          data-id="{{ $item->id }}">Деталі</span>
+                                                </td>
+                                                <td class="cell">
+                                                    {{ html()->form('delete')->route('admin.orders.destroy', [$item,'new'])->open() }}
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="dropdown-item">
+                                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash me-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                            <path fill-rule="evenodd"
+                                                                  d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                        </svg>
+                                                        Видалити
+                                                    </button>
+                                                    {{ html()->form()->close() }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div><!--//table-responsive-->
+
                             </div><!--//app-card-body-->
                         </div><!--//app-card-->
+                        <nav class="app-pagination">
+                            {{ $items->withQueryString()->links("admin.section.pagination") }}
+                        </nav><!--//app-pagination-->
                     </div><!--//tab-pane-->
 
-                    <div class="tab-pane fade" id="orders-pending" role="tabpanel" aria-labelledby="orders-pending-tab">
-                        <div class="app-card app-card-orders-table mb-5">
+                    <div class="tab-pane fade @if(request()->route()->named('admin.orders.index.read')) show active @endif" id="orders-read" role="tabpanel">
+                        <div class="app-card app-card-orders-table shadow-sm mb-5">
                             <div class="app-card-body">
                                 <div class="table-responsive">
-                                    <table class="table mb-0 text-left">
+                                    <table class="table app-table-hover mb-0 text-left">
                                         <thead>
                                         <tr>
-                                            <th class="cell">Order</th>
-                                            <th class="cell">Product</th>
-                                            <th class="cell">Customer</th>
-                                            <th class="cell">Date</th>
-                                            <th class="cell">Status</th>
-                                            <th class="cell">Total</th>
-                                            <th class="cell"></th>
+                                            <th class="cell">#</th>
+                                            <th class="cell">Ім'я клієнта</th>
+                                            <th class="cell">Дата</th>
+                                            <th class="cell">Статус</th>
+                                            <th class="cell" colspan="2"></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td class="cell">#15345</td>
-                                            <td class="cell"><span class="truncate">Consectetur adipiscing elit</span></td>
-                                            <td class="cell">Dylan Ambrose</td>
-                                            <td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
-                                            <td class="cell"><span class="badge bg-warning">Pending</span></td>
-                                            <td class="cell">$96.20</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                        </tr>
+                                        @foreach($items as $item)
+                                            <tr>
+                                                <td class="cell"># {{ $item->id }}</td>
+                                                <td class="cell"><span class="truncate">{{ $item->name }}</span></td>
+                                                <td class="cell"><span>{{ $item->created_at->format('F d Y') }}</span><span class="note">{{ $item->created_at->format(' h:i A') }}</span></td>
+                                                <td class="cell">
+                                                    @if($item->is_read)
+                                                        <span class="badge bg-success">Прочитано</span>
+                                                    @else
+                                                        <span class="badge bg-warning">Нове</span>
+                                                    @endif
+                                                </td>
+                                                <td class="cell">
+                                                    <span class="btn-sm app-btn-secondary cursor-pointer show-order" data-action="{{ route('admin.orders.show',$item) }}"
+                                                          data-id="{{ $item->id }}">    Деталі</span>
+                                                </td>
+                                                <td class="cell">
+                                                    {{ html()->form('delete')->route('admin.orders.destroy',[$item,'read'])->open() }}
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="dropdown-item">
+                                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash me-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                            <path fill-rule="evenodd"
+                                                                  d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                        </svg>
+                                                        Видалити
+                                                    </button>
+                                                    {{ html()->form()->close() }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div><!--//table-responsive-->
+
                             </div><!--//app-card-body-->
                         </div><!--//app-card-->
+                        <nav class="app-pagination">
+                            {{ $items->withQueryString()->links("admin.section.pagination") }}
+                        </nav><!--//app-pagination-->
                     </div><!--//tab-pane-->
-                    <div class="tab-pane fade" id="orders-cancelled" role="tabpanel" aria-labelledby="orders-cancelled-tab">
-                        <div class="app-card app-card-orders-table mb-5">
-                            <div class="app-card-body">
-                                <div class="table-responsive">
-                                    <table class="table mb-0 text-left">
-                                        <thead>
-                                        <tr>
-                                            <th class="cell">Order</th>
-                                            <th class="cell">Product</th>
-                                            <th class="cell">Customer</th>
-                                            <th class="cell">Date</th>
-                                            <th class="cell">Status</th>
-                                            <th class="cell">Total</th>
-                                            <th class="cell"></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
 
-                                        <tr>
-                                            <td class="cell">#15342</td>
-                                            <td class="cell"><span class="truncate">Justo feugiat neque</span></td>
-                                            <td class="cell">Reina Brooks</td>
-                                            <td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
-                                            <td class="cell"><span class="badge bg-danger">Cancelled</span></td>
-                                            <td class="cell">$59.00</td>
-                                            <td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-                                        </tr>
 
-                                        </tbody>
-                                    </table>
-                                </div><!--//table-responsive-->
-                            </div><!--//app-card-body-->
-                        </div><!--//app-card-->
-                    </div><!--//tab-pane-->
                 </div><!--//tab-content-->
 
             </div><!--//container-fluid-->
         </div><!--//app-content-->
     </div>
+    @include('admin.orders.include.show-modal')
+@endsection
+
+@section('js')
+    <script>
+        window.onload = () => {
+            var modal = $("#orderShow");
+            $(".show-order").on('click', function () {
+                $.get($(this).attr('data-action'), function (data, status) {
+                    modal.find(".order-data-id").html(data.data.id)
+                    modal.find(".order-data-name").html(data.data.first_name+' '+data.data.last_name)
+                    modal.find(".order-data-phone").html(data.data.phone)
+                    modal.find(".order-data-email").html(data.data.email)
+                    modal.find(".order-data-time").html(data.data.created_at)
+                    modal.find(".order-data-time-checkout").html(data.data.order_at)
+                    modal.find(".order-data-address").html(data.data.address)
+                    modal.find(".order-data-offer-name").html(data.data.offer.name)
+
+                    let services = data.data.services[0];
+                    let additionalServices = data.data.services[1];
+
+                    for(let n in services){
+                        modal.find(".js-services-list").append('<span class="m-1 badge bg-primary">'+services[n].name+'</span>')
+                    }
+
+                    for(let m in additionalServices){
+                        modal.find(".js-additional-services-list").append('<span class="m-1 badge bg-success">'+additionalServices[m].name+'</span>')
+                    }
+
+                    //modal.find(".callback-data-description").html(data.data.comment)
+                    modal.modal('show')
+                });
+            });
+
+            document.getElementById('orderShow').addEventListener('hide.bs.modal', function (event) {
+                window.location.reload();
+            })
+            $(".copy").on('click', function () {
+                var range = document.createRange();
+                range.selectNode(document.querySelector('.'+$(this).attr('data-copy-field')));
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(range);
+                document.execCommand("copy");
+                window.getSelection().removeAllRanges();
+                $(this).css('background-color', '#99f3b4');
+                setTimeout(() => {
+                    $(this).css('background-color', '#ffffff');
+                }, 1000)
+            })
+        }
+    </script>
 @endsection

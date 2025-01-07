@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Order extends Model
@@ -37,15 +39,29 @@ class Order extends Model
         'updated_at' => 'datetime',
     ];
 
+
+    /**
+     * @return BelongsTo
+     */
     public function offer(): BelongsTo
     {
         return $this->belongsTo(Offer::class);
     }
 
-    public function entity(): BelongsToMany
+    /***
+     * @return HasOne
+     */
+    public function state(): HasOne
     {
-        return $this->belongsToMany(OrderEntity::class);
+        return $this->hasOne(State::class, 'id', 'state_id');
+    }
 
+    /**
+     * @return HasMany
+     */
+    public function entities(): HasMany
+    {
+        return $this->hasMany(OrderEntity::class, 'order_id', 'id');
     }
 
     /**

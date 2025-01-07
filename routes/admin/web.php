@@ -31,11 +31,19 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('destroy/{callback}/{option?}', [CallbackController::class, 'destroy'])->name('destroy');
     });
 
+    Route::prefix('orders')->name('orders.')->group(function () {
+        Route::get('/', [OrderController::class, 'index'])->name('index');
+        Route::get('/new', [OrderController::class, 'index'])->name('index.new');
+        Route::get('/read', [OrderController::class, 'index'])->name('index.read');
+        Route::get('show/{order}', [OrderController::class, 'show'])->name('show');
+        Route::delete('destroy/{order}/{option?}', [OrderController::class, 'destroy'])->name('destroy');
+    });
+
     Route::resource('admins', AdminController::class);
     Route::resource('clients', ClientController::class);
     Route::resource ('employees', EmployeesController::class);
 
-    Route::resource('orders', OrderController::class);
+  //  Route::resource('orders', OrderController::class);
     Route::resource('offers', OfferController::class);
     Route::resource('history', HistoryController::class);
     Route::resource('services', ServiceController::class);

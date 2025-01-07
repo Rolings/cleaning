@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Main\Checkout;
 
+use App\Models\AdditionalService;
+use App\Models\Service;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
 
@@ -18,7 +20,9 @@ class CheckoutRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'order_at' => Carbon::parse($this->order_at),
+            'order_at'            => Carbon::parse($this->order_at),
+            'services'            => Service::find(json_decode($this->services_id)),
+            'additional_services' => AdditionalService::find(json_decode($this->additional_services_id))
         ]);
     }
 
@@ -42,7 +46,9 @@ class CheckoutRequest extends FormRequest
             'order_at'               => ['required'],
             'offer_id'               => ['required', 'integer', 'exists:offers,id'],
             'services_id'            => ['required', 'nullable', 'string',],
+            'services'               => ['sometimes', 'nullable'],
             'additional_services_id' => ['required', 'nullable', 'string',],
+            'additional_services'    => ['sometimes', 'nullable',],
             'comment'                => ['sometimes', 'nullable', 'string'],
         ];
     }

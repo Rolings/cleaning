@@ -23,7 +23,9 @@ class CallbackController extends Controller
         })->when($request->has('search'), function ($query) use ($request) {
             return $query->where('name', 'like', '%' . $request->get('search') . '%')
                 ->orWhere('phone', 'like', '%' . $request->get('search') . '%');
-        })->orderByDesc('created_at')->paginate(10);
+        })
+            ->orderByDesc('created_at')
+            ->paginate(10);
 
         return view('admin.callbacks.index', [
             'items' => $callbacks

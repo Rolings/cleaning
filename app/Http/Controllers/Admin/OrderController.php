@@ -6,15 +6,32 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Order\StoreOrderRequest;
 use App\Http\Requests\Admin\Order\UpdateOrderRequest;
 use App\Models\Order;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Admin\Order\ShowResource;
 
 class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.orders.index');
+        $orders = Order::when($request->route()->named('admin.orders.index.new'), function ($query) use ($request) {
+            return $query->unread();
+        })->when($request->route()->named('admin.orders.index.read'), function ($query) use ($request) {
+            return $query->read();
+        })->when($request->has('search'), function ($query) use ($request) {
+            return $query->where('name', 'like', '%' . $request->get('search') . '%')
+                ->orWhere('phone', 'like', '%' . $request->get('search') . '%');
+        })
+            ->orderByDesc('created_at')
+            ->paginate(10);
+
+
+        return view('admin.orders.index', [
+            'items' => $orders,
+        ]);
     }
 
     /**
@@ -36,9 +53,13 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Order $order)
+    public function show(Order $order): JsonResource
     {
-        //
+        $order->update(['is_read' => true]);
+
+        $order->load(['offer', 'state', 'entities.entity']);
+
+        return new ShowResource($order);
     }
 
     /**
