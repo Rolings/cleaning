@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Order\StoreOrderRequest;
 use App\Http\Requests\Admin\Order\UpdateOrderRequest;
+use App\Models\Offer;
 use App\Models\Order;
+use App\Models\State;
+use App\Models\Service;
+use App\Models\AdditionalService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Admin\Order\ShowResource;
@@ -28,7 +32,6 @@ class OrderController extends Controller
             ->orderByDesc('created_at')
             ->paginate(10);
 
-
         return view('admin.orders.index', [
             'items' => $orders,
         ]);
@@ -39,7 +42,17 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        $states = State::onlyActive()->get();
+        $offers = Offer::onlyActive()->get();
+        $services = Service::onlyActive()->get();
+        $additionalServices = AdditionalService::onlyActive()->get();
+
+        return view('admin.orders.create', [
+            'states'                     => $states,
+            'offers'                     => $offers,
+            'services'                   => $services,
+            'additionalServices'         => $additionalServices,
+        ]);
     }
 
     /**
@@ -67,7 +80,28 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        //
+        $order->load(['offer', 'state', 'entities.entity']);
+
+        [$selectedServices, $selectedAdditionalServices] = $order
+            ->entities
+            ->map(fn($items) => $items->entity)
+            ->partition(fn($items) => $items instanceof Service);
+
+
+        $states = State::onlyActive()->get();
+        $offers = Offer::onlyActive()->get();
+        $services = Service::onlyActive()->get();
+        $additionalServices = AdditionalService::onlyActive()->get();
+
+        return view('admin.orders.edit', [
+            'item'                       => $order,
+            'states'                     => $states,
+            'offers'                     => $offers,
+            'services'                   => $services,
+            'additionalServices'         => $additionalServices,
+            'selectedServices'           => $selectedServices,
+            'selectedAdditionalServices' => $selectedAdditionalServices
+        ]);
     }
 
     /**
@@ -83,6 +117,8 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        $order->delete();
+
+        return redirect()->route('admin.orders.index');
     }
 }

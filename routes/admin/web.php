@@ -35,7 +35,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('index');
         Route::get('/new', [OrderController::class, 'index'])->name('index.new');
         Route::get('/read', [OrderController::class, 'index'])->name('index.read');
+        Route::get('create', [OrderController::class, 'create'])->name('create');
+        Route::post('store', [OrderController::class, 'store'])->name('store');
         Route::get('show/{order}', [OrderController::class, 'show'])->name('show');
+        Route::get('edit/{order}', [OrderController::class, 'edit'])->name('edit');
+        Route::put('update/{order}', [OrderController::class, 'update'])->name('update');
         Route::delete('destroy/{order}/{option?}', [OrderController::class, 'destroy'])->name('destroy');
     });
 

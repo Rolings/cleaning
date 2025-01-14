@@ -24,6 +24,7 @@ class Checkout extends Component
     public $offer_id = null;
 
     public $state_id = null;
+
     public $city = null;
 
     public $zip = null;

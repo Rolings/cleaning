@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Main\Checkout\{CartRequest, CheckoutRequest};
 use App\Models\Order;
-use App\Models\OrderEntity;
-use App\Http\Requests\Main\Checkout\{CheckoutRequest, CartRequest};
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class CheckoutController extends Controller
 {
@@ -22,7 +22,9 @@ class CheckoutController extends Controller
 
     public function store(CheckoutRequest $request): View
     {
-        $order = Order::create($request->validated());
+        $order = Order::create(array_merge($request->validated(), [
+            'token' => Hash::make(Str::random(10) . now()->format('YmdHis'))
+        ]));
 
         $request->services->each(function ($service) use ($order) {
             $order->entities()->create([

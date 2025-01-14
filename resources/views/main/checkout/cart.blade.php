@@ -11,11 +11,10 @@
         <!-- Page Header End -->
 
         <div class="service">
-
+            <h3>Your order has been successfully created.</h3>
         </div>
 
         @include('main.section.footer')
-        {{--        @include('main.checkout.include.service-modal')--}}
 
         <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
     </div>

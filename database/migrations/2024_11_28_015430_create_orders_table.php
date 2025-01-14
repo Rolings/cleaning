@@ -13,6 +13,7 @@ return new class extends Migration {
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('token')->index()->unique();
             $table->foreignIdFor(Offer::class)->nullable();
             $table->foreignIdFor(State::class);
             $table->text('first_name');

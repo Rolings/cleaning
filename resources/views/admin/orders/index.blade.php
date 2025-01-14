@@ -16,7 +16,7 @@
                             <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
 
                                 <div class="col-auto">
-                                    <a class="btn app-btn-primary" href="{{ route('admin.services.create') }}">
+                                    <a class="btn app-btn-primary" href="{{ route('admin.orders.create') }}">
                                         Додати замовлення
                                     </a>
                                 </div>
@@ -47,7 +47,7 @@
                                             <th class="cell">Ім'я клієнта</th>
                                             <th class="cell">Дата</th>
                                             <th class="cell">Статус</th>
-                                            <th class="cell" colspan="2"></th>
+                                            <th class="cell" colspan="3"></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -66,6 +66,12 @@
                                                 <td class="cell">
                                                     <span class="btn-sm app-btn-secondary cursor-pointer show-order" data-action="{{ route('admin.orders.show',$item) }}"
                                                           data-id="{{ $item->id }}">    Деталі</span>
+                                                </td>
+                                                <td class="cell">
+                                                    <a class="btn-sm app-btn-secondary cursor-pointer" href="{{ route('admin.orders.edit',$item) }}"
+                                                          data-id="{{ $item->id }}">
+                                                        Редагувати
+                                                    </a>
                                                 </td>
                                                 <td class="cell">
                                                     {{ html()->form('delete')->route('admin.orders.destroy', $item)->open() }}
@@ -106,7 +112,7 @@
                                             <th class="cell">Ім'я клієнта</th>
                                             <th class="cell">Дата</th>
                                             <th class="cell">Статус</th>
-                                            <th class="cell" colspan="2"></th>
+                                            <th class="cell" colspan="3"></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -124,7 +130,15 @@
                                                 </td>
                                                 <td class="cell">
                                                     <span class="btn-sm app-btn-secondary cursor-pointer show-order" data-action="{{ route('admin.orders.show',$item) }}"
-                                                          data-id="{{ $item->id }}">Деталі</span>
+                                                          data-id="{{ $item->id }}">
+                                                        Деталі
+                                                    </span>
+                                                </td>
+                                                <td class="cell">
+                                                    <a class="btn-sm app-btn-secondary cursor-pointer" href="{{ route('admin.orders.edit',$item) }}"
+                                                          data-id="{{ $item->id }}">
+                                                        Редагувати
+                                                    </a>
                                                 </td>
                                                 <td class="cell">
                                                     {{ html()->form('delete')->route('admin.orders.destroy', [$item,'new'])->open() }}
@@ -165,7 +179,7 @@
                                             <th class="cell">Ім'я клієнта</th>
                                             <th class="cell">Дата</th>
                                             <th class="cell">Статус</th>
-                                            <th class="cell" colspan="2"></th>
+                                            <th class="cell" colspan="3"></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -182,8 +196,16 @@
                                                     @endif
                                                 </td>
                                                 <td class="cell">
-                                                    <span class="btn-sm app-btn-secondary cursor-pointer show-order" data-action="{{ route('admin.orders.show',$item) }}"
-                                                          data-id="{{ $item->id }}">    Деталі</span>
+                                                    <a class="btn-sm app-btn-secondary cursor-pointer show-order" href="{{ route('admin.orders.show',$item) }}"
+                                                          data-id="{{ $item->id }}">
+                                                        Деталі
+                                                    </a>
+                                                </td>
+                                                <td class="cell">
+                                                    <span class="btn-sm app-btn-secondary cursor-pointer" data-action="{{ route('admin.orders.edit',$item) }}"
+                                                          data-id="{{ $item->id }}">
+                                                        Редагувати
+                                                    </span>
                                                 </td>
                                                 <td class="cell">
                                                     {{ html()->form('delete')->route('admin.orders.destroy',[$item,'read'])->open() }}
@@ -240,13 +262,18 @@
                     let services = data.data.services[0];
                     let additionalServices = data.data.services[1];
 
-                    for(let n in services){
-                        modal.find(".js-services-list").append('<span class="m-1 badge bg-primary">'+services[n].name+'</span>')
+                    if(services.length){
+                        for(let n in services){
+                            modal.find(".js-services-list").append('<span class="m-1 badge bg-info text-dark" ><h4>'+services[n].name+'</h4></span>')
+                        }
                     }
 
-                    for(let m in additionalServices){
-                        modal.find(".js-additional-services-list").append('<span class="m-1 badge bg-success">'+additionalServices[m].name+'</span>')
+                    if(Object.keys(additionalServices).length){
+                        for(let m in additionalServices){
+                            modal.find(".js-additional-services-list").append('<span class="m-1 badge bg-warning"><h4>'+additionalServices[m].name+'</h4></span>')
+                        }
                     }
+
 
                     //modal.find(".callback-data-description").html(data.data.comment)
                     modal.modal('show')

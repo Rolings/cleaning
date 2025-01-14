@@ -24,6 +24,7 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
+            'token'      => Hash::make(Str::random(10) . now()->format('YmdHis')),
             'state_id'   => fake()->numberBetween(1, 50),
             'first_name' => fake()->firstName(),
             'last_name'  => fake()->firstName(),

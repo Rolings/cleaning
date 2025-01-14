@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Offer;
 use App\Models\Order;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,10 @@ class OrderSeeder extends Seeder
      */
     public function run(): void
     {
-        Order::factory()->count(3)->create();
+        $offers = Offer::onlyActive()->get();
+
+        Order::factory()->count(3)->create([
+            'offer_id' => $offers->random()->id,
+        ]);
     }
 }

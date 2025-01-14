@@ -23,7 +23,7 @@
                     <div class="app-card-body px-4 w-100">
 
                         <div class="row">
-                            <div class="col-6 item border-bottom py-3">
+                            <div class="col-6 col-sm-12 col-md-12 col-lg-6 col-xl-6 item border-bottom py-3">
                                 <div class="row justify-content-between align-items-center">
                                     <div class="col-auto">
                                         <div class="item-label"><strong>Дата створення</strong></div>
@@ -31,7 +31,7 @@
                                     </div><!--//col-->
                                 </div><!--//row-->
                             </div><!--//Created date-->
-                            <div class="col-6 item border-bottom py-3">
+                            <div class="col-6 col-sm-12 col-md-12 col-lg-6 col-xl-6 item border-bottom py-3">
                                 <div class="row justify-content-between align-items-center">
                                     <div class="col-auto">
                                         <div class="item-label"><strong>Дата виконання замовлення</strong></div>
@@ -42,7 +42,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-6 item border-bottom py-3">
+                            <div class="col-6 col-sm-12 col-md-12 col-lg-6 col-xl-6 item border-bottom py-3">
                                 <div class="row justify-content-between align-items-center">
                                     <div class="col-auto">
                                         <div class="item-label"><strong>Имя </strong></div>
@@ -51,7 +51,7 @@
                                 </div><!--//row-->
                             </div><!--//Name-->
 
-                            <div class="col-6 item border-bottom py-3">
+                            <div class="col-6 col-sm-12 col-md-12 col-lg-6 col-xl-6 item border-bottom py-3">
                                 <div class="row justify-content-between align-items-center">
                                     <div class="col-auto">
                                         <div class="item-label"><strong>Адреса</strong></div>
@@ -66,7 +66,7 @@
                             </div><!--//Address-->
                         </div>
                         <div class="row">
-                            <div class="col-6 item border-bottom py-3">
+                            <div class="col-6 col-sm-12 col-md-12 col-lg-6 col-xl-6 item border-bottom py-3">
                                 <div class="row justify-content-between align-items-center">
                                     <div class="col-auto">
                                         <div class="item-label"><strong>Телефон</strong></div>
@@ -79,7 +79,7 @@
                                     </div>
                                 </div><!--//row-->
                             </div><!--//Phone-->
-                            <div class="col-6 item border-bottom py-3">
+                            <div class="col-6 col-sm-12 col-md-12 col-lg-6 col-xl-6 item border-bottom py-3">
                                 <div class="row justify-content-between align-items-center">
                                     <div class="col-auto">
                                         <div class="item-label"><strong>Пропозиція</strong></div>
@@ -92,7 +92,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-6 item border-bottom py-3">
+                            <div class="col-6 col-sm-12 col-md-12 col-lg-6 col-xl-6 item border-bottom py-3">
                                 <div class="row justify-content-between align-items-center">
                                     <div class="col-auto">
                                         <div class="item-label"><strong>Email</strong></div>
@@ -106,7 +106,7 @@
                                 </div><!--//row-->
                             </div><!--//Email-->
 
-                            <div class="col-6 item border-bottom py-3">
+                            <div class="col-6 col-sm-12 col-md-12 col-lg-6 col-xl-6 item border-bottom py-3">
                                 <div class="row justify-content-between align-items-center">
                                     <div class="col-12">
                                         <div class="item-label"><strong>Сервіси</strong></div>
@@ -118,14 +118,7 @@
                                     </div><!--//col-->
                                 </div><!--//row-->
                             </div><!--//Email-->
-
-
-
                         </div>
-
-
-
-
                     </div><!--//app-card-body-->
 
                 </div>
