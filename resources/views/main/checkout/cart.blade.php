@@ -10,7 +10,7 @@
         @include('main.section.breadcrumb',['title'=>'Checkout'])
         <!-- Page Header End -->
 
-        <div class="service">
+        <div class="row d-flex service-list-item justify-content-center order-details-block">
             <h3>Your order has been successfully created.</h3>
         </div>
 

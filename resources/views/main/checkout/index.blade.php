@@ -32,13 +32,31 @@
                 $("#services-list").modal('show');
             });
 
-            flatpickr(document.getElementsByClassName('date-time-picker')[0], {
-                enableTime: true,
-                noCalendar: false,
-                defaultDate: '{{ now()->format('m/d/Y h:i K') }}',
-                dateFormat: "m/d/Y h:i K",
-                time_24hr: false
+            const initializeFlatpickr = () => {
+                console.log(123)
+                flatpickr(document.getElementsByClassName('date-time-picker')[0], {
+                    enableTime: true,
+                    noCalendar: false,
+                    dateFormat: "m/d/Y h:i K",
+                    time_24hr: false,
+                    minDate: new Date(),
+                    minuteIncrement: 30
+                });
+            }
+
+            document.addEventListener('livewire:load', function () {
+                initializeFlatpickr();
+            });
+
+            document.addEventListener('livewire:updated', function () {
+                initializeFlatpickr();
+            });
+
+            document.addEventListener('livewire:initialized', function () {
+                initializeFlatpickr();
             });
         }
+
+
     </script>
 @endsection

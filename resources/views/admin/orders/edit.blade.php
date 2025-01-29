@@ -32,18 +32,6 @@
                 URL.revokeObjectURL(output.src) // free memory
             }
         };
-        window.onload = () => {
-            $('select[multiple]').multiselect({
-                columns  : 1,
-                search   : true,
-                selectAll: true,
-                texts    : {
-                    placeholder: 'Вибрати додаткові послуги',
-                    search     : 'Вибрати додаткові послуги'
-                }
-            });
-        }
-
     </script>
 @endsection
 

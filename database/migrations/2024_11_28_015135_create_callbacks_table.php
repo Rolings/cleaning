@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('name');
             $table->string('phone');
             $table->foreignIdFor(Service::class)->nullable()->constrained();
-            $table->string('comment')->nullable();
+            $table->text('comment')->nullable();
             $table->boolean('is_read')->default(false);
             $table->timestamps();
         });

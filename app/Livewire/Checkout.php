@@ -25,30 +25,84 @@ class Checkout extends Component
 
     public $state_id = null;
 
+    public $address = null;
+
+    public $apt_suite = null;
+
     public $city = null;
 
     public $zip = null;
 
-
-    public $description = null;
-
+    public $comment = null;
 
     // Current offer
     public Offer|null $offer = null;
 
 
     // List
+
+    /**
+     *  Collection all states
+     *
+     * @var Collection
+     */
+    public Collection $states;
+
+    /**
+     * Collection all offers
+     *
+     * @var Collection
+     */
+    public Collection $offers;
+
+    /**
+     * Collection all services
+     *
+     * @var Collection
+     */
     public Collection $services;
 
+    /**
+     * Collection services of current offer
+     *
+     * @var Collection
+     */
+    public Collection $offerServices;
+
+    /**
+     * Collection additional services of all selected services
+     *
+     * @var Collection
+     */
     public Collection $additionalServices;
 
-    // Selected
+    /**
+     * @var Collection
+     */
+    public Collection $selectedServices;
+
+    /**
+     * @var Collection
+     */
     public Collection $selectedAdditionalServices;
 
+
+    // Selected
+    /**
+     * List of selected services
+     *
+     * @var array
+     */
+    public array $selectedServicesId = [];
+
+    /**
+     * List of selected additional services
+     * @var array
+     */
     public array $selectedAdditionalServicesId = [];
 
     // Price
-    public $constTotal = 0;
+    public $totalCost = 0;
     public $costServices = 0;
     public $costAdditionalServices = 0;
     public float $taxAmount = 0;
@@ -60,18 +114,29 @@ class Checkout extends Component
     public string|null $datetime = null;
     public string|null $datetimeFormat = null;
 
+    /**
+     * @var bool
+     */
+    public bool $validation = false;
+
     public function __construct()
     {
-        $this->services = new Collection();
+        $this->offerServices = new Collection();
+
+        $this->selectedServices = new Collection();
+
         $this->additionalServices = new Collection();
+
         $this->selectedAdditionalServices = new Collection();
+
+        $this->datetime = now()->format('m/d/Y h:i A');
+
+        $this->datetimeFormat = now()->format('d/m/Y @ h:i A');
 
         $this->taxPercentage = Setting::findByKey('tax_percentage')?->value ?? 0;
 
         $this->discountPercentage = Setting::findByKey('discount_percentage')?->value ?? 0;
     }
-
-    protected $listeners = ['updatedSelectServicesId'];
 
     /**
      * @param ...$arguments
@@ -93,6 +158,30 @@ class Checkout extends Component
 
             $this->calculationPrice();
         }
+
+        $this->states = State::onlyActive()->get();
+
+        $this->offers = Offer::onlyActive()->get();
+
+        $this->services = Service::onlyActive()->get();
+
+        $this->state_id = $this->states->filter(fn($state) => $state->default)?->first()?->id;
+
+        $this->setStateAddress($this->states->filter(fn($state) => $state->default)?->first());
+    }
+
+    public function updated()
+    {
+        $this->checkValidation();
+    }
+
+    public function checkValidation(): void
+    {
+        $this->validation = $this->totalCost > 0
+            && !empty($this->first_name)
+            && strlen($this->phone) >= 17
+            && !empty($this->address)
+            && !empty($this->apt_suite);
     }
 
     /**
@@ -101,7 +190,7 @@ class Checkout extends Component
      */
     public function updatedDatetime(string $datetime): void
     {
-        $this->datetimeFormat = Carbon::parse($datetime)->format('d/m/Y @ h:i A');
+        $this->datetimeFormat = Carbon::parse($datetime)->format('m/d/Y @ h:i A');
     }
 
     /**
@@ -122,19 +211,22 @@ class Checkout extends Component
         $this->reloadService($offer);
 
         $this->calculationPrice();
+
+        $this->checkValidation();
+
     }
 
     /**
      * @param $payload
      * @return void
      */
-    public function updatedSelectServicesId($payload): void
+    public function updatedSelectedServicesId(): void
     {
-        $services = Service::find($payload['list']);
+        $services = Service::find($this->selectedServicesId);
 
         $this->setServices($services);
 
-        $this->additionalServices = $this->services->pluck('additional')->flatten()->unique('id')->sortBy('name');
+        $this->additionalServices = $this->selectedServices->pluck('additional')->flatten()->unique('id')->sortBy('name');
 
         $this->calculationPrice();
     }
@@ -157,8 +249,18 @@ class Checkout extends Component
     {
         $services = $services ?? collect();
 
-        $this->services = is_null($this->offer) ? $services : $this->offer->services->merge($services);
+        if (!is_null($this->offer)) {
+            $this->offerServices = $this->offer->services;
 
+            $this->selectedServicesId = $this->offer->services->merge($services)->pluck('id')->toArray();
+
+            $this->selectedServices = $this->offer->services->merge($services);
+
+        } else {
+            $this->selectedServices = $services;
+
+            $this->selectedServicesId = $services->pluck('id')->toArray();
+        }
     }
 
     /**
@@ -166,7 +268,7 @@ class Checkout extends Component
      */
     private function calculateCostServices(): void
     {
-        $this->costServices = $this->services->sum('price');
+        $this->costServices = $this->selectedServices->sum('price');
     }
 
     /**
@@ -192,7 +294,7 @@ class Checkout extends Component
 
         $this->taxAmount = round(($sum - $this->discountAmount) / 100 * $this->taxPercentage, 2);
 
-        $this->constTotal = round($sum + $this->taxAmount - $this->discountAmount, 2);
+        $this->totalCost = round($sum + $this->taxAmount - $this->discountAmount, 2);
     }
 
     /**
@@ -207,13 +309,17 @@ class Checkout extends Component
 
         $this->setServices();
 
-        $this->additionalServices = $this->services->pluck('additional')->flatten()->unique('id')->sortBy('name');
+        $this->additionalServices = $this->selectedServices->pluck('additional')->flatten()->unique('id')->sortBy('name');
 
         $this->calculateCostServices();
     }
 
-    private function setStateAddress(State $state): void
+    private function setStateAddress(State|null $state): void
     {
+        if (is_null($state)) {
+            return;
+        }
+
         $this->city = $state->capital;
 
         $this->zip = $state->zip;
@@ -224,12 +330,6 @@ class Checkout extends Component
      */
     public function render(): View
     {
-        $offers = Offer::onlyActive()->get();
-        $states = State::onlyActive()->get();
-
-        return view('main.section.livewire.checkout', [
-            'offers' => $offers,
-            'states' => $states,
-        ]);
+        return view('main.section.livewire.checkout');
     }
 }

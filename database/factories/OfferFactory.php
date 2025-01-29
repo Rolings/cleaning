@@ -17,7 +17,7 @@ class OfferFactory extends Factory
     public function definition(): array
     {
         return [
-            'name'        => $this->faker->unique()->word(),
+            'name'        => 'Offer name #' . $this->faker->unique()->numberBetween(),
             'slug'        => $this->faker->unique()->slug,
             'description' => $this->faker->text,
         ];

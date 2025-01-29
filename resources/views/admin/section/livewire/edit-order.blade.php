@@ -81,12 +81,12 @@
 
                             <div class="col-12 mb-3">
                                 <div class="item-label"><strong>Сервіси</strong></div>
-                                {{ html()->multiselect('services_id',$allServices->pluck('name','id'),$selectedOfferServices?->pluck('name','id'))->attributes(['id'=>'services_id','class'=>'form-control']) }}
+                                {{ html()->multiselect('services_id',$allServices->pluck('name','id'),$selectedOfferServices?->pluck('id'))->attributes(['id'=>'services_id','class'=>'form-control']) }}
                             </div><!--//col-->
 
                             <div class="col-12 mb-3">
                                 <div class="item-label"><strong>Додаткові сервіси</strong></div>
-                                {{ html()->multiselect('additional_services_id',$allAdditionalServices->pluck('name','id'),$selectedOfferAdditionalServices?->pluck('name','id'))->attributes(['id'=>'additional_services_id','class'=>'form-control']) }}
+                                {{ html()->multiselect('additional_services_id',$offerAdditionalServices?->pluck('name','id'),$selectedOfferAdditionalServices?->pluck('id'))->attributes(['id'=>'additional_services_id','class'=>'form-control']) }}
                             </div><!--//col-->
                         </div>
 
@@ -125,3 +125,30 @@
         </div>
     </div>
 </div>
+
+@script
+<script>
+    const initializeMultiselect = () => {
+        const services = $('select[multiple]');
+        services.multiselect('destroy');
+        services.multiselect({
+            columns: 1,
+            search: true,
+            selectAll: true,
+            texts: {
+                placeholder: 'Вибрати додаткові послуги',
+                search: 'Вибрати додаткові послуги'
+            }
+        });
+    }
+
+    document.addEventListener('livewire:initialized', function () {
+        initializeMultiselect();
+    });
+/*
+    document.addEventListener('livewire:update', function () {
+        initializeMultiselect();
+    });*/
+
+</script>
+@endscript

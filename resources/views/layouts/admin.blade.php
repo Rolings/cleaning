@@ -36,7 +36,8 @@
         'resources/js/library/tinymce.js',
         'resources/js/admin/main-script.js',
 ])
-@yield('js')
 @livewireScripts
+@yield('js')
+
 </body>
 </html>

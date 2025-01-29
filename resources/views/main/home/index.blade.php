@@ -36,3 +36,11 @@
         <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
     </div>
 @endsection
+@vite(['resources/js/library/jquery.mask.js'])
+@section('js')
+    <script>
+        window.onload = () => {
+            $('#phone').mask('+1 (000) 000-0000');
+        }
+    </script>
+@endsection

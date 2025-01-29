@@ -14,17 +14,19 @@ class SettingController extends Controller
     public function index()
     {
         return view('admin.settings.index', [
-            'contact_phone'     => Setting::findByKey('contact_phone')?->value,
-            'contact_email'     => Setting::findByKey('contact_email')?->value,
-            'contact_address'   => Setting::findByKey('contact_address')?->value,
-            'contact_facebook'  => Setting::findByKey('contact_facebook')?->value,
-            'contact_twitter'   => Setting::findByKey('contact_twitter')?->value,
-            'contact_instagram' => Setting::findByKey('contact_instagram')?->value,
-            'contact_youtube'   => Setting::findByKey('contact_youtube')?->value,
-            'contact_linkedin'  => Setting::findByKey('contact_linkedin')?->value,
-            'about_title'       => Setting::findByKey('about_title')?->value,
-            'about_image'       => Setting::findFileByKey('about_image')?->url,
-            'about_description' => Setting::findByKey('about_description')?->value,
+            'contact_phone'       => Setting::findByKey('contact_phone')?->value,
+            'contact_email'       => Setting::findByKey('contact_email')?->value,
+            'contact_address'     => Setting::findByKey('contact_address')?->value,
+            'contact_facebook'    => Setting::findByKey('contact_facebook')?->value,
+            'contact_twitter'     => Setting::findByKey('contact_twitter')?->value,
+            'contact_instagram'   => Setting::findByKey('contact_instagram')?->value,
+            'contact_youtube'     => Setting::findByKey('contact_youtube')?->value,
+            'contact_linkedin'    => Setting::findByKey('contact_linkedin')?->value,
+            'about_title'         => Setting::findByKey('about_title')?->value,
+            'about_image'         => Setting::findFileByKey('about_image')?->url,
+            'about_description'   => Setting::findByKey('about_description')?->value,
+            'tax_percentage'      => Setting::findByKey('tax_percentage')?->value,
+            'discount_percentage' => Setting::findByKey('discount_percentage')?->value,
         ]);
     }
 
@@ -76,6 +78,14 @@ class SettingController extends Controller
 
         if ($request->has('about_description')) {
             Setting::setByKey('about_description', $request->input('about_description'));
+        }
+
+        if ($request->has('tax_percentage')) {
+            Setting::setByKey('tax_percentage', $request->input('tax_percentage'));
+        }
+
+        if ($request->has('discount_percentage')) {
+            Setting::setByKey('discount_percentage', $request->input('discount_percentage'));
         }
 
         return redirect()->route('admin.settings.index');

@@ -80,6 +80,32 @@
                 <hr class="my-4">
                 <div class="row g-4 settings-section">
                     <div class="col-12 col-md-2">
+                        <h3 class="section-title">Відсотки</h3>
+                    </div>
+                    <div class="col-12 col-md-10">
+                        <div class="app-card app-card-settings shadow-sm p-4">
+                            <div class="app-card-body">
+                                {{ html()->form('put')->route('admin.settings.update')->acceptsFiles()->open() }}
+
+                                <div class="mb-3">
+                                    <label for="discount_percentage" class="form-label">Відсоток знижки</label>
+                                    {{ html()->number('discount_percentage',$discount_percentage)->placeholder('0.00')->attributes(['id'=>'discount_percentage','class'=>'form-control','step'=>'0.01','min'=>0,'max'=>100]) }}
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="tax_percentage" class="form-label">Відсоток податку</label>
+                                    {{ html()->number('tax_percentage',$tax_percentage)->placeholder('0.00')->attributes(['id'=>'tax_percentage','class'=>'form-control','step'=>'0.01','min'=>0,'max'=>100]) }}
+                                </div>
+
+                                <button type="submit" class="btn app-btn-primary">Зберегти</button>
+                                {{ html()->form()->close() }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-4">
+                <div class="row g-4 settings-section">
+                    <div class="col-12 col-md-2">
                         <h3 class="section-title">Про нас</h3>
                     </div>
                     <div class="col-12 col-md-10">
@@ -105,9 +131,6 @@
                                 </div>
 
                                 <div class="col-8 m-0 b-0">
-
-
-
                                     <div class="col-12 mb-3">
                                         <label for="about_title" class="form-label">Заголовок</label>
                                         {{ html()->text('about_title',$about_title)->attributes(['id'=>'about_title','class'=>'form-control']) }}

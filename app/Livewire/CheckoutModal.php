@@ -14,12 +14,22 @@ class CheckoutModal extends Component
     // Selected
     public array $servicesId = [];
 
+    protected $listeners = ['clearSelectServices'];
+
     /**
      * @return void
      */
     public function updatedServicesId(): void
     {
-       $this->dispatch('updatedSelectServicesId', ['list' => $this->servicesId]);
+        $this->dispatch('updatedSelectServicesId', ['list' => $this->servicesId]);
+    }
+
+    /**
+     * @return void
+     */
+    public function clearSelectServices(): void
+    {
+        $this->servicesId = [];
     }
 
     public function render()

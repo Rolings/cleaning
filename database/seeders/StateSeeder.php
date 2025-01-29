@@ -85,7 +85,8 @@ class StateSeeder extends Seeder
                 "postal_abbreviation" => "FL",
                 "capital"             => "Tallahassee",
                 "zip"                 => "32003-34997",
-                "coordinates"         => [30.438256, -84.280733]
+                "coordinates"         => [30.438256, -84.280733],
+                'default'             => true
             ],
             [
                 "name"                => "Georgia",
@@ -426,6 +427,7 @@ class StateSeeder extends Seeder
                 'zip'                 => $state['zip'],
                 'latitude'            => $state['coordinates'][0],
                 'longitude'           => $state['coordinates'][1],
+                'default'             => isset($state['default']),
             ]);
         });
     }

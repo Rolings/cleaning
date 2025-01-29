@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\Telegram\TelegramChannelMessage;
 use App\Http\Requests\Main\Checkout\{CartRequest, CheckoutRequest};
 use App\Models\Order;
 use Illuminate\Contracts\View\View;
@@ -41,6 +42,8 @@ class CheckoutController extends Controller
         });
 
         $order->load('entities.entity');
+
+        TelegramChannelMessage::dispatch($order)->onConnection('sync');
 
         return view('main.checkout.cart', [
             'order' => $order,

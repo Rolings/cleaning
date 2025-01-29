@@ -1,36 +1,35 @@
 <div>
-    <div class="row">
+    <div id="data-order-container" class="row">
         <div class="col-sm-12 col-md-12 col-lg-8">
             <!--Contact info-->
             <div class="col-sm-12 p-0 mt-3">
                 <h5>CONTACT INFO</h5>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                         <div class="form-group">
-                            {{ html()->label('First Name *','first_name') }}
-                            {{ html()->text('first_name',$first_name??old('first_name'))->required()->placeholder('')->attributes(['id'=>'first_name','class'=>'form-control']) }}
+                            {{ html()->label('First Name <span class="text-danger">*</span>','first_name') }}
+                            {{ html()->text('first_name',$first_name??old('first_name'))->required()->placeholder('')->attributes(['id'=>'first_name','class'=>'form-control','wire:model.live'=>'first_name']) }}
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                         <div class="form-group">
                             {{ html()->label('Last Name','last_name') }}
-                            {{ html()->text('last_name',$last_name??old('last_name'))->placeholder('')->attributes(['id'=>'last_name','class'=>'form-control']) }}
+                            {{ html()->text('last_name',$last_name??old('last_name'))->placeholder('')->attributes(['id'=>'last_name','class'=>'form-control','wire:model.live'=>'last_name']) }}
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                         <div class="form-group">
                             {{ html()->label('Email','email') }}
-                            {{ html()->text('email')->placeholder('')->attributes(['id'=>'email','class'=>'form-control']) }}
+                            {{ html()->text('email')->placeholder('')->attributes(['id'=>'email','class'=>'form-control','wire:model.live'=>'email']) }}
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                         <div class="form-group">
-                            {{ html()->label('Mobile Number *','phone') }}
-                            {{ html()->text('phone',$phone??old('phone'))->required()->placeholder('')->attributes(['id'=>'phone','class'=>'form-control']) }}
+                            {{ html()->label('Mobile Number <span class="text-danger">*</span>','phone') }}
+                            {{ html()->text('phone',$phone??old('phone'))->required()->placeholder('')->attributes(['id'=>'phone','class'=>'form-control','wire:model.live'=>'phone']) }}
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -38,36 +37,36 @@
             <div class="col-sm-12 p-0 mt-3">
                 <h5>ADDRESS</h5>
                 <div class="row">
-                    <div class="col-9">
+                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                         <div class="form-group">
-                            {{ html()->label('Address *','address') }}
-                            {{ html()->text('address')->required()->placeholder('')->attributes(['id'=>'address','class'=>'form-control']) }}
+                            {{ html()->label('State <span class="text-danger">*</span>','state_id') }}
+                            {{ html()->select('state_id',$states->pluck('name','id'),$states->filter(fn($state) => $state->default)?->first()?->id)->required()->attributes(['id'=>'state_id','class'=>'custom-select','wire:model.live'=>'state_id']) }}
                         </div>
                     </div>
-                    <div class="col-3">
+                    <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 col-xxl-5">
                         <div class="form-group">
-                            {{ html()->label('Apt/Suite','apt_suite') }}
-                            {{ html()->text('apt_suite')->placeholder('')->attributes(['id'=>'apt_suite','class'=>'form-control']) }}
+                            {{ html()->label('City <span class="text-danger">*</span>','city') }}
+                            {{ html()->text('city',$city)->required()->placeholder('')->attributes(['id'=>'city','class'=>'form-control']) }}
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                        <div class="form-group">
+                            {{ html()->label('Zip <span class="text-danger">*</span>','zip') }}
+                            {{ html()->text('zip',$zip)->required()->placeholder('')->attributes(['id'=>'zip','class'=>'form-control']) }}
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-5">
+                    <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 col-xxl-9">
                         <div class="form-group">
-                            {{ html()->label('City','city') }}
-                            {{ html()->text('city',$city)->placeholder('')->attributes(['id'=>'city','class'=>'form-control']) }}
+                            {{ html()->label('Address <span class="text-danger">*</span>','address') }}
+                            {{ html()->text('address')->required()->placeholder('')->attributes(['id'=>'address','class'=>'form-control','wire:model.live'=>'address']) }}
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                         <div class="form-group">
-                            {{ html()->label('State *','state_id') }}
-                            {{ html()->select('state_id',$states->pluck('name','id'),$states->filter(fn($state) => $state->default)?->first()?->id)->required()->attributes(['id'=>'state_id','class'=>'custom-select','wire:model.live'=>'state_id']) }}
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="form-group">
-                            {{ html()->label('Zip','zip') }}
-                            {{ html()->text('zip',$zip)->required()->placeholder('')->attributes(['id'=>'zip','class'=>'form-control']) }}
+                            {{ html()->label('Apt/Suite <span class="text-danger">*</span>','apt_suite') }}
+                            {{ html()->text('apt_suite')->placeholder('')->attributes(['id'=>'apt_suite','class'=>'form-control','wire:model.live'=>'apt_suite']) }}
                         </div>
                     </div>
                 </div>
@@ -76,9 +75,9 @@
             <div class="col-sm-12 p-0 mt-3">
                 <h5>SERVICE DATE</h5>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12" wire:ignore>
                         <div class="form-group">
-                            {{ html()->label('Date *','date') }}
+                            {{ html()->label('Date <span class="text-danger">*</span>','date') }}
                             {{ html()->text('order_at')->required()->placeholder('')->attributes(['id'=>'datetime','class'=>'form-control date-time-picker','wire:model.live'=>'datetime']) }}
                         </div>
                     </div>
@@ -135,7 +134,7 @@
                     <div class="col-12">
                         <div class="form-group">
                             {{ html()->label('Your offer','offer_id') }}
-                            {{ html()->select('offer_id',$offers->pluck('name','id'),$offer_id??null)->required()->attributes(['id'=>'offer_id','class'=>'custom-select','wire:model.live'=>'offer_id']) }}
+                            {{ html()->select('offer_id',$offers->pluck('name','id'))->required()->attributes(['id'=>'offer_id','class'=>'custom-select','wire:model.live'=>'offer_id']) }}
                         </div>
                     </div>
                 </div>
@@ -143,40 +142,74 @@
                     <div class="col-12">
                         <div class="form-group">
                             {{ html()->label('Including services') }}
-                            <span class="btn float-right col-1 mb-1 mr-1 rounded shadow c-pointer js-add-services">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
-                                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-                                </svg>
-                            </span>
-                            {{ html()->hidden('services_id',$services?->pluck('id')?->toJson()) }}
+                            <div class="d-flex row justify-content-center  align-items-center float-right m-0 p-0">
+                                <span class="p-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-check" viewBox="0 0 16 16">
+                                      <path d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"/>
+                                      <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                                    </svg>
+                                </span>
+                                <span class="p-1">{{ $selectedServices->count() ? ''.$selectedServices->count() : '' }}</span>
+                            </div>
+                            {{ html()->hidden('services_id',$selectedServices?->pluck('id')?->toJson()) }}
                         </div>
-                        <div class="col-12 row ml-0 mr-0 p-0">
-                            @foreach($services as $service)
-                                <span class="item col-3 col-sm-6 col-md-4 col-lg-3 col-xl-3 mb-1 mr-1 rounded shadow" title="{!! $service->description !!}">{{ $service->name }}</span>
-                            @endforeach
+                        <div class="services-list-block">
+                            <ul class="row service-list-item justify-content-center">
+                                @forelse($services as $service)
+                                    <li class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
+                                        {{ html()
+                                                ->checkbox('services',null,$service->id)
+                                                ->checked($offerServices->pluck('id')->contains($service->id))
+                                                ->disabled($offerServices->pluck('id')->contains($service->id))
+                                                ->attributes(['id'=>'service-'.$service->id,'wire:model.live'=>'selectedServicesId'])
+                                                }}
+                                        <label class="col-12 d-flex justify-content-center" for="service-{{$service->id}}">{{ $service->name }}</label>
+                                    </li>
+                                @empty
+                                @endforelse
+                            </ul>
                         </div>
                     </div>
                 </div>
-
                 <div class="row additional-services-list">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <div class="form-group">
                             {{ html()->label('Additional services') }}
+                            <div class="d-flex row justify-content-center  align-items-center float-right m-0 p-0">
+                                <span class="p-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-check" viewBox="0 0 16 16">
+                                      <path d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"/>
+                                      <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                                    </svg>
+                                </span>
+                                <span class="p-1">{{ $selectedAdditionalServices->count() ? ''.$selectedAdditionalServices->count() : '' }}</span>
+                            </div>
+
+                            {{ html()->hidden('additional_services_id',$selectedAdditionalServices?->pluck('id')?->toJson()) }}
                         </div>
-                        {{ html()->hidden('additional_services_id',$selectedAdditionalServices?->pluck('id')?->toJson()) }}
+
                     </div>
-                    @foreach($additionalServices as $service)
-                        <div class="additional-service-item col-12 col-sm-12 col-md-4 col-lg-6 col-xl-4 mb-4 p-0">
-                            {{ html()->checkbox('additional-services',false,$service->id)->attributes(['id'=>'additional-services-'.$service->id,'wire:model.live'=>'selectedAdditionalServicesId']) }}
-                            <label class=" d-block additional-services-label" for="additional-services-{{ $service->id }}" title="{!! $service->description !!}">
+                    <div class="col-12 row justify-content-center ml-0 mr-0 p-0">
+                        @foreach($additionalServices as $service)
+                            <div class="additional-service-item col-12 col-sm-12 col-md-3 col-lg-6 col-xl-3 mb-4 p-0">
+                                {{ html()->checkbox('additional-services',false,$service->id)->attributes(['id'=>'additional-services-'.$service->id,'wire:model.live'=>'selectedAdditionalServicesId']) }}
+                                <label class=" d-block additional-services-label" for="additional-services-{{ $service->id }}" title="{!! $service->description !!}">
                                 <span>
                                     <img src="{{ $service->iconUrl }}" alt="{{ $service->name }}">
                                 </span>
-                                <span>{{ $service->name }}</span>
-                            </label>
+                                    <span>{{ $service->name }}</span>
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            {{ html()->label('Comment for order','comment') }}
+                            {{ html()->textarea('comment',$comment)->attributes(['id'=>'comment','class'=>'form-control','cols'=>'100','rows'=>'30','style'=>'height:100px;']) }}
                         </div>
-                    @endforeach
+                    </div>
                 </div>
             </div>
         </div>
@@ -199,7 +232,6 @@
                                           <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
                                         </svg>
                                     </span>
-
                                     <span>{{ $offer->name??'Select a service...' }}</span>
                                 </li>
                                 <li class="list-group-item">
@@ -219,23 +251,92 @@
                                 <li class="list-group-item price-amount">
                                     <span>Additional services: </span> <span>${{ $costAdditionalServices }}</span>
                                 </li>
-                                <li class="list-group-item price-amount">
-                                    <span>Discount: </span><span>${{ $discountAmount }}</span>
-                                </li>
-                                <li class="list-group-item price-amount">
-                                    <span>Sales tax: </span>
-                                    <span title="{{ $taxPercentage }}%">
+                                @if($discountAmount>0)
+                                    <li class="list-group-item price-amount">
+                                        <span>Discount: </span><span>${{ $discountAmount }}</span>
+                                    </li>
+                                @endif
+                                @if($taxAmount>0)
+                                    <li class="list-group-item price-amount">
+                                        <span>Sales tax: </span>
+                                        <span title="{{ $taxPercentage }}%">
                                         ${{ $taxAmount }}
                                     </span>
-                                </li>
+                                    </li>
+                                @endif
                                 <li class="list-group-item price-amount">
-                                    <span>TOTAL</span> <span>${{ $constTotal }}</span>
+                                    <span>TOTAL</span> <span>${{ $totalCost }}</span>
                                 </li>
                             </ul>
-                            <div class="card-body text-center">
-                                <button type="submit" class="btn btn-outline-primary btn-lg">Book now</button>
-                            </div>
+                            @if($validation)
+                                <div class="card-body text-center">
+                                    <button type="submit" class="btn btn-outline-primary btn-lg">Book now</button>
+                                </div>
+                            @else
+                                <div class="card-body text-center">
+                                    @if($totalCost==0)
+                                        <div class="alert alert-warning d-flex align-items-center cursor-pointer js-scroll-to" role="alert" data-scroll-to="offer_id">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-patch-exclamation bi flex-shrink-0 me-2" viewBox="0 0 16 16">
+                                                <path d="M7.001 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.553.553 0 0 1-1.1 0z"/>
+                                                <path
+                                                    d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911z"/>
+                                            </svg>
+                                            <div class="row ml-1">
+                                                Please choose service!
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if(empty($first_name))
+                                        <div class="alert alert-warning d-flex align-items-center cursor-pointer js-scroll-to" role="alert" data-scroll-to="first_name">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-patch-exclamation bi flex-shrink-0 me-2" viewBox="0 0 16 16">
+                                                <path d="M7.001 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.553.553 0 0 1-1.1 0z"/>
+                                                <path
+                                                    d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911z"/>
+                                            </svg>
+                                            <div class="row ml-1">
+                                                Please enter your name!
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if(strlen($phone) < 17)
+                                        <div class="alert alert-warning d-flex align-items-center cursor-pointer js-scroll-to" role="alert" data-scroll-to="phone">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-patch-exclamation bi flex-shrink-0 me-2" viewBox="0 0 16 16">
+                                                <path d="M7.001 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.553.553 0 0 1-1.1 0z"/>
+                                                <path
+                                                    d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911z"/>
+                                            </svg>
+                                            <div class="row ml-1">
+                                                Please enter your phone!
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if(empty($address))
+                                        <div class="alert alert-warning d-flex align-items-center cursor-pointer js-scroll-to" role="alert" data-scroll-to="address">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-patch-exclamation bi flex-shrink-0 me-2" viewBox="0 0 16 16">
+                                                <path d="M7.001 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.553.553 0 0 1-1.1 0z"/>
+                                                <path
+                                                    d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911z"/>
+                                            </svg>
+                                            <div class="row ml-1">
+                                                Please enter your address!
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if(empty($apt_suite))
+                                        <div class="alert alert-warning d-flex align-items-center cursor-pointer js-scroll-to" role="alert" data-scroll-to="apt_suite">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-patch-exclamation bi flex-shrink-0 me-2" viewBox="0 0 16 16">
+                                                <path d="M7.001 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.553.553 0 0 1-1.1 0z"/>
+                                                <path
+                                                    d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911z"/>
+                                            </svg>
+                                            <div class="row ml-1">
+                                                Please enter your apartment number!
+                                            </div>
+                                        </div>
+                                    @endif
 
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -243,3 +344,46 @@
         </div>
     </div>
 </div>
+@script
+<script>
+    $('#phone').mask('+1 (000) 000-0000');
+
+    $(".js-scroll-to").on('click', function () {
+        let object = $("#" + $(this).attr('data-scroll-to'));
+        object.addClass("error");
+
+        object.on('input', function () {
+            $(this).removeClass('error')
+        });
+        $([document.documentElement, document.body]).animate({
+            scrollTop: object.offset().top - 50
+        }, 500, () => {
+            object.focus();
+        });
+    });
+
+    const initializeFlatpickr = () => {
+        flatpickr(document.getElementsByClassName('date-time-picker')[0], {
+            enableTime: true,
+            noCalendar: false,
+            dateFormat: "m/d/Y h:i K",
+            time_24hr: false,
+            minDate: new Date(),
+            minuteIncrement: 30
+        });
+    }
+
+    document.addEventListener('livewire:load', function () {
+        initializeFlatpickr();
+    });
+
+    document.addEventListener('livewire:updated', function () {
+        initializeFlatpickr();
+    });
+
+    document.addEventListener('livewire:initialized', function () {
+        initializeFlatpickr();
+    });
+</script>
+@endscript
+

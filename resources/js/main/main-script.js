@@ -8,6 +8,9 @@ $(document).ready(function () {
             $('.back-to-top').fadeOut('slow');
         }
     });
+
+    $('#phone').mask('+1 (000) 000-0000');
+
     $('.back-to-top').click(function () {
         $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
         return false;

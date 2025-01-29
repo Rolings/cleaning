@@ -83,7 +83,6 @@ class EditOrder extends Component
     {
         $this->reloadService($offer);
 
-        $this->calculationPrice();
     }
 
 
@@ -100,15 +99,13 @@ class EditOrder extends Component
             ->map(fn($items) => $items->entity)
             ->partition(fn($items) => $items instanceof Service);
 
+
         if ($this->order->offer_id === $this->offer->id) {
-            $this->offerServices = $this->offer->services;
+
+            $this->selectedOfferServices->load('additional');
 
             $this->offerAdditionalServices = $this->offer->services->pluck('additional')->flatten()->unique('id')->sortBy('name');
         }
-
-
-
-
 
     }
 
@@ -130,7 +127,7 @@ class EditOrder extends Component
             'states'                => $states,
             'offers'                => $offers,
             'allServices'           => $allServices,
-            'allAdditionalServices' => $allAdditionalServices,
+         //   'allAdditionalServices' => $allAdditionalServices,
         ]);
     }
 }
