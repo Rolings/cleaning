@@ -1,5 +1,21 @@
 $(document).ready(function () {
 
+    const isCookiesPage = window.location.pathname.includes("cookies");
+
+    if (!localStorage.getItem('cookieConsent') && !isCookiesPage) {
+        $('#cookie-accept-modal').modal('show');
+    }
+
+    $('#acceptCookies').click(function() {
+        localStorage.setItem('cookieConsent', 'accepted');
+        $('#cookie-accept-modal').modal('hide');
+    });
+
+    $('#declineCookies').click(function() {
+        localStorage.setItem('cookieConsent', 'declined');
+        $('#cookie-accept-modal').modal('hide');
+    });
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 200) {

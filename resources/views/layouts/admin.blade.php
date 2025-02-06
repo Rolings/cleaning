@@ -31,6 +31,7 @@
 @vite([
         'resources/js/library/bootstrap.bundle.js',
         'resources/js/library/popper.js',
+        'resources/js/library/jquery.mask.js',
         'resources/js/library/jquery.multiselect.js',
         'resources/js/library/image-uploader.js',
         'resources/js/library/tinymce.js',

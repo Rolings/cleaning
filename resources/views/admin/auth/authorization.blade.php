@@ -9,8 +9,8 @@
                             <img class="logo-icon me-2"
                                  src="{{ asset('build/images/admin/logo.svg') }}"
                                  alt="logo"></span></div>
-                    <h2 class="auth-heading text-center mb-5">Log in</h2>
-                    <div class="auth-form-container text-start">
+                                <h2 class="auth-heading text-center mb-5">Log in</h2>
+                                <div class="auth-form-container text-start">
 
                         {{ html()->form('post')->route('admin.authorization')->attributes(['class'=>'auth-form login-form'])->open() }}
                         <div class="email mb-3">
@@ -19,7 +19,7 @@
                         </div><!--//form-group-->
                         <div class="password mb-3">
                             <label class="sr-only" for="password">Password</label>
-                            {{ html()->password('password')->required()->placeholder('Password')->attributes(['id'=>'password','min'=>'4','class'=>'form-control signin-password']) }}
+                            {{ html()->password('password')->required()->placeholder('Password')->attributes(['id'=>'password','min'=>'8','class'=>'form-control signin-password']) }}
                         </div><!--//form-group-->
                         <div class="text-center">
                             {{ html()->submit('Log In')->attributes(['class'=>'btn app-btn-primary w-100 theme-btn mx-auto']) }}

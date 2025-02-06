@@ -46,7 +46,7 @@ class Setting extends Model
      * @param string $value
      * @return bool
      */
-    public static function setByKey(string $key, string $value)
+    public static function setByKey(string $key, string $value = null): self
     {
         return self::updateOrCreate(['key' => $key], ['value' => $value]);
     }

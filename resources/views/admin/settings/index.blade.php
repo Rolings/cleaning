@@ -21,12 +21,16 @@
                             <div class="app-card-body">
                                 {{ html()->form('put')->route('admin.settings.update')->acceptsFiles()->open() }}
                                 <div class="mb-3">
+                                    <label for="contact_address" class="form-label">Адреса</label>
+                                    {{ html()->text('contact_address',$contact_address)->attributes(['id'=>'contact_address','class'=>'form-control']) }}
+                                </div>
+                                <div class="mb-3">
                                     <label for="contact_phone" class="form-label">Телефон</label>
-                                    {{ html()->text('contact_phone',$contact_phone)->required()->attributes(['id'=>'contact_phone','class'=>'form-control']) }}
+                                    {{ html()->text('contact_phone',$contact_phone)->attributes(['id'=>'contact_phone','class'=>'form-control']) }}
                                 </div>
                                 <div class="mb-3">
                                     <label for="contact_email" class="form-label">Email</label>
-                                    {{ html()->email('contact_email',$contact_email)->required()->attributes(['id'=>'contact_email','class'=>'form-control']) }}
+                                    {{ html()->email('contact_email',$contact_email)->attributes(['id'=>'contact_email','class'=>'form-control']) }}
                                 </div>
                                 <button type="submit" class="btn app-btn-primary">Зберегти</button>
 

@@ -4,13 +4,14 @@ namespace Database\Seeders;
 
 use App\Enums\User\UserTypeEnum;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Database\Eloquent\Factories\Sequence;
 
 class UserSeeder extends Seeder
 {
+    const ADMIN_PASSWORD = 'jk67e!Js4o4';
+
     /**
      * Run the database seeds.
      */
@@ -25,7 +26,7 @@ class UserSeeder extends Seeder
             })
             ->create([
                 'type'     => UserTypeEnum::ADMIN->value,
-                'password' => Hash::make('admin'),
+                'password' => Hash::make(self::ADMIN_PASSWORD),
             ]);
 
         User::factory()->count(25)

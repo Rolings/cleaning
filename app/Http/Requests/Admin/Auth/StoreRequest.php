@@ -23,7 +23,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'email'    => 'required|email|exists:users,email',
-            'password' => 'required|min:4',
+            'password' => 'required|min:8',
         ];
     }
 }

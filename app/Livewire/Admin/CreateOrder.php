@@ -13,7 +13,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 
-class EditOrder extends Component
+class CreateOrder extends Component
 {
     // Contact
     public $first_name = null;
@@ -105,25 +105,19 @@ class EditOrder extends Component
 
     // Date
     public string|null $order_at = null;
+    public string|null $datetimeFormat = null;
 
     /**
-     * @param Order $order
+     * @param ...$arguments
      * @return void
      */
-    public function mount(Order $order): void
+    public function mount(): void
     {
         $this->configInit();
 
-        $this->setOrder($order);
-
-        $this->loadOrderServices();
-
-        $this->orderDataInit();
-
-        $this->setOffer($this->order->offer);
+        $this->setOffer(Offer::onlyActive()->customerOffer()->first());
 
         $this->loadServices();
-
     }
 
     /**
@@ -178,6 +172,15 @@ class EditOrder extends Component
     }
 
     /**
+     * @param $propertyName
+     * @return void
+     */
+    public function updatedDatetime(string $datetime): void
+    {
+        $this->datetimeFormat = Carbon::parse($datetime)->format('m/d/Y @ h:i A');
+    }
+
+    /**
      * @return void
      */
     private function configInit(): void
@@ -188,7 +191,9 @@ class EditOrder extends Component
 
         $this->selectedAdditionalServices = new Collection();
 
-        $this->order_at = now()->format('Y-m-d\TH:i');
+        $this->order_at = now()->format('m/d/Y h:i A');
+
+        $this->datetimeFormat = now()->format('d/m/Y @ h:i A');
 
         $this->taxPercentage = Setting::findByKey('tax_percentage')?->value ?? 0;
 
@@ -253,7 +258,6 @@ class EditOrder extends Component
     private function setOffer(Offer $offer): void
     {
         $this->offer = $offer->load(['services.additional']);
-        $this->offer_id = $offer->id;
     }
 
     /**
@@ -271,8 +275,6 @@ class EditOrder extends Component
     }
 
     /**
-     * Function load services and additional services from current order
-     *
      * @return void
      */
     private function loadOrderServices(): void
@@ -340,6 +342,6 @@ class EditOrder extends Component
 
     public function render()
     {
-        return view('admin.section.livewire.edit-order');
+        return view('admin.section.livewire.create-order');
     }
 }

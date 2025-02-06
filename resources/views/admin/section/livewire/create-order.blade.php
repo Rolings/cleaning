@@ -5,34 +5,33 @@
                 <div class="item app-card-settings py-3">
                     <div class="row justify-content-between align-items-center">
                         <div class="col-12 mb-3">
-                            <div class="item-label"><strong>Ім'я *</strong></div>
-                            {{ html()->text('first_name',$order->first_name)->required()->attributes(['id'=>'first_name','class'=>'form-control','wire:model.live'=>'first_name']) }}
+                            <div class="item-label"><strong>Ім'я</strong></div>
+                            {{ html()->text('first_name')->required()->attributes(['id'=>'first_name','class'=>'form-control','wire:model.live'=>'first_name']) }}
                         </div><!--//col-->
 
                         <div class="col-12 mb-3">
                             <div class="item-label"><strong>Прізвище</strong></div>
-                            {{ html()->text('last_name',$order->last_name)->attributes(['id'=>'last_name','class'=>'form-control','wire:model.live'=>'last_name']) }}
+                            {{ html()->text('last_name')->attributes(['id'=>'last_name','class'=>'form-control','wire:model.live'=>'last_name']) }}
                         </div><!--//col-->
 
                         <div class="col-12 mb-3">
                             <div class="item-label"><strong>Email</strong></div>
-                            {{ html()->text('email',$order->email)->attributes(['id'=>'email','class'=>'form-control','wire:model.live'=>'email']) }}
+                            {{ html()->text('email')->attributes(['id'=>'email','class'=>'form-control','wire:model.live'=>'email']) }}
                         </div><!--//col-->
 
                         <div class="col-12 mb-3">
-                            <div class="item-label"><strong>Телефон *</strong></div>
-                            {{ html()->text('phone',$order->phone)->required()->attributes(['id'=>'phone','class'=>'form-control','wire:model.live'=>'phone']) }}
+                            <div class="item-label"><strong>Телефон</strong></div>
+                            {{ html()->text('phone')->required()->attributes(['id'=>'phone','class'=>'form-control','wire:model.live'=>'phone']) }}
                         </div><!--//col-->
                         <div class="col-12 mb-3">
-                            <div class="item-label">Створено<strong class="float-end"> {{ $order->created_at->format('d F Y / h:i A') }}</strong></div>
+                            <div class="item-label">Створено<strong class="float-end">-</strong></div>
                         </div><!--//col-->
                         <div class="col-12 mb-3">
-                            <div class="item-label">Оновлено<strong class="float-end"> {{ $order->updated_at->format('d F Y / h:i A') }}</strong></div>
+                            <div class="item-label">Оновлено<strong class="float-end">-</strong></div>
                         </div><!--//col-->
                         <div class="col-12 mb-3">
-                            <div class="item-label">Дата замовлення *</div>
-                            {{ html()->datetime('order_at',$order->order_at->format('Y-m-d\TH:i'))->required()->attributes(['id'=>'order_at','class'=>'form-control','wire:model.live'=>'order_at']) }}
-
+                            <div class="item-label">Дата замовлення </div>
+                            {{ html()->datetime('order_at')->required()->attributes(['id'=>'order_at','class'=>'form-control','wire:model.live'=>'order_at']) }}
                         </div><!--//col-->
                         <div class="col-12 mb-3">
                             <div class="item-label">Вартість обраних сервісів <strong class="float-end">${{ $costServices }}</strong></div>
@@ -92,7 +91,7 @@
                         <div class="row services-list">
                             <div class="col-12 mb-3">
                                 <div class="item-label"><strong>Пропозиція</strong></div>
-                                {{ html()->select('offer_id',$offers->pluck('name','id'),$offer->id)->required()->attributes(['id'=>'offer_id','class'=>'form-control','wire:model.live'=>'offer_id']) }}
+                                {{ html()->select('offer_id',$offers->pluck('name','id'))->required()->attributes(['id'=>'offer_id','class'=>'form-control','wire:model.live'=>'offer_id']) }}
                             </div><!--//col-->
 
                             <div class="col-12 mb-3 services-list-block">
@@ -102,7 +101,7 @@
                                         <li class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
                                             {{ html()
                                                     ->checkbox('services[]',null,$service->id)
-                                                    ->checked($selectedServices->pluck('id')->contains($service->id))
+                                                    ->checked($selectedServices?->pluck('id')?->contains($service->id))
                                                   /*  ->disabled($offerServices->pluck('id')->contains($service->id))*/
                                                     ->attributes(['id'=>'service-'.$service->id,'wire:model.live'=>'selectedServicesId'])
                                                     }}
@@ -120,7 +119,7 @@
                                         <li class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
                                             {{ html()
                                                     ->checkbox('additional_services[]',null,$service->id)
-                                                    ->checked($selectedAdditionalServices->pluck('id')->contains($service->id))
+                                                    ->checked($selectedAdditionalServices?->pluck('id')?->contains($service->id))
                                        /*             ->disabled($offerAdditionalServices->pluck('id')->contains($service->id))*/
                                                     ->attributes(['id'=>'additional-services-'.$service->id,'wire:model.live'=>'selectedAdditionalServicesId'])
                                                     }}
@@ -134,7 +133,7 @@
 
                         <div class="col-12 mb-3">
                             <div class="item-label"><strong>Коментар</strong></div>
-                            {{ html()->textarea('comment',$order->comment)->attributes(['id'=>'comment','class'=>'form-control','style'=>'height:300px;']) }}
+                            {{ html()->textarea('comment')->attributes(['id'=>'comment','class'=>'form-control','style'=>'height:300px;']) }}
                         </div><!--//col-->
 
                     </div>

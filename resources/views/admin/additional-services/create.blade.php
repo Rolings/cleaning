@@ -24,7 +24,7 @@
 
                                         <div class="mb-3 row justify-content-between align-items-center">
                                             <div class="col-12">
-                                                <div class="item-label mb-2"><strong>Иконка</strong></div>
+                                                <div class="item-label mb-2"><strong>Фото</strong></div>
                                                 <div class="item-data">
                                                     <img class="profile-image" width="300" src="" id="image" alt="">
                                                 </div>

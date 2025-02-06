@@ -38,7 +38,6 @@ class Checkout extends Component
     // Current offer
     public Offer|null $offer = null;
 
-
     // List
 
     /**

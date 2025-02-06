@@ -75,4 +75,5 @@
         </div>
     </div>
 </div>
+@include('main.section.cookie-consent-modal')
 <!-- Footer End -->

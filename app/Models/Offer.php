@@ -6,6 +6,8 @@ use App\Traits\PropertiesTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Builder;
 
 class Offer extends Model
 {
@@ -30,6 +32,11 @@ class Offer extends Model
     public function services(): BelongsToMany
     {
         return $this->belongsToMany(Service::class, OfferService::class, 'offer_id', 'service_id');
+    }
+
+    public function scopeCustomerOffer(Builder $query): Builder
+    {
+        return $query->where('slug', 'custom-cleaning');
     }
 
     /**

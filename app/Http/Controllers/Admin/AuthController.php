@@ -24,7 +24,6 @@ class AuthController extends Controller
      */
     public function store(StoreRequest $request): RedirectResponse
     {
-
         if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
 

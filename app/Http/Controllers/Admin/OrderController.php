@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Order\StoreOrderRequest;
-use App\Http\Requests\Admin\Order\UpdateOrderRequest;
-use App\Models\Offer;
-use App\Models\Order;
-use App\Models\State;
-use App\Models\Service;
 use App\Models\AdditionalService;
+use App\Models\Service;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use App\Http\Requests\Admin\Order\{StoreOrderRequest, UpdateOrderRequest};
+use App\Http\Resources\Admin\Order\ShowResource;
+use App\Models\Order;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\Admin\Order\ShowResource;
+use Illuminate\View\View;
 
 class OrderController extends Controller
 {
@@ -40,27 +41,43 @@ class OrderController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
-        $states = State::onlyActive()->get();
-        $offers = Offer::onlyActive()->get();
-        $services = Service::onlyActive()->get();
-        $additionalServices = AdditionalService::onlyActive()->get();
-
-        return view('admin.orders.create', [
-            'states'                     => $states,
-            'offers'                     => $offers,
-            'services'                   => $services,
-            'additionalServices'         => $additionalServices,
-        ]);
+        return view('admin.orders.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreOrderRequest $request)
+    public function store(StoreOrderRequest $request): RedirectResponse
     {
-        //
+        $order = Order::create(array_merge($request->validated(), [
+            'token' => Hash::make(Str::random(10) . now()->format('YmdHis'))
+        ]));
+
+        if (!is_null($request->services)) {
+            Service::onlyActive()
+                ->find($request->services)
+                ->each(function ($service) use ($order) {
+                    $order->entities()->create([
+                        'entity_type' => $service->getEntity(),
+                        'entity_id'   => $service->id,
+                    ]);
+                });
+        }
+
+
+        if (!is_null($request->additional_services)) {
+            AdditionalService::onlyActive()->find($request->additional_services)
+                ->each(function ($service) use ($order) {
+                    $order->entities()->create([
+                        'entity_type' => $service->getEntity(),
+                        'entity_id'   => $service->id,
+                    ]);
+                });
+        }
+
+        return redirect()->route('admin.orders.index');
     }
 
     /**
@@ -78,44 +95,53 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Order $order)
+    public function edit(Order $order): View
     {
         $order->load(['offer', 'state', 'entities.entity']);
 
-        [$selectedServices, $selectedAdditionalServices] = $order
-            ->entities
-            ->map(fn($items) => $items->entity)
-            ->partition(fn($items) => $items instanceof Service);
-
-
-        $states = State::onlyActive()->get();
-        $offers = Offer::onlyActive()->get();
-        $services = Service::onlyActive()->get();
-        $additionalServices = AdditionalService::onlyActive()->get();
-
         return view('admin.orders.edit', [
-            'item'                       => $order,
-            'states'                     => $states,
-            'offers'                     => $offers,
-            'services'                   => $services,
-            'additionalServices'         => $additionalServices,
-            'selectedServices'           => $selectedServices,
-            'selectedAdditionalServices' => $selectedAdditionalServices
+            'item' => $order,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateOrderRequest $request, Order $order)
+    public function update(UpdateOrderRequest $request, Order $order): RedirectResponse
     {
-        //
+        $order->update($request->validated());
+
+        $order->entities()->delete();
+
+        if (!is_null($request->services)) {
+            Service::onlyActive()
+                ->find($request->services)
+                ->each(function ($service) use ($order) {
+                    $order->entities()->create([
+                        'entity_type' => $service->getEntity(),
+                        'entity_id'   => $service->id,
+                    ]);
+                });
+        }
+
+
+        if (!is_null($request->additional_services)) {
+            AdditionalService::onlyActive()->find($request->additional_services)
+                ->each(function ($service) use ($order) {
+                    $order->entities()->create([
+                        'entity_type' => $service->getEntity(),
+                        'entity_id'   => $service->id,
+                    ]);
+                });
+        }
+
+        return redirect()->route('admin.orders.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Order $order)
+    public function destroy(Order $order): RedirectResponse
     {
         $order->delete();
 

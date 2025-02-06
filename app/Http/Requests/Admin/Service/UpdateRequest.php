@@ -33,6 +33,7 @@ class UpdateRequest extends FormRequest
         return [
             'slug'        => ['required', 'string', 'max:255'],
             'name'        => ['required', 'string', 'max:255'],
+            'price'       => ['required',],
             'additional'  => ['sometimes', 'nullable', 'array'],
             'description' => ['required', 'string'],
             'image'       => ['sometimes', 'image', 'max:15120', 'mimes:jpg,png'],
