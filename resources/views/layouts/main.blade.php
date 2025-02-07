@@ -37,6 +37,7 @@
 
         'resources/css/main/main-style.css',
     ])
+    @yield('css')
 
     <!-- JavaScript Libraries -->
     @vite([ 'resources/js/library/jquery.js'])

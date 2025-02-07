@@ -1254,11 +1254,11 @@ a.btn-round {
     overflow-y: auto;
 }
 
-.services-list .services-list-block ul li{
+.services-list .services-list-block ul li {
     display: inline;
 }
 
-.services-list .services-list-block ul li label{
+.services-list .services-list-block ul li label {
     display: inline-block;
     background-color: rgba(255, 255, 255, .9);
     border: 2px solid rgba(139, 139, 139, .3);
@@ -1310,10 +1310,12 @@ a.btn-round {
 .services-list .services-list-block ul li input[type="checkbox"] {
     display: absolute;
 }
+
 .services-list .services-list-block ul li input[type="checkbox"] {
     position: absolute;
     opacity: 0;
 }
+
 .services-list .services-list-block ul li input[type="checkbox"]:focus + label {
     border: 2px solid #e9a1ff;
 }
@@ -1329,7 +1331,7 @@ a.btn-round {
     }
 }
 
-.modal-services-list{
+.modal-services-list {
     padding: 0 16px;
     max-width: 550px;
     margin: 50px auto;
@@ -1423,7 +1425,6 @@ a.btn-round {
     cursor: pointer;
     visibility: hidden;
 }
-
 
 
 /*******************************/
