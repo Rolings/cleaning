@@ -2,7 +2,7 @@
 <div class="footer">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 col-lg-3">
+            <div class="col-md-6 col-lg-4 d-flex justify-content-center">
                 <div class="footer-contact">
                     <h2>Get In Touch</h2>
                     @if(!empty($contact_address))
@@ -36,42 +36,72 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-3">
+            <div class="col-md-6 col-lg-4 d-flex justify-content-center">
                 <div class="footer-link">
                     <h2>Service</h2>
+                    @if(request()->route()->named('services.index'))
+                        <span class="unlink-contact">Services</span>
+                    @else
+                        <a href="{{ route('services.index') }}">Services</a>
+                    @endif
 
-                    <a href="{{ route('services.index') }}">Services</a>
-                    <a href="{{ route('projects.index') }}">Projects</a>
-
+                    @if(request()->route()->named('projects.index'))
+                        <span class="unlink-contact">Projects</span>
+                    @else
+                        <a href="{{ route('projects.index') }}">Projects</a>
+                    @endif
                 </div>
             </div>
-            <div class="col-md-6 col-lg-3">
+            <div class="col-md-6 col-lg-4 d-flex justify-content-center">
                 <div class="footer-link">
                     <h2>Contact</h2>
-                    <a href="{{ route('about.index') }}">About Us</a>
-                    <a href="{{ route('contact.index') }}">Contact</a>
-                    <a href="{{ route('reviews.index') }}">Review</a>
-                    <a href="{{ route('frequently-questions.index') }}">FAQs</a>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-                <div class="footer-form">
-                    <h2>Stay Updated</h2>
-                    <p>
-                        Lorem ipsum dolor sit amet, adipiscing elit. Etiam accumsan lacus eget velit
-                    </p>
-                    <input class="form-control" placeholder="Email here">
-                    <button class="btn">Submit</button>
+
+                    @if(request()->route()->named('about.index'))
+                        <span class="unlink-contact">About Us</span>
+                    @else
+                        <a href="{{ route('about.index') }}">About Us</a>
+                    @endif
+
+                    @if(request()->route()->named('contact.index'))
+                        <span class="unlink-contact">Contact</span>
+                    @else
+                        <a href="{{ route('contact.index') }}">Contact</a>
+                    @endif
+
+                    @if(request()->route()->named('reviews.index'))
+                        <span class="unlink-contact">Review</span>
+                    @else
+                        <a href="{{ route('reviews.index') }}">Review</a>
+                    @endif
+
+                    @if(request()->route()->named('frequently-questions.index'))
+                        <span class="unlink">FAQs</span>
+                    @else
+                        <a href="{{ route('frequently-questions.index') }}">FAQs</a>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
     <div class="container footer-menu">
         <div class="f-menu">
-            <a href="{{ route('terms-condition.index') }}">Terms of use</a>
-            <a href="{{ route('privacy-policy.index') }}">Privacy policy</a>
-            <a href="{{ route('cookies.index') }}">Cookies</a>
-            <a href="{{ route('contact.index') }}">Contact us</a>
+            @if(request()->route()->named('terms-condition.index'))
+                <span class="unlink">Terms of use</span>
+            @else
+                <a href="{{ route('terms-condition.index') }}">Terms of use</a>
+            @endif
+
+            @if(request()->route()->named('privacy-policy.index'))
+                <span class="unlink">Privacy policy</span>
+            @else
+                <a href="{{ route('privacy-policy.index') }}">Privacy policy</a>
+            @endif
+
+            @if(request()->route()->named('cookies.index'))
+                <span class="unlink">Cookies</span>
+            @else
+                <a href="{{ route('cookies.index') }}">Cookies</a>
+            @endif
         </div>
     </div>
 </div>

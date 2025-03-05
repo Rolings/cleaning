@@ -18,8 +18,8 @@ class ServiceController extends Controller
     public function index(): View
     {
         $services = Service::with('image')
-            ->orderBy('created_at')
-            ->paginate(15);
+            ->orderBy('id','desc')
+            ->paginate(12);
 
         return view('admin.services.index', [
             'items' => $services
@@ -32,7 +32,7 @@ class ServiceController extends Controller
     public function create(): View
     {
         $additionalServices = AdditionalService::onlyActive()
-            ->orderBy('created_at')
+            ->orderBy('id')
             ->get();
 
         return view('admin.services.create', [

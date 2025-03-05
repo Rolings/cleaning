@@ -41,6 +41,7 @@ class ReviewController extends Controller
 
         $review->fill(array_merge($request->validated(), [
             'image_id' => $file,
+            'approved' => true
         ]))->save();
 
         return redirect()->route('admin.reviews.index');
@@ -67,7 +68,8 @@ class ReviewController extends Controller
             : $review->image_id;
 
         $review->fill(array_merge($request->all(), [
-            'image_id' => $file
+            'image_id' => $file,
+            'approved' => true
         ]))->save();
 
         return redirect()->route('admin.reviews.index');

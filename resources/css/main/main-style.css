@@ -571,7 +571,7 @@ a.btn-round {
 
 .breadcrumb .breadcrumb-item + .breadcrumb-item::before {
     display: inline-block;
-    padding-right: .4rem;
+    padding-right: 2px;
     color: #6c757d;
     content: ">";
 }
@@ -2288,16 +2288,15 @@ a.btn-round {
     color: #FFD662;
 }
 
-.footer .footer-link a {
+.footer .footer-link a, .unlink-contact {
     display: block;
     margin-bottom: 10px;
     font-size: 14px;
     font-weight: 500;
     color: #ffffff;
-
 }
 
-.footer .footer-link a::before {
+.footer .footer-link a::before, .unlink-contact::before {
     position: relative;
     content: "\f0da";
     font-family: "Font Awesome 5 Free";
@@ -2305,7 +2304,7 @@ a.btn-round {
     margin-right: 10px;
 }
 
-.footer .footer-link a:hover {
+.footer .footer-link a:hover, .unlink-contact:hover {
     color: #FFD662;
 }
 
@@ -2345,7 +2344,7 @@ a.btn-round {
     text-align: center;
 }
 
-.footer .footer-menu .f-menu a {
+.footer .footer-menu .f-menu a, .unlink {
     color: #ffffff;
     font-size: 14px;
     font-weight: 500;
@@ -2354,11 +2353,11 @@ a.btn-round {
     border-right: 1px solid #ffffff;
 }
 
-.footer .footer-menu .f-menu a:hover {
+.footer .footer-menu .f-menu a:hover, .unlink {
     color: #FFD662;
 }
 
-.footer .footer-menu .f-menu a:last-child {
+.footer .footer-menu .f-menu a:last-child, .unlink:last-child {
     margin-right: 0;
     padding-right: 0;
     border-right: none;

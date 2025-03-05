@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('comment');
             $table->enum('rating',[1,2,3,4,5])->default(5);
             $table->boolean('active')->default(true);
+            $table->boolean('approve')->default(false);
             $table->timestamps();
         });
     }

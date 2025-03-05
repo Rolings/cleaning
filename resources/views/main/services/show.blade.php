@@ -17,92 +17,12 @@
         <!-- Single Page Start -->
 
         <section class="post-content-area single-post-area">
-            <div class="container">
+            <div class=" ml-sm-2 mr-sm-2 ml-md-2 mr-md-2  ml-lg-2 mr-lg-2 ml-xl-0 mr-xl-0">
                 <div class="row">
-                    <div class="col-lg-8 posts-list">
-                        <div class="single-post row">
-                            <div class="col-lg-12">
-                                <div class="feature-img">
-                                    <img class="img-fluid" src="{{ $service->imageUrl }}" alt="">
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12">
-                                <h3 class="mt-20 mb-20">Astronomy Binoculars A Great Alternative</h3>
-                                <p class="excert">
-                                    MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction.
-                                </p>
-                                <p>
-                                    Boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower to actually sit through a self-imposed MCSE training. who has the willpower to actually sit through a self-imposed
-                                </p>
-                                <p>
-                                    Boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower to actually sit through a self-imposed MCSE training. who has the willpower to actually sit through a self-imposed
-                                </p>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="quotes">
-                                    MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower to actually sit through a self-imposed MCSE training.
-                                </div>
-                                <div class="row mt-30 mb-30">
-                                    <div class="col-6">
-                                        <img class="img-fluid" src="img/blog/post-img1.jpg" alt="">
-                                    </div>
-                                    <div class="col-6">
-                                        <img class="img-fluid" src="img/blog/post-img2.jpg" alt="">
-                                    </div>
-                                    <div class="col-lg-12 mt-30">
-                                        <p>
-                                            MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower.
-                                        </p>
-                                        <p>
-                                            MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="navigation-area">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
-                                    <div class="thumb">
-                                        <a href="#"><img class="img-fluid" src="img/blog/prev.jpg" alt=""></a>
-                                    </div>
-                                    <div class="arrow">
-                                        <a href="#"><span class="lnr text-white lnr-arrow-left"></span></a>
-                                    </div>
-                                    <div class="detials">
-                                        <p>Prev Post</p>
-                                        <a href="#"><h4>Space The Final Frontier</h4></a>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
-                                    <div class="detials">
-                                        <p>Next Post</p>
-                                        <a href="#"><h4>Telescopes 101</h4></a>
-                                    </div>
-                                    <div class="arrow">
-                                        <a href="#"><span class="lnr text-white lnr-arrow-right"></span></a>
-                                    </div>
-                                    <div class="thumb">
-                                        <a href="#"><img class="img-fluid" src="img/blog/next.jpg" alt=""></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-lg-4 sidebar-widgets">
                         <div class="widget-wrap">
-                            <div class="single-sidebar-widget search-widget">
-                                <form class="search-form" action="#">
-                                    <input placeholder="Search Posts" name="search" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Posts'">
-                                    <button type="submit"><i class="fa fa-search"></i></button>
-                                </form>
-                            </div>
                             <div class="single-sidebar-widget user-info-widget">
-                                <img src="img/blog/user-info.png" alt="">
-                                <a href="#"><h4>Charlie Barber</h4></a>
-                                <p>
-                                    Senior blog writer
-                                </p>
+                                <img class="img-fluid" src="{{ $service->imageUrl }}" alt="">
                                 <ul class="social-links">
                                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                     <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -110,7 +30,9 @@
                                     <li><a href="#"><i class="fa fa-behance"></i></a></li>
                                 </ul>
                                 <p>
-                                    Boot camps have its supporters andit sdetractors. Some people do not understand why you should have to spend money on boot camp when you can get. Boot camps have itssuppor ters andits detractors.
+                                    Boot camps have its supporters andit sdetractors. Some people do not understand why
+                                    you should have to spend money on boot camp when you can get. Boot camps have
+                                    itssuppor ters andits detractors.
                                 </p>
                             </div>
                             <div class="single-sidebar-widget popular-post-widget">
@@ -214,10 +136,13 @@
                                     <div class="col-autos">
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                                                <div class="input-group-text"><i class="fa fa-envelope" aria-hidden="true"></i>
+                                                <div class="input-group-text"><i class="fa fa-envelope"
+                                                                                 aria-hidden="true"></i>
                                                 </div>
                                             </div>
-                                            <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Enter email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email'">
+                                            <input type="text" class="form-control" id="inlineFormInputGroup"
+                                                   placeholder="Enter email" onfocus="this.placeholder = ''"
+                                                   onblur="this.placeholder = 'Enter email'">
                                         </div>
                                     </div>
                                     <a href="#" class="bbtns">Subcribe</a>
@@ -245,6 +170,85 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-8 posts-list">
+                        <div class="single-post row">
+                            <div class="col-lg-12 col-md-12">
+                                {!! $service->description !!}
+                            </div>
+                        </div>
+                        <div class="navigation-area">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-end">
+                                    @if($previousService)
+                                    <div class="thumb">
+                                        <a href="{{ route('services.show', $previousService) }}"><img class="img-fluid" width="100" src="{{ $previousService->imageUrl }}" alt=""></a>
+                                    </div>
+                                    <div class="arrow">
+                                        <a href="{{ route('services.show', $previousService) }}"><span class="lnr text-white lnr-arrow-left"></span></a>
+                                    </div>
+                                    <div class="detials">
+                                        <p>Prev Post</p>
+                                        <a href="{{ route('services.show', $previousService) }}"><p>{{ $previousService->name }}</p></a>
+                                    </div>
+                                    @endif
+                                </div>
+
+
+                                <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+                                    @if($nextService)
+                                    <div class="detials">
+                                        <p>Next Post</p>
+                                        <a href="{{ route('services.show', $nextService) }}"><p>{{ $nextService->name }}</p></a>
+                                    </div>
+                                    <div class="arrow">
+                                        <a href="{{ route('services.show', $nextService) }}"><span class="lnr text-white lnr-arrow-right"></span></a>
+                                    </div>
+                                    <div class="thumb">
+                                        <a href="{{ route('services.show', $nextService) }}"><img class="img-fluid" width="100" src="{{ $nextService->imageUrl }}" alt=""></a>
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-form">
+                            <h4>Leave a Comment</h4>
+                            {{ html()->form()->route('checkout')->open() }}
+                                <div class="container-fluid mr-0 pr-0">
+
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 m-0 p-0">
+                                            <div class="form-group">
+                                                {{ html()->text('name')->required()->placeholder('Your Name')->attributes(['id'=>'name','class'=>'form-control']) }}
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                                            <div class="form-group">
+                                                {{ html()->text('phone')->required()->placeholder('Mobile Number')->attributes(['id'=>'phone','class'=>'form-control']) }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 m-0 pl-0">
+                                            <div class="form-group">
+                                                {{ html()->text('subject')->required()->placeholder('Subject')->attributes(['id'=>'subject','class'=>'form-control']) }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 m-0 pl-0">
+                                            <div class="form-group">
+                                                {{ html()->textarea('comment')->attributes(['id'=>'comment','class'=>'form-control','cols'=>'100','rows'=>'30','style'=>'height:100px;']) }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            {{ html()->form()->close() }}
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -392,7 +396,7 @@
 
 
         .post-content-area {
-            background-color: #f9f9ff;
+            background-color: #ffffff;
         }
 
         .post-content-area .single-post {
@@ -463,6 +467,7 @@
             font-weight: 900;
             color: #222;
         }
+
         .post-content-area .single-post .feature-img {
             max-height: 200px;
             width: 100%;
@@ -471,6 +476,7 @@
             align-items: center;
             overflow: hidden;
         }
+
         .post-content-area .single-post .feature-img img {
             width: 100%;
             height: 100%;
@@ -505,4 +511,5 @@
         }
 
     </style>
-    @endsection
+
+@endsection

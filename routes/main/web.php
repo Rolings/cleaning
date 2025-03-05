@@ -23,7 +23,7 @@ Route::middleware(MetaDataMiddleware::class)->group(function () {
     Route::resource('projects', ProjectController::class)->only('index');
     Route::resource('services', ServiceController::class)->only(['index', 'show']);
     Route::resource('frequently-questions', QuestionController::class)->only(['index']);
-    Route::resource('reviews', ReviewController::class)->only(['index']);
+    Route::resource('reviews', ReviewController::class)->only(['index','store']);
 
     Route::resource('privacy-policy', PrivacyPolicyController::class)->only(['index']);
     Route::resource('terms-condition', TermsConditionController::class)->only(['index']);
