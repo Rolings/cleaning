@@ -22,151 +22,24 @@
                     <div class="col-lg-4 sidebar-widgets">
                         <div class="widget-wrap">
                             <div class="single-sidebar-widget user-info-widget">
-                                <img class="img-fluid" src="{{ $service->imageUrl }}" alt="">
-                                <ul class="social-links">
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-github"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                                </ul>
-                                <p>
-                                    Boot camps have its supporters andit sdetractors. Some people do not understand why
-                                    you should have to spend money on boot camp when you can get. Boot camps have
-                                    itssuppor ters andits detractors.
-                                </p>
+                                <img class="img-fluid d-flex justify-content-center" src="{{ $service->imageUrl }}" alt="">
                             </div>
-                            <div class="single-sidebar-widget popular-post-widget">
-                                <h4 class="popular-title">Popular Posts</h4>
+                            <div class="single-sidebar-widget popular-post-widget mt-3">
+                                <h4 class="popular-title">Top Projects</h4>
                                 <div class="popular-post-list">
-                                    <div class="single-post-list d-flex flex-row align-items-center">
-                                        <div class="thumb">
-                                            <img class="img-fluid" src="img/blog/pp1.jpg" alt="">
-                                        </div>
-                                        <div class="details">
-                                            <a href="blog-single.html"><h6>Space The Final Frontier</h6></a>
-                                            <p>02 Hours ago</p>
-                                        </div>
-                                    </div>
-                                    <div class="single-post-list d-flex flex-row align-items-center">
-                                        <div class="thumb">
-                                            <img class="img-fluid" src="img/blog/pp2.jpg" alt="">
-                                        </div>
-                                        <div class="details">
-                                            <a href="blog-single.html"><h6>The Amazing Hubble</h6></a>
-                                            <p>02 Hours ago</p>
-                                        </div>
-                                    </div>
-                                    <div class="single-post-list d-flex flex-row align-items-center">
-                                        <div class="thumb">
-                                            <img class="img-fluid" src="img/blog/pp3.jpg" alt="">
-                                        </div>
-                                        <div class="details">
-                                            <a href="blog-single.html"><h6>Astronomy Or Astrology</h6></a>
-                                            <p>02 Hours ago</p>
-                                        </div>
-                                    </div>
-                                    <div class="single-post-list d-flex flex-row align-items-center">
-                                        <div class="thumb">
-                                            <img class="img-fluid" src="img/blog/pp4.jpg" alt="">
-                                        </div>
-                                        <div class="details">
-                                            <a href="blog-single.html"><h6>Asteroids telescope</h6></a>
-                                            <p>02 Hours ago</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single-sidebar-widget ads-widget">
-                                <a href="#"><img class="img-fluid" src="img/blog/ads-banner.jpg" alt=""></a>
-                            </div>
-                            <div class="single-sidebar-widget post-category-widget">
-                                <h4 class="category-title">Post Catgories</h4>
-                                <ul class="cat-list">
-                                    <li>
-                                        <a href="#" class="d-flex justify-content-between">
-                                            <p>Technology</p>
-                                            <p>37</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex justify-content-between">
-                                            <p>Lifestyle</p>
-                                            <p>24</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex justify-content-between">
-                                            <p>Fashion</p>
-                                            <p>59</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex justify-content-between">
-                                            <p>Art</p>
-                                            <p>29</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex justify-content-between">
-                                            <p>Food</p>
-                                            <p>15</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex justify-content-between">
-                                            <p>Architecture</p>
-                                            <p>09</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex justify-content-between">
-                                            <p>Adventure</p>
-                                            <p>44</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="single-sidebar-widget newsletter-widget">
-                                <h4 class="newsletter-title">Newsletter</h4>
-                                <p>
-                                    Here, I focus on a range of items and features that we use in life without
-                                    giving them a second thought.
-                                </p>
-                                <div class="form-group d-flex flex-row">
-                                    <div class="col-autos">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text"><i class="fa fa-envelope"
-                                                                                 aria-hidden="true"></i>
-                                                </div>
+
+                                    @foreach($projects as $project)
+                                        <div class="single-post-list d-flex flex-row align-items-center">
+                                            <div class="thumb mr-3 mt-3 mb-3">
+                                                <img class="img-fluid" width="70" src="{{ $project->image() }}" alt="">
                                             </div>
-                                            <input type="text" class="form-control" id="inlineFormInputGroup"
-                                                   placeholder="Enter email" onfocus="this.placeholder = ''"
-                                                   onblur="this.placeholder = 'Enter email'">
+                                            <div class="details">
+                                                <p>{{ $project->name }}</p>
+                                                <h6>02 Hours ago</h6>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <a href="#" class="bbtns">Subcribe</a>
+                                    @endforeach
                                 </div>
-                                <p class="text-bottom">
-                                    You can unsubscribe at any time
-                                </p>
-                            </div>
-                            <div class="single-sidebar-widget tag-cloud-widget">
-                                <h4 class="tagcloud-title">Tag Clouds</h4>
-                                <ul>
-                                    <li><a href="#">Technology</a></li>
-                                    <li><a href="#">Fashion</a></li>
-                                    <li><a href="#">Architecture</a></li>
-                                    <li><a href="#">Fashion</a></li>
-                                    <li><a href="#">Food</a></li>
-                                    <li><a href="#">Technology</a></li>
-                                    <li><a href="#">Lifestyle</a></li>
-                                    <li><a href="#">Art</a></li>
-                                    <li><a href="#">Adventure</a></li>
-                                    <li><a href="#">Food</a></li>
-                                    <li><a href="#">Lifestyle</a></li>
-                                    <li><a href="#">Adventure</a></li>
-                                </ul>
                             </div>
                         </div>
                     </div>
@@ -176,7 +49,8 @@
                                 {!! $service->description !!}
                             </div>
                         </div>
-                        <div class="navigation-area">
+
+                        <div class="navigation-area mt-5">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-end">
                                     @if($previousService)
@@ -210,11 +84,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="comment-form">
+
+                        <div class="comment-form mt-5">
                             <h4>Leave a Comment</h4>
                             {{ html()->form()->route('checkout')->open() }}
+                            {{ html()->hidden('') }}
                                 <div class="container-fluid mr-0 pr-0">
-
                                     <div class="row">
                                         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 m-0 p-0">
                                             <div class="form-group">
@@ -239,7 +114,7 @@
                                     <div class="row">
                                         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 m-0 pl-0">
                                             <div class="form-group">
-                                                {{ html()->textarea('comment')->attributes(['id'=>'comment','class'=>'form-control','cols'=>'100','rows'=>'30','style'=>'height:100px;']) }}
+                                                {{ html()->textarea('comment')->placeholder('comment')->attributes(['id'=>'comment','class'=>'form-control','cols'=>'100','rows'=>'30','style'=>'height:100px;']) }}
                                             </div>
                                         </div>
                                     </div>

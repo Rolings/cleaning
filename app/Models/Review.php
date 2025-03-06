@@ -14,6 +14,7 @@ class Review extends Model
 
     protected $fillable = [
         'image_id',
+        'service_id',
         'name',
         'email',
         'comment',
@@ -36,10 +37,18 @@ class Review extends Model
     }
 
     /**
+     * @return HasOne
+     */
+    public function service(): HasOne
+    {
+        return $this->hasOne(Service::class, 'id', 'service_id');
+    }
+
+    /**
      * @return string
      */
     public function getLimitCommentAttribute(): string
     {
-        return Str::limit($this->comment,50);
+        return Str::limit($this->comment, 50);
     }
 }
