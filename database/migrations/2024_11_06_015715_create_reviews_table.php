@@ -18,7 +18,8 @@ return new class extends Migration
             $table->foreignIdFor(Service::class)->nullable();
             $table->string('name');
             $table->string('email')->nullable();
-            $table->text('comment');
+            $table->string('phone')->nullable();
+            $table->text('comment')->nullable();
             $table->enum('rating',[1,2,3,4,5])->default(5);
             $table->boolean('active')->default(true);
             $table->boolean('approve')->default(false);

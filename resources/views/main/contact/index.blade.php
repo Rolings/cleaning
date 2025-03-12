@@ -31,7 +31,7 @@
                                 {{ html()->textarea('message')->required()->placeholder('Message')->attributes(['id'=>'message','class'=>'form-control','rows'=>6]) }}
                             </div>
                             <div>
-                                <button class="btn" type="submit">Send Message</button>
+                                <button class="btn-global" type="submit">Send Message</button>
                             </div>
                             {{ html()->form()->close() }}
                         </div>

@@ -6,6 +6,7 @@ use App\Traits\PropertiesTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
 
@@ -58,11 +59,23 @@ class Service extends Model
     }
 
     /**
+     * Relation with mode Offer
+     *
      * @return BelongsToMany
      */
     public function offers(): BelongsToMany
     {
         return $this->belongsToMany(Offer::class, OfferService::class, 'service_id', 'offer_id');
+    }
+
+    /**
+     * Relation with mode Review
+     *
+     * @return HasMany
+     */
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class, 'service_id', 'id');
     }
 
     /**

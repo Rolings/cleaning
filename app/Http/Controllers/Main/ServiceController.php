@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Review;
 use App\Models\Service;
 use Illuminate\Contracts\View\View;
 
@@ -29,6 +30,12 @@ class ServiceController extends Controller
      */
     public function show(Service $service): View
     {
+        $service->load([
+            'reviews' => function ($query) {
+                 $query->onlyActive()->onlyApprove();
+            }
+        ]);
+
         $projects = Project::with(['gallery'])->limit(3)->get();
 
         $previousService = Service::where('id', '>', $service->id)

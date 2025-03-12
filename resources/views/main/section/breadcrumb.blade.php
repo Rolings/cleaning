@@ -1,9 +1,6 @@
 <div class="page-header">
     <div class="container-fluid">
         <div class="row justify-content-start">
-            <h1 class="ml-3">{{ $title }}</h1>
-        </div>
-        <div class="row justify-content-start">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
@@ -22,5 +19,10 @@
                 </ol>
             </nav>
         </div>
+    </div>
+</div>
+<div class="container">
+    <div class="section-header mt-3 mb-2">
+        <h1>{{ $title }}</h1>
     </div>
 </div>

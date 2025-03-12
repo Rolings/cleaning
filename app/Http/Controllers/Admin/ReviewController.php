@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\Review\StoreReviewRequest;
 use App\Http\Requests\Admin\Review\UpdateReviewRequest;
 use App\Models\Review;
 use App\Services\File\FileService;
+use Illuminate\Http\RedirectResponse;
 
 class ReviewController extends Controller
 {
@@ -15,7 +16,7 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        $reviews = Review::orderBy('created_at')->paginate(15);
+        $reviews = Review::orderBy('created_at', 'desc')->paginate(15);
 
         return view('admin.reviews.index', [
             'items' => $reviews
@@ -61,7 +62,7 @@ class ReviewController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateReviewRequest $request, Review $review, FileService $fileService)
+    public function update(UpdateReviewRequest $request, Review $review, FileService $fileService): RedirectResponse
     {
         $file = $request->hasFile('image')
             ? $fileService->setParams($request, 'image', 'public')->storeFile($review->image_id)->id
@@ -76,9 +77,20 @@ class ReviewController extends Controller
     }
 
     /**
+     * @param Review $review
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function approve(Review $review): RedirectResponse
+    {
+        $review->update(['approve' => true]);
+
+        return redirect()->route('admin.reviews.index');
+    }
+
+    /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Review $review, FileService $fileService)
+    public function destroy(Review $review, FileService $fileService): RedirectResponse
     {
         $review->load('image');
 

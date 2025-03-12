@@ -61,6 +61,7 @@ Route::prefix('admin')->name('admin.')->middleware(['web', AdminMiddleware::clas
     Route::resource('projects', ProjectController::class);
     Route::resource('questions', QuestionController::class);
     Route::resource('reviews', ReviewController::class);
+    Route::get('reviews/{review}/approve', [ReviewController::class, 'approve'])->name('reviews.approve');
     Route::resource('pages', PageController::class);
 
     Route::prefix('condition')->name('condition.')->group(function () {

@@ -15,7 +15,7 @@ class ReviewController extends Controller
     {
         $reviews = Review::paginate(15);
 
-        return view('main.reviews.index',[
+        return view('main.reviews.index', [
             'items' => $reviews
         ]);
     }
@@ -26,6 +26,23 @@ class ReviewController extends Controller
      */
     public function store(StoreReviewRequest $request)
     {
-        //
+        try {
+            Review::create([
+                'service_id' => $request->service_id,
+                'name'       => $request->name,
+                'phone'      => $request->phone,
+                'comment'    => $request->comment,
+                'rating'     => 5,
+                'active'     => false,
+                'approve'    => false,
+            ]);
+
+            return response()->json(['status' => 'success', 'message' => 'Your review successfully submitted!.']);
+
+        } catch (\Exception $exception) {
+            logger()->error($exception->getMessage());
+
+            return response()->json(['status' => 'error', 'message' => 'Something wrong, try again'], 404);
+        }
     }
 }

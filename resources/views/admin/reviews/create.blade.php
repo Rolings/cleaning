@@ -46,7 +46,11 @@
 
                                 <div class="item border-bottom py-3">
                                     <div class="row justify-content-between align-items-center">
-                                        <div class="col-2">
+                                        <div class="col-6">
+                                            <div class="item-label"><strong>Телефон</strong></div>
+                                            {{ html()->text('phone')->required()->attributes(['id'=>'phone','class'=>'form-control']) }}
+                                        </div><!--//col-->
+                                        <div class="col-6">
                                             <div class="item-label"><strong>Рейтинг</strong></div>
                                             {{ html()->number('rating')->required()->attributes(['id'=>'rating','min'=>1,'max'=>5,  'class'=>'form-control']) }}
                                         </div><!--//col-->
@@ -119,6 +123,10 @@
 @section('js')
 
     <script>
+        window.onload = () => {
+            $('#phone').mask('+1 (000) 000-0000');
+        }
+        var loa
         var loadFile = function (event) {
             var output = document.getElementById('image');
             output.src = URL.createObjectURL(event.target.files[0]);

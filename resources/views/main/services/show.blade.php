@@ -35,7 +35,6 @@
                                             </div>
                                             <div class="details">
                                                 <p>{{ $project->name }}</p>
-                                                <h6>02 Hours ago</h6>
                                             </div>
                                         </div>
                                     @endforeach
@@ -61,7 +60,7 @@
                                         <a href="{{ route('services.show', $previousService) }}"><span class="lnr text-white lnr-arrow-left"></span></a>
                                     </div>
                                     <div class="detials">
-                                        <p>Prev Post</p>
+                                        <p>Prev Service</p>
                                         <a href="{{ route('services.show', $previousService) }}"><p>{{ $previousService->name }}</p></a>
                                     </div>
                                     @endif
@@ -71,7 +70,7 @@
                                 <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
                                     @if($nextService)
                                     <div class="detials">
-                                        <p>Next Post</p>
+                                        <p>Next Service</p>
                                         <a href="{{ route('services.show', $nextService) }}"><p>{{ $nextService->name }}</p></a>
                                     </div>
                                     <div class="arrow">
@@ -85,10 +84,35 @@
                             </div>
                         </div>
 
+                        @if($service->reviews->count())
+                            <div class="comments-area mt-5 border-top">
+                                <h4>05 Comments</h4>
+                                <div class="comment-list mt-4">
+                                    @foreach($service->reviews as $review)
+                                        <div class="single-comment justify-content-between d-flex">
+                                            <div class="user justify-content-between d-flex">
+                                                <div class="thumb">
+                                                    <img width="60" height="60" src="{{ $no_avatar }}" alt="">
+                                                </div>
+                                                <div class="desc ml-3">
+                                                    <h5><a href="#">{{ $review->name }}</a></h5>
+                                                    <h6 class="date">{{ $review->created_at->format('F j, Y \a\t g:i a') }}</h6>
+                                                    <p class="comment">
+                                                        {{ $review->comment }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="comment-form mt-5">
                             <h4>Leave a Comment</h4>
-                            {{ html()->form()->route('checkout')->open() }}
-                            {{ html()->hidden('') }}
+                            <div class="contact-form mt-4 border-bottom">
+                                {{ html()->form()->route('reviews.store')->attributes(['id'=>'review-form'])->open() }}
+                                {{ html()->hidden('service_id',$service->id) }}
                                 <div class="container-fluid mr-0 pr-0">
                                     <div class="row">
                                         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6 m-0 p-0">
@@ -102,15 +126,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 m-0 pl-0">
-                                            <div class="form-group">
-                                                {{ html()->text('subject')->required()->placeholder('Subject')->attributes(['id'=>'subject','class'=>'form-control']) }}
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     <div class="row">
                                         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12 m-0 pl-0">
                                             <div class="form-group">
@@ -119,8 +134,13 @@
                                         </div>
                                     </div>
 
+                                    <div class="row">
+                                        <button class="btn-global" type="submit">Send Message</button>
+                                    </div>
                                 </div>
-                            {{ html()->form()->close() }}
+                                {{ html()->form()->close() }}
+                            </div>
+
                         </div>
                     </div>
 
@@ -134,6 +154,45 @@
 
         <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
     </div>
+@endsection
+@section('js')
+    <script>
+        window.onload = () => {
+            $('#phone').on('input', () => {
+                $(this).val('+1')
+            }).on('mousedown', () => {
+                $(this).val('+1')
+            }).mask('+1 (000) 000 0000');
+
+            $("form#review-form").on('submit', function (e) {
+                e.preventDefault();
+                let _this = $(this);
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr('action'),
+                    data: $(this).serializeArray(),
+                    success: (response) => {
+                        $.toast({
+                            heading: 'Success',
+                            text: response.message,
+                            showHideTransition: 'slide',
+                            icon: 'success'
+                        })
+                        _this[0].reset();
+                    },
+                    error: (error) => {
+                        $.toast({
+                            heading: 'Error',
+                            text: error.message,
+                            showHideTransition: 'fade',
+                            icon: 'error'
+                        })
+                    }
+
+                });
+            })
+        }
+    </script>
 @endsection
 @section('css')
     <style>

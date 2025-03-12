@@ -17,7 +17,7 @@ class StoreReviewRequest extends FormRequest
     public function prepareForValidation(): void
     {
         $this->merge([
-            'active' => isset($this->active)
+            'active' => isset($this->active),
         ]);
     }
 
@@ -29,12 +29,10 @@ class StoreReviewRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image'   => ['required', 'image', 'max:15120', 'mimes:jpeg,jpg,png,gif'],
-            'name'    => ['required', 'string'],
-            'email'   => ['required', 'email'],
-            'comment' => ['required', 'string'],
-            'rating'  => ['required', 'integer', 'min:1', 'max:5'],
-            'active'  => ['required', 'boolean'],
+            'service_id' => ['required', 'integer', 'exists:services,id'],
+            'name'       => ['required', 'string', 'max:70'],
+            'phone'      => ['required', 'regex:/^\+1\s?(\(\d{3}\)\s?|\d{3}[-.\s]?)\d{3}[-.\s]?\d{4}$/',],
+            'comment'    => ['required', 'string', 'max:500'],
         ];
     }
 }

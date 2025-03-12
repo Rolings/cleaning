@@ -21,7 +21,7 @@
     <meta property="og:url" content="{{ canonicaUrl() }}">
 
     <!-- Favicon -->
-    <link href="build/images/main/favicon.ico" rel="icon">
+    <link rel="shortcut icon"  href="/favicon.ico">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400&display=swap" rel="stylesheet">

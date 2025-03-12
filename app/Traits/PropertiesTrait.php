@@ -17,4 +17,14 @@ trait PropertiesTrait
     {
         return $query->where('active', true);
     }
+
+    /**
+     * @param Builder $query
+     * @return Builder
+     *
+     */
+    public function scopeOnlyApprove(Builder $query): Builder
+    {
+        return $query->where('approve', true);
+    }
 }

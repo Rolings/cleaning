@@ -17,15 +17,18 @@ class Review extends Model
         'service_id',
         'name',
         'email',
+        'phone',
         'comment',
         'rating',
         'active',
+        'approve',
     ];
 
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'active'     => 'boolean',
+        'approve'    => 'boolean',
     ];
 
     /**
@@ -50,5 +53,13 @@ class Review extends Model
     public function getLimitCommentAttribute(): string
     {
         return Str::limit($this->comment, 50);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isApproved(): bool
+    {
+        return $this->approve;
     }
 }

@@ -36,7 +36,7 @@
                                     <th class="cell">Відгук</th>
                                     <th class="cell">Рейтинг</th>
                                     <th class="cell">Дата</th>
-                                    <th class="cell">Статус</th>
+                                    <th class="cell" colspan="2">Статус</th>
                                     <th class="cell" colspan="2"></th>
                                 </tr>
                                 </thead>
@@ -49,6 +49,14 @@
                                         <td class="cell">{{ $item->rating }}</td>
                                         <td class="cell"><span>{{ $item->created_at->format('F d Y') }}</span><span class="note">{{ $item->created_at->format(' h:i A') }}</span></td>
                                         <td class="cell">
+
+                                            @if($item->isApproved())
+                                                <span class="badge bg-success">Підтверджено</span>
+                                            @else
+
+                                                <a class="badge bg-info" href="{{ route('admin.reviews.approve',$item) }}">Підвердити</a>
+                                            @endif
+
                                             @if($item->active)
                                                 <span class="badge bg-success">Активно</span>
                                             @else
