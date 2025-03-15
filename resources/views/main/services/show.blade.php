@@ -198,7 +198,7 @@
     <style>
 
         .single-post-area {
-            padding-top: 80px;
+            padding-top: 45px;
             padding-bottom: 80px;
         }
 

@@ -14,8 +14,27 @@
         <div class="contact">
             <div class="container-fluid">
                 <div class="row">
-                    <livewire:top.question />
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d77392.17125736242!2d-80.25005157563224!3d25.766952850344847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sru!2s!4v1742072272202!5m2!1sru!2s" width="1366" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-md-6">
 
+                        <div class="row">
+                            @if(!empty($contact_address))
+                                <p><i class="fa fa-map-marker-alt mr-3"></i>{{ $contact_address }}</p>
+                            @endif
+                        </div>
+                        <div class="row">
+                            @if(!empty($contact_phone))
+                                <p><i class="fa fa-phone-alt mr-3"></i> <a href="tel:{{ $contact_phone }}">{{ $contact_phone }}</a></p>
+                            @endif
+                        </div>
+                        <div class="row ">
+                            @if(!empty($contact_email))
+                                <p><i class="fa fa-envelope mr-3"></i><a href="mailto:{{ $contact_email }}">{{ $contact_email }}</a></p>
+                            @endif
+                        </div>
+                    </div>
                     <div class="col-md-6">
                         <div class="contact-form">
                             {{ html()->form()->route('contact.store')->attributes(['id'=>'contact-form'])->open() }}

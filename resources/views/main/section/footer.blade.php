@@ -6,15 +6,15 @@
                 <div class="footer-contact">
                     <h2>Get In Touch</h2>
                     @if(!empty($contact_address))
-                        <p><i class="fa fa-map-marker-alt"></i>{{ $contact_address }}</p>
+                        <p><i class="fa fa-map-marker-alt mr-2"></i>{{ $contact_address }}</p>
                     @endif
 
                     @if(!empty($contact_phone))
-                        <p><i class="fa fa-phone-alt"></i>{{ $contact_phone }}</p>
+                        <p><i class="fa fa-phone-alt mr-2"></i> <a href="tel:{{ $contact_phone }}">{{ $contact_phone }}</a></p>
                     @endif
 
                     @if(!empty($contact_email))
-                        <p><i class="fa fa-envelope"></i>{{ $contact_email }}</p>
+                        <p><i class="fa fa-envelope mr-2"></i><a href="mailto:{{ $contact_email }}">{{ $contact_email }}</a></p>
                     @endif
 
                     <div class="footer-social">

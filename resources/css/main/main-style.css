@@ -2277,6 +2277,9 @@ a.btn-round {
 .footer .footer-contact p i {
     width: 25px;
 }
+.footer .footer-contact p a {
+    color: white;
+}
 
 .footer .footer-social {
     position: relative;
