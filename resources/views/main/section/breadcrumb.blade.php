@@ -14,7 +14,7 @@
                             @endif
                         @endforeach
                     @else
-                        <li class="breadcrumb-item"><span>{{ $title }}</span></li>
+                        <li class="breadcrumb-item active">{{ $title }}</li>
                     @endisset
                 </ol>
             </nav>

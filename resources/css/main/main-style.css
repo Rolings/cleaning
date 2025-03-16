@@ -176,7 +176,6 @@ a.btn-round {
 
 .header .header-top {
     padding-bottom: 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, .1);
 }
 
 .header .brand {
@@ -547,7 +546,7 @@ a.btn-round {
 
 .page-header span {
     position: relative;
-    padding: 0 12px;
+    /*padding: 0 12px;*/
     font-size: 15px;
     font-weight: 300;
 }
@@ -584,19 +583,22 @@ a.btn-round {
 
 .breadcrumb .breadcrumb-item + .breadcrumb-item::before {
     display: inline-block;
-    padding-right: 2px;
-    color: #6c757d;
-    content: ">";
+    padding-right: .5rem;
+    color: #00000047;
+    content: "/";
+    font-weight: 600;
 }
 
 .breadcrumb .breadcrumb-item + .active {
-    color: #3CA0D0;
+    font-weight: 700;
+    text-shadow: 0px 0px 8px #ffffff;
 }
 
 .breadcrumb a {
     padding: 0 1px;
-    font-weight: 500;
-    color: #086FA1;
+    color: #12b590;
+    font-weight: 700;
+    text-shadow: 0px 0px 8px #ffffff;
 }
 
 
@@ -2473,4 +2475,8 @@ input.error {
 
 .border-bottom {
     border-bottom: 1px solid #eeeeee;
+}
+
+.img-rounded {
+    border-radius: 5px;
 }

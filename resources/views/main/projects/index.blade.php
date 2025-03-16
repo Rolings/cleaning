@@ -7,7 +7,7 @@
         <!-- Header End -->
 
         <!-- Page Header Start -->
-        @include('main.section.breadcrumb',['title'=>'Our projects'])
+        @include('main.section.breadcrumb',['title'=>'Projects'])
         <!-- Page Header End -->
 
         <!-- Projects Start -->

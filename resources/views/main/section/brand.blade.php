@@ -1,6 +1,6 @@
 <div class="col-lg-4">
     @if(request()->route()->named(['index']))
-        <div class="brand brand-name">
+        <div class="brand brand-name align-items-center d-flex justify-content-center">
             <div class="logo">
                 <img src="{{ asset('build/images/main/logo.svg') }}" alt="">
             </div>
@@ -10,7 +10,7 @@
             </div>
         </div>
     @else
-        <a class="brand brand-name" href="{{ route('index') }}">
+        <a class="brand brand-name align-items-center d-flex justify-content-center" href="{{ route('index') }}">
             <div class="logo">
                 <img src="{{ asset('build/images/main/logo.svg') }}" alt="">
             </div>

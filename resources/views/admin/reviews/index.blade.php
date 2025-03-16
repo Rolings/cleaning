@@ -34,7 +34,6 @@
                                     <th class="cell">№</th>
                                     <th class="cell">Ім'я</th>
                                     <th class="cell">Відгук</th>
-                                    <th class="cell">Рейтинг</th>
                                     <th class="cell">Дата</th>
                                     <th class="cell" colspan="2">Статус</th>
                                     <th class="cell" colspan="2"></th>
@@ -43,10 +42,18 @@
                                 <tbody>
                                 @foreach($items as $item)
                                     <tr>
-                                        <td class="cell">#{{ $item->id }}</td>
+                                        <td class="cell">
+                                            @if($item->isApproved())
+                                                <span class="badge bg-success">Підтверджено</span>
+                                            @else
+                                                <a class="badge bg-info" href="{{ route('admin.reviews.approve',$item) }}">Підвердити</a>
+                                            @endif
+                                {{--            <span class="badge bg-success">NEW</span>--}}
+                                            <p> #{{ $item->id }} </p>
+
+                                        </td>
                                         <td class="cell"><span>{{ $item->name }}</span><span class="note">{{ $item->email }}</span></td>
                                         <td class="cell">{{ $item->limitComment }}</td>
-                                        <td class="cell">{{ $item->rating }}</td>
                                         <td class="cell"><span>{{ $item->created_at->format('F d Y') }}</span><span class="note">{{ $item->created_at->format(' h:i A') }}</span></td>
                                         <td class="cell">
 

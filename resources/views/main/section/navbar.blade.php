@@ -8,8 +8,8 @@
         <div class="navbar-nav ml-auto">
             <a href="{{ route('index') }}" class="nav-item nav-link @if(request()->route()->named('index')) active @endif">Home</a>
 
-            <a href="{{ route('services.index') }}" class="nav-item nav-link @if(request()->route()->named(['services.index','services.show'])) active @endif">Our services</a>
-            <a href="{{ route('projects.index') }}" class="nav-item nav-link @if(request()->route()->named('projects.index')) active @endif">Our projects</a>
+            <a href="{{ route('services.index') }}" class="nav-item nav-link @if(request()->route()->named(['services.index','services.show'])) active @endif">Services</a>
+            <a href="{{ route('projects.index') }}" class="nav-item nav-link @if(request()->route()->named('projects.index')) active @endif">Projects</a>
             <a href="{{ route('about.index') }}" class="nav-item nav-link @if(request()->route()->named('about.index')) active @endif">About</a>
             <a href="{{ route('contact.index') }}" class="nav-item nav-link @if(request()->route()->named('contact.index')) active @endif">Contact</a>
             <a href="{{ route('frequently-questions.index') }}" class="nav-item nav-link @if(request()->route()->named('frequently-questions.index')) active @endif">FAQs</a>

@@ -22,7 +22,7 @@
                     <div class="col-lg-4 sidebar-widgets">
                         <div class="widget-wrap">
                             <div class="single-sidebar-widget user-info-widget">
-                                <img class="img-fluid d-flex justify-content-center" src="{{ $service->imageUrl }}" alt="">
+                                <img class="img-fluid d-flex justify-content-center img-rounded" src="{{ $service->imageUrl }}" alt="">
                             </div>
                             <div class="single-sidebar-widget popular-post-widget mt-3">
                                 <h4 class="popular-title">Top Projects</h4>
@@ -31,7 +31,7 @@
                                     @foreach($projects as $project)
                                         <div class="single-post-list d-flex flex-row align-items-center">
                                             <div class="thumb mr-3 mt-3 mb-3">
-                                                <img class="img-fluid" width="70" src="{{ $project->image() }}" alt="">
+                                                <img class="img-fluid img-rounded" width="70" src="{{ $project->image() }}" alt="">
                                             </div>
                                             <div class="details">
                                                 <p>{{ $project->name }}</p>
@@ -54,7 +54,7 @@
                                 <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-end">
                                     @if($previousService)
                                     <div class="thumb">
-                                        <a href="{{ route('services.show', $previousService) }}"><img class="img-fluid" width="100" src="{{ $previousService->imageUrl }}" alt=""></a>
+                                        <a href="{{ route('services.show', $previousService) }}"><img class="img-fluid img-rounded" width="100" src="{{ $previousService->imageUrl }}" alt=""></a>
                                     </div>
                                     <div class="arrow">
                                         <a href="{{ route('services.show', $previousService) }}"><span class="lnr text-white lnr-arrow-left"></span></a>
@@ -77,7 +77,7 @@
                                         <a href="{{ route('services.show', $nextService) }}"><span class="lnr text-white lnr-arrow-right"></span></a>
                                     </div>
                                     <div class="thumb">
-                                        <a href="{{ route('services.show', $nextService) }}"><img class="img-fluid" width="100" src="{{ $nextService->imageUrl }}" alt=""></a>
+                                        <a href="{{ route('services.show', $nextService) }}"><img class="img-fluid img-rounded" width="100" src="{{ $nextService->imageUrl }}" alt=""></a>
                                     </div>
                                     @endif
                                 </div>
@@ -110,7 +110,7 @@
 
                         <div class="comment-form mt-5">
                             <h4>Leave a Comment</h4>
-                            <div class="contact-form mt-4 border-bottom">
+                            <div class="contact-form mt-4">
                                 {{ html()->form()->route('reviews.store')->attributes(['id'=>'review-form'])->open() }}
                                 {{ html()->hidden('service_id',$service->id) }}
                                 <div class="container-fluid mr-0 pr-0">
