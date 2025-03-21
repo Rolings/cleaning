@@ -17,7 +17,7 @@
         <!-- Single Page Start -->
 
         <section class="post-content-area single-post-area">
-            <div class=" ml-sm-2 mr-sm-2 ml-md-2 mr-md-2  ml-lg-2 mr-lg-2 ml-xl-0 mr-xl-0">
+            <div class="ml-sm-2 mr-sm-2 ml-md-2 mr-md-2  ml-lg-2 mr-lg-2 ml-xl-0 mr-xl-0">
                 <div class="row">
                     <div class="col-lg-4 sidebar-widgets">
                         <div class="widget-wrap">
