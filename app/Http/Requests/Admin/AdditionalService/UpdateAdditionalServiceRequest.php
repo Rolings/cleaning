@@ -31,7 +31,7 @@ class UpdateAdditionalServiceRequest extends FormRequest
         return [
             'name'        => ['required', 'string', 'max:255'],
             'description' => ['sometimes', 'nullable', 'string'],
-            'icon'        => ['required', 'image', 'max:15120', 'mimes:jpg,png'],
+            'icon'        => ['sometimes', 'nullable', 'image', 'max:15120', 'mimes:jpg,png'],
             'base64image' => ['sometimes', 'nullable', 'string'],
             'price'       => ['required', 'numeric', 'not_in:0'],
             'active'      => ['required', 'boolean'],

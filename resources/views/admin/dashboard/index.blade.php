@@ -96,4 +96,4 @@
 
     </div>
 @endsection
-@vite(['resources/js/library/chart.js',])
+@vite(['resources/js/library/chart.js'])

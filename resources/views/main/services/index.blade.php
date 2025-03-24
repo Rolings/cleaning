@@ -13,7 +13,7 @@
         <!-- Service Start -->
 
         <div class="service">
-            <div class="container-fluid ml-sm-2 mr-sm-2 ml-md-2 mr-md-2  ml-lg-2 mr-lg-2 ml-xl-0 mr-xl-0">
+            <div class="container-fluid p-0 ml-sm-2 mr-sm-2 ml-md-2 mr-md-2 ml-lg-2 mr-lg-2 ml-xl-0 mr-xl-0">
                 <div class="row mb-3">
                     @foreach ($services as $service)
                         <div class="item-shadow col-lg-4 col-md-6 mb-5">
@@ -48,32 +48,6 @@
                 </div>
             </div>
         </div>
-        {{--<div class="service">
-            <div class="container-fluid p-0">
-                <div class="row mb-3">
-                    @foreach ($services as $service)
-                        <div class="item-shadow col-lg-4 col-md-6 mb-5">
-                            <div class="service-item">
-                                <div class="services-image">
-                                    <img src="{{ $service->imageUrl }}" width="100" alt="Service">
-                                </div>
-                                <div class="services-text">
-                                    <div class="services-title">
-                                        <h3 class="title"><a href="{{ route('services.show',$service->slug) }}">{{ $service->name }}</a></h3>
-                                    </div>
-                                    <div class="service-link">
-                                        <a href="{{ route('services.show',$service->slug) }}">Read more-></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-                <div class="row justify-content-center">
-                    {{ $services->links('main.section.pagination') }}
-                </div>
-            </div>
-        </div>--}}
         <!-- Service End -->
 
         @include('main.section.footer')

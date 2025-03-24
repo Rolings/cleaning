@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Enums\Setting\SettingFieldsEnum;
 use App\Helpers\AdminMenu;
 use App\Models\{Callback, File, Order, Setting};
 use Illuminate\Database\Eloquent\Model;
@@ -36,26 +37,32 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         if (!App::runningInConsole()) {
-            View::share('new_callbacks_count', Callback::unread()->count());
-            View::share('new_order_count', Order::unread()->count());
-            View::share('no_image', File::noImage());
-            View::share('no_avatar', File::noAvatar());
-            View::share('contact_phone', Setting::findByKey('contact_phone')?->value);
-            View::share('contact_email', Setting::findByKey('contact_email')?->value);
-            View::share('contact_address', Setting::findByKey('contact_address')?->value);
-            View::share('contact_facebook', Setting::findByKey('contact_facebook')?->value);
-            View::share('contact_twitter', Setting::findByKey('contact_twitter')?->value);
-            View::share('contact_instagram', Setting::findByKey('contact_instagram')?->value);
-            View::share('contact_youtube', Setting::findByKey('contact_youtube')?->value);
-            View::share('contact_linkedin', Setting::findByKey('contact_linkedin')?->value);
-            View::share('about_title', Setting::findByKey('about_title')?->value);
-            View::share('about_image', Setting::findFileByKey('about_image')?->url);
-            View::share('about_description', Setting::findByKey('about_description')?->value);
-            View::share('about_limit_description', Setting::findByKey('about_description')?->limit_value);
+            View::share($this->getShareViewData());
         }
 
         $this->configureCommands();
-       // $this->configureModels();
+        // $this->configureModels();
+    }
+
+    /**
+     * @return array
+     */
+    private function getShareViewData(): array
+    {
+        $settingsKeys = SettingFieldsEnum::all();
+
+        $settings = Setting::whereIn('key', $settingsKeys)->pluck('value', 'key');
+        $aboutImage = Setting::findFileByKey('about_image')?->url;
+        $aboutLimitDescription = Setting::findByKey('about_description')?->limit_value ?? null;
+
+        return array_merge($settings->toArray(), [
+            'new_callbacks_count'     => Callback::unread()->count(),
+            'new_order_count'         => Order::unread()->count(),
+            'no_image'                => File::noImage(),
+            'no_avatar'               => File::noAvatar(),
+            'about_image'             => $aboutImage,
+            'about_limit_description' => $aboutLimitDescription
+        ]);
     }
 
     /**

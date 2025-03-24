@@ -7,65 +7,35 @@ use App\Models\Setting;
 use App\Services\File\FileService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Enums\Setting\SettingFieldsEnum;
+use Illuminate\View\View;
 
 
 class SettingController extends Controller
 {
-    public function index()
+    /***
+     * @return View
+     */
+    public function index(): View
     {
-        return view('admin.settings.index', [
-            'contact_phone'       => Setting::findByKey('contact_phone')?->value,
-            'contact_email'       => Setting::findByKey('contact_email')?->value,
-            'contact_address'     => Setting::findByKey('contact_address')?->value,
-            'contact_facebook'    => Setting::findByKey('contact_facebook')?->value,
-            'contact_twitter'     => Setting::findByKey('contact_twitter')?->value,
-            'contact_instagram'   => Setting::findByKey('contact_instagram')?->value,
-            'contact_youtube'     => Setting::findByKey('contact_youtube')?->value,
-            'contact_linkedin'    => Setting::findByKey('contact_linkedin')?->value,
-            'about_title'         => Setting::findByKey('about_title')?->value,
-            'about_image'         => Setting::findFileByKey('about_image')?->url,
-            'about_description'   => Setting::findByKey('about_description')?->value,
-            'tax_percentage'      => Setting::findByKey('tax_percentage')?->value,
-            'discount_percentage' => Setting::findByKey('discount_percentage')?->value,
-        ]);
+        $settings = Setting::whereIn('key', SettingFieldsEnum::all())->pluck('value', 'key');
+
+        $aboutImage = Setting::findFileByKey('about_image')?->url;
+
+        return view('admin.settings.index', array_merge($settings->toArray(), [
+            'about_image' => $aboutImage
+        ]));
     }
 
+    /**
+     * @param Request $request
+     * @param FileService $fileService
+     * @return RedirectResponse
+     */
     public function update(Request $request, FileService $fileService): RedirectResponse
     {
-        if ($request->has('contact_phone')) {
-            Setting::setByKey('contact_phone', $request->input('contact_phone'));
-        }
-
-        if ($request->has('contact_email')) {
-            Setting::setByKey('contact_email', $request->input('contact_email'));
-        }
-
-        if ($request->has('contact_address')) {
-            Setting::setByKey('contact_address', $request->input('contact_address'));
-        }
-
-        if ($request->has('contact_facebook')) {
-            Setting::setByKey('contact_facebook', $request->input('contact_facebook'));
-        }
-
-        if ($request->has('contact_twitter')) {
-            Setting::setByKey('contact_twitter', $request->input('contact_twitter'));
-        }
-
-        if ($request->has('contact_instagram')) {
-            Setting::setByKey('contact_instagram', $request->input('contact_instagram'));
-        }
-
-        if ($request->has('contact_youtube')) {
-            Setting::setByKey('contact_youtube', $request->input('contact_youtube'));
-        }
-
-        if ($request->has('contact_linkedin')) {
-            Setting::setByKey('contact_linkedin', $request->input('contact_linkedin'));
-        }
-
-        if ($request->has('about_title')) {
-            Setting::setByKey('about_title', $request->input('about_title'));
+        foreach ($request->only(SettingFieldsEnum::all()) as $key => $value) {
+            Setting::setByKey($key, $value);
         }
 
         if ($request->hasFile('about_image')) {
@@ -74,18 +44,6 @@ class SettingController extends Controller
                 ->storeFile(Setting::findByKey('about_image')?->value)->id;
 
             Setting::setByKey('about_image', $value);
-        }
-
-        if ($request->has('about_description')) {
-            Setting::setByKey('about_description', $request->input('about_description'));
-        }
-
-        if ($request->has('tax_percentage')) {
-            Setting::setByKey('tax_percentage', $request->input('tax_percentage'));
-        }
-
-        if ($request->has('discount_percentage')) {
-            Setting::setByKey('discount_percentage', $request->input('discount_percentage'));
         }
 
         return redirect()->route('admin.settings.index');

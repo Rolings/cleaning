@@ -30,16 +30,19 @@
                                                 </div><!--//col-->
                                                 <div class="container pt-1">
                                                     <label for="images" class="drop-container">
-                                                        {{ html()->file('icon')->accept('image/png, image/gif, image/jpeg')->required()->attributes(['onchange'=>'loadFile(event)']) }}
+                                                        {{ html()->file('icon')->accept('image/png, image/gif, image/jpeg')->attributes(['onchange'=>'loadFile(event)']) }}
                                                         @error('icon')
                                                         <p class="alert alert-message">{{ $message }}</p>
                                                         @enderror
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <a class="btn app-btn-secondary float-start"  href="{{ route('admin.additional-services.destroy-icon',$item) }}">Видалити фото</a>
-                                            </div>
+                                            @if(!is_null($item->icon))
+                                                <div class="row">
+                                                    <a class="btn app-btn-secondary float-start" href="{{ route('admin.additional-services.destroy-icon',$item) }}">Видалити фото</a>
+                                                </div>
+                                            @endif
+
                                         </div>
                                     </div>
 

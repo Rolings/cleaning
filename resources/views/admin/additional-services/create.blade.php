@@ -31,7 +31,7 @@
                                             </div><!--//col-->
                                             <div class="container pt-1">
                                                 <label for="images" class="drop-container">
-                                                    {{ html()->file('icon')->accept('.png.jpg.jpeg')->required()->attributes(['onchange'=>'loadFile(event)']) }}
+                                                    {{ html()->file('icon')->accept('.png.jpg.jpeg')->attributes(['onchange'=>'loadFile(event)']) }}
                                                     @error('icon')
                                                     <p class="alert alert-message">{{ $message }}</p>
                                                     @enderror
