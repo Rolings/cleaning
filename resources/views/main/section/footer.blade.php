@@ -75,9 +75,9 @@
                     @endif
 
                     @if(request()->route()->named('frequently-questions.index'))
-                        <span class="unlink">FAQs</span>
+                        <span class="unlink-contact active">FAQ</span>
                     @else
-                        <a href="{{ route('frequently-questions.index') }}">FAQs</a>
+                        <a href="{{ route('frequently-questions.index') }}">FAQ</a>
                     @endif
                 </div>
             </div>

@@ -8,7 +8,7 @@
 
         <!-- Page Header Start -->
         @include('main.section.breadcrumb',['title'=>$service->name,'breadcrumbs'=>[
-                ['route'=>'services.index','title'=>'Our services'],
+                ['route'=>'services.index','title'=>'Services'],
                 ['title'=>$service->name]]
                 ])
         <!-- Page Header End -->

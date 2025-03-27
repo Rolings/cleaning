@@ -162,7 +162,7 @@ a.btn-round {
 .header.home {
     margin-bottom: 45px;
     /*    background: linear-gradient(rgba(0, 83, 156, 1), rgba(0, 83, 156, .9), rgba(0, 83, 156, 1)), url(../images/main/header.jpg);*/
-    background: linear-gradient(#12b590, rgba(29, 165, 143, 0.48), #12b590), url(../images/main/new-header.jpg);
+    background: linear-gradient(#12b590, rgba(29, 165, 143, 0.48), #12b590), url(../../images/main/new-header.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -1057,7 +1057,7 @@ a.btn-round {
     line-height: 40px;
 }
 
-.faqs .card-header a span {
+/*.faqs .card-header a span {
     display: inline-block;
     width: 40px;
     height: 40px;
@@ -1066,30 +1066,40 @@ a.btn-round {
     background: #FFD662;
     color: #000000;
     border-radius: 5px;
-}
+}*/
 
-.faqs .card-header [data-toggle="collapse"]:after {
+.faqs .card-header [data-toggle="collapse"]:before {
     font-family: 'font Awesome 5 Free';
     content: "\f067";
-    float: right;
-    color: #00539C;
-    font-size: 12px;
+    float: left;
     font-weight: 900;
     transition: .3s;
+    width: 24px;
+    height: 24px;
+    color: #FDC600;
+    font-size: 16px;
+    text-align: center;
+    margin-right: 16px;
+    cursor: pointer;
 }
 
-.faqs .card-header [data-toggle="collapse"][aria-expanded="true"]:after {
+.faqs .card-header [data-toggle="collapse"][aria-expanded="true"]:before {
     font-family: 'font Awesome 5 Free';
     content: "\f068";
-    float: right;
-    color: #00539C;
-    font-size: 12px;
+    float: left;
     font-weight: 900;
     transition: .3s;
+    width: 24px;
+    height: 24px;
+    color: #FDC600;
+    font-size: 16px;
+    text-align: center;
+    margin-right: 16px;
+    cursor: pointer;
 }
 
 .faqs .card-body {
-    padding: 15px 0 0 0;
+    padding: 15px 40px 0;
     font-size: 16px;
     border: none;
     background: #ffffff;
@@ -2385,6 +2395,10 @@ a.btn-round {
 }
 
 .footer .footer-link a:hover, .unlink-contact:hover {
+    color: #FFD662;
+}
+
+.footer .footer-link a:hover, .unlink-contact, .active {
     color: #FFD662;
 }
 

@@ -8,7 +8,29 @@
         <!-- Header End -->
 
         <!-- About Start -->
-        <livewire:top.about />
+        <div class="about">
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-lg-5 col-md-6">
+                        <div class="about-img">
+                            <img src="{{ $about_image??$no_image }}" alt="About" title="About">
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-6">
+                        <div class="about-text">
+
+                            <div class="row">
+                                <h2>{{ $about_title }}</h2>
+                               <p> {!! $about_preview_description !!}</p>
+                            </div>
+                            <div class="row">
+                                <a class="btn-global" href="{{ route('about.index') }}">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- About End -->
 
         <!-- Service Start -->

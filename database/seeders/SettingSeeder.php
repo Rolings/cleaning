@@ -29,6 +29,7 @@ class SettingSeeder extends Seeder
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulputate. Aliquam metus tortor, auctor id gravida condimentum, viverra quis sem. Curabitur non nisl nec nisi scelerisque maximus. Aenean consectetur convallis porttitor. Aliquam interdum at lacus non blandit.</p>
             "
             ],
+            ['key' => 'about_preview_description', 'value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',],
             ['key' => 'choose_us_title', 'value' => 'Expert Cleaners and World Class Services',],
             [
                 'key' => 'choose_us_description', 'value' => "<p>
