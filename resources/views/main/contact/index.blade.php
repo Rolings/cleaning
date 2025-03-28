@@ -41,14 +41,14 @@
                             {{ html()->form()->route('contact.store')->attributes(['id'=>'contact-form','class'=>'mt-3'])->open() }}
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    {{ html()->text('name')->required()->placeholder('Your name')->attributes(['id'=>'name','class'=>'form-control']) }}
+                                    {{ html()->text('name')->required()->placeholder('Your name')->attributes(['id'=>'name','class'=>'form-control input']) }}
                                 </div>
                                 <div class="form-group col-md-6">
-                                    {{ html()->text('phone')->required()->placeholder('Your phone')->attributes(['id'=>'phone','class'=>'form-control']) }}
+                                    {{ html()->text('phone')->required()->placeholder('Your phone')->attributes(['id'=>'phone','class'=>'form-control input']) }}
                                 </div>
                             </div>
                             <div class="form-group">
-                                {{ html()->textarea('message')->required()->placeholder('Enter your message')->attributes(['id'=>'message','class'=>'form-control','rows'=>6]) }}
+                                {{ html()->textarea('message')->required()->placeholder('Enter your message')->attributes(['id'=>'message','class'=>'form-control input','rows'=>6]) }}
                             </div>
                             <div>
                                 <button class="btn-global" type="submit">Send Message</button>
@@ -86,24 +86,32 @@
                     data: $(this).serializeArray(),
                     success: (response) => {
                         $.toast({
-                            heading: 'Success',
+                            heading: '',
                             text: response.message,
                             showHideTransition: 'slide',
+                            position: 'top-center',
+                            bgColor: '#127eb5',
+                            textColor: '#eeeeee',
+                            hideAfter:5000,
                             icon: 'success'
                         })
                         _this[0].reset();
                     },
                     error: (error) => {
                         $.toast({
-                            heading: 'Error',
-                            text: error.message,
+                            heading: '',
+                            text: error.responseJSON.message,
                             showHideTransition: 'fade',
+                            position: 'top-center',
+                            bgColor: '#e4691e',
+                            textColor: '#eeeeee',
+                            hideAfter:5000,
                             icon: 'error'
                         })
                     }
 
                 });
-            })
+            });
         }
     </script>
 @endsection

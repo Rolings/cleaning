@@ -31,13 +31,13 @@ class ContactController extends Controller
                 'is_read' => false,
             ]);
 
-            return response()->json(['status' => 'success', 'message' => 'Your message has been sent.']);
-
         } catch (\Exception $exception) {
 
             logger()->error($exception->getMessage());
 
             return response()->json(['status' => 'error', 'message' => 'Something wrong, try again'], 404);
         }
+
+        return response()->json(['status' => 'success', 'message' => 'Your message has been sent.']);
     }
 }

@@ -67,7 +67,7 @@
                                     <div class="row justify-content-between align-items-center">
                                         <div class="col-12">
                                             <div class="item-label"><strong>Питання</strong></div>
-                                            {{ html()->textarea('question',$item->question)->required()->attributes(['id'=>'question','class'=>'form-control textarea textarea-editor','cols'=>'100','rows'=>'30','style'=>'height:300px;']) }}
+                                            {{ html()->textarea('question',$item->question)->attributes(['id'=>'question','class'=>'form-control textarea textarea-editor','cols'=>'100','rows'=>'30','style'=>'height:300px;']) }}
                                         </div><!--//col-->
                                     </div><!--//row-->
                                 </div><!--//item-->
@@ -76,7 +76,7 @@
                                     <div class="row justify-content-between align-items-center">
                                         <div class="col-12">
                                             <div class="item-label"><strong>Відповідь</strong></div>
-                                            {{ html()->textarea('answer',$item->answer)->required()->attributes(['id'=>'answer','class'=>'form-control textarea textarea-editor','cols'=>'100','rows'=>'30','style'=>'height:300px;']) }}
+                                            {{ html()->textarea('answer',$item->answer)->attributes(['id'=>'answer','class'=>'form-control textarea textarea-editor','cols'=>'100','rows'=>'30','style'=>'height:300px;']) }}
                                         </div><!--//col-->
                                     </div><!--//row-->
                                 </div><!--//item-->

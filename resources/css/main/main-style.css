@@ -90,6 +90,12 @@ input:focus, textarea:focus, select:focus {
     transition: .3s;
 }
 
+.btn-global:hover {
+    color: #00539c;
+    background: #fff;
+    box-shadow: 0px 0px 1px 1px #0000005c;
+}
+
 a.btn-global {
     position: relative;
     margin-bottom: 30px;
@@ -102,6 +108,13 @@ a.btn-global {
     background: #ffd662;
     transition: .3s;
 }
+
+a.btn-global:hover {
+    color: #00539c;
+    background: #fff;
+    box-shadow: 0px 0px 1px 1px #0000005c;
+}
+
 
 a.btn-round {
     display: inline-block;
@@ -2555,4 +2568,30 @@ input.error {
 
 .img-rounded {
     border-radius: 5px;
+}
+
+.input {
+    font-size: 17px;
+    padding-top: 1px;
+    padding-right: 20px;
+    padding-bottom: 1px;
+    padding-left: 20px;
+    position: static;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-top-color: #d8d8d8;
+    border-right-color: #d8d8d8;
+    border-bottom-color: #d8d8d8;
+    border-left-color: #d8d8d8;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
 }

@@ -19,7 +19,8 @@ class StoreQuestionRequest extends FormRequest
         $this->merge([
             'top'     => false,
             'active'  => false,
-            'subject' => 'User question'
+            'subject' => 'User question',
+            'answer'  => '',
         ]);
     }
 
@@ -35,6 +36,7 @@ class StoreQuestionRequest extends FormRequest
             'email'    => ['required', 'string', 'email', 'max:70'],
             'question' => ['required', 'string', 'max:255'],
             'subject'  => ['nullable', 'string'],
+            'answer'   => ['nullable', 'string'],
             'top'      => ['nullable', 'boolean'],
             'active'   => ['nullable', 'boolean'],
         ];

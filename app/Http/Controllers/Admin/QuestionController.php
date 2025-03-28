@@ -16,7 +16,10 @@ class QuestionController extends Controller
      */
     public function index(): View
     {
-        $questions = Question::orderBy('top','DESC')->orderBy('active','DESC')->paginate(5);
+        $questions = Question::orderBy('created_at','DESC')
+            ->orderBy('top','DESC')
+            ->orderBy('active','DESC')
+            ->paginate(5);
 
         return view('admin.questions.index', [
             'items' => $questions

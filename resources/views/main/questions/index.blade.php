@@ -45,7 +45,7 @@
                         <div class="row d-flex justify-content-center">
                             <div class="col-12 contact-form">
                                 <h3>Ask your questions</h3>
-                                {{ html()->form()->route('frequently-questions.store')->attributes(['id'=>'contact-form','class'=>'mt-3'])->open() }}
+                                {{ html()->form()->route('frequently-questions.store')->attributes(['id'=>'question-form','class'=>'mt-3'])->open() }}
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         {{ html()->text('name')->required()->placeholder('Your name')->attributes(['id'=>'name','class'=>'form-control']) }}
@@ -73,4 +73,46 @@
 
         <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        window.onload = () => {
+            $("form#question-form").on('submit', function (e) {
+                e.preventDefault();
+                let _this = $(this);
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr('action'),
+                    data: $(this).serializeArray(),
+                    success: (response) => {
+                        $.toast({
+                            heading: '',
+                            text: response.message,
+                            showHideTransition: 'slide',
+                            position: 'top-center',
+                            bgColor: '#127eb5',
+                            textColor: '#eeeeee',
+                            hideAfter:5000,
+                            icon: 'success'
+                        })
+                        _this[0].reset();
+                    },
+                    error: (error) => {
+                        $.toast({
+                            heading: '',
+                            text: error.responseJSON.message,
+                            showHideTransition: 'fade',
+                            position: 'top-center',
+                            bgColor: '#e4691e',
+                            textColor: '#eeeeee',
+                            hideAfter:5000,
+                            icon: 'error'
+                        })
+                    }
+
+                });
+            });
+        }
+    </script>
 @endsection

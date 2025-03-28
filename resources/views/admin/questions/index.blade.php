@@ -46,9 +46,9 @@
                                         <td class="cell">{{ $item->name }}</td>
                                         <td class="cell">
                                             <span>{{ $item->subject }}</span>
-                                            <span class="note">{{ $item->question }}</span>
+                                            <span class="note">{!! $item->limitQuestion !!}</span>
                                         </td>
-                                        <td class="cell"><span>{{ $item->created_at->format('F d Y') }}</span><span class="note">{{ $item->created_at    ->format(' h:i A') }}</span></td>
+                                        <td class="cell"><span>{{ $item->created_at->format('F d Y') }}</span><span class="note">{{ $item->created_at->format(' h:i A') }}</span></td>
                                         <td class="cell">
                                             @if($item->active)
                                                 <span class="badge bg-success">Активно</span>
@@ -60,7 +60,7 @@
                                             @if(empty($item->answer))
                                                 <span class="badge bg-warning">Нема відповіді</span>
                                             @else
-                                                <span class="badge bg-success">Э відповідь</span>
+                                                <span class="badge bg-success">З відповідь</span>
                                             @endif
                                         </td>
                                         <td class="cell">

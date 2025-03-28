@@ -7,6 +7,8 @@ use App\Http\Requests\Main\Question\StoreQuestionRequest;
 use App\Models\Question;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Http;
 
 class QuestionController extends Controller
 {
@@ -25,10 +27,17 @@ class QuestionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreQuestionRequest $request): RedirectResponse
+    public function store(StoreQuestionRequest $request): JsonResponse
     {
-        Question::create($request->validated());
+        try {
+            Question::create($request->validated());
+        } catch (\Exception $exception) {
 
-        return redirect()->route('admin.questions.index');
+            logger()->error($exception);
+
+            return response()->json(['status' => 'error', 'message' => 'Something wrong'], 404);
+        }
+
+        return response()->json(['status' => 'success', 'message' => 'Your question has been created!']);
     }
 }

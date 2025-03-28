@@ -57,9 +57,9 @@
                     <h2>Contact</h2>
 
                     @if(request()->route()->named('about.index'))
-                        <span class="unlink-contact">About Us</span>
+                        <span class="unlink-contact">About</span>
                     @else
-                        <a href="{{ route('about.index') }}">About Us</a>
+                        <a href="{{ route('about.index') }}">About</a>
                     @endif
 
                     @if(request()->route()->named('contact.index'))
