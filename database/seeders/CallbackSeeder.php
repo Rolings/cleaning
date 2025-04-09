@@ -13,6 +13,6 @@ class CallbackSeeder extends Seeder
      */
     public function run(): void
     {
-        Callback::factory()->count(950)->create();
+        Callback::factory()->count(5)->create();
     }
 }

@@ -23,7 +23,7 @@ class OfferSeeder extends Seeder
             'active'      => true
         ]);
 
-        Offer::factory()->count(5)->create()->each(function ($offer) use ($services) {
+        Offer::factory()->count(3)->create()->each(function ($offer) use ($services) {
             $offer->services()->attach(
                 $services->random(rand(1, 3))->pluck('id')->toArray()
             );
