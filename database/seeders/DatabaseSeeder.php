@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             TermConditionSeeder::class,
             PageSeeder::class,
             UserSeeder::class,
+            RoomTypeSeeder::class,
             AdditionalServiceSeeder::class,
             ServiceSeeder::class,
             OfferSeeder::class,

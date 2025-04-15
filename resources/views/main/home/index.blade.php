@@ -21,7 +21,7 @@
 
                             <div class="row">
                                 <h2>{{ $about_title }}</h2>
-                               <p> {!! $about_preview_description !!}</p>
+                               <p> {!! $about_preview_description??'' !!}</p>
                             </div>
                             <div class="row">
                                 <a class="btn-global" href="{{ route('about.index') }}">Learn More</a>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AdditionalService;
+use App\Models\RoomType;
 use App\Models\Service;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -18,7 +19,7 @@ class ServiceController extends Controller
     public function index(): View
     {
         $services = Service::with('image')
-            ->orderBy('id','desc')
+            ->orderBy('id', 'desc')
             ->paginate(12);
 
         return view('admin.services.index', [
@@ -69,13 +70,16 @@ class ServiceController extends Controller
      */
     public function edit(Service $service): View
     {
-        $service->load(['image','additional']);
+        $service->load(['image', 'additional']);
 
         $additionalServices = AdditionalService::onlyActive()->get();
 
+        $roomTypes = RoomType::onlyActive()->get();
+
         return view('admin.services.edit', [
             'item'               => $service,
-            'additionalServices' => $additionalServices
+            'additionalServices' => $additionalServices,
+            'roomTypes'          => $roomTypes
         ]);
     }
 
@@ -87,6 +91,7 @@ class ServiceController extends Controller
      */
     public function update(UpdateRequest $request, Service $service, FileService $fileService): RedirectResponse
     {
+
         $file = $request->hasFile('image')
             ? $fileService->setParams($request, 'image', 'public')->storeFile($service->image_id)->id
             : $service->image_id;
@@ -99,6 +104,11 @@ class ServiceController extends Controller
             $service->additional()->sync($request->additional);
         }
 
+        $request->collect('room_type_prices')->each(function ($item, $index) use ($request, $service) {
+            dump($index);
+
+        });
+        //dd($request->all(), $request->collect('room_type_enable'));
         return redirect()->route('admin.services.index');
     }
 

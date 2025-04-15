@@ -79,6 +79,14 @@ class Service extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function roomsPrices(): HasMany
+    {
+        return $this->hasMany(ServiceRoomPrice::class, 'service_id', 'id');
+    }
+
+    /**
      * @return string
      */
     public function getImageUrlAttribute(): string

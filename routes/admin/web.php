@@ -16,7 +16,9 @@ use App\Http\Controllers\Admin\{
     ClientController,
     EmployeesController,
     PageController,
-    TermsConditionController
+    TermsConditionController,
+    RoomTypeController,
+    PriceController
 };
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
@@ -50,6 +52,8 @@ Route::prefix('admin')->name('admin.')->middleware(['web', AdminMiddleware::clas
 
     //  Route::resource('orders', OrderController::class);
     Route::resource('offers', OfferController::class);
+    Route::resource('room-types', RoomTypeController::class);
+    Route::resource('prices', PriceController::class);
     Route::resource('history', HistoryController::class);
     Route::resource('services', ServiceController::class);
 
