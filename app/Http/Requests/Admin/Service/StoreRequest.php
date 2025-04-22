@@ -19,7 +19,8 @@ class StoreRequest extends FormRequest
     {
         $this->merge([
             'slug'   => Str::slug($this->slug ?? $this->name),
-            'active' => isset($this->active)
+            'active' => isset($this->active),
+            'price'  => isset($this->price) ? $this->price : 0
         ]);
     }
 
@@ -33,7 +34,7 @@ class StoreRequest extends FormRequest
         return [
             'name'        => ['sometimes', 'nullable', 'string', 'max:255'],
             'slug'        => ['required', 'string', 'max:255'],
-            'price'        =>['required', ],
+            'price'       => ['nullable', 'numeric',],
             'additional'  => ['sometimes', 'nullable', 'array'],
             'description' => ['required', 'string'],
             'image'       => ['required', 'image', 'max:15120', 'mimes:jpg,png'],

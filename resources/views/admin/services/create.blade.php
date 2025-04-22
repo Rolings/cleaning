@@ -72,18 +72,18 @@
                                             <div class="item-label"><strong>Url</strong></div>
                                             {{ html()->text('slug')->attributes(['id'=>'slug','class'=>'form-control']) }}
                                         </div><!--//col-->
+                                        <div class="col-6">
+                                            <div class="item-label"><strong>Назва</strong></div>
+                                            {{ html()->text('name')->required()->attributes(['id'=>'name','class'=>'form-control']) }}
+                                        </div><!--//col-->
                                     </div><!--//row-->
                                 </div><!--//item-->
 
                                 <div class="item border-bottom py-3">
                                     <div class="row justify-content-between align-items-center">
-                                        <div class="col-6">
-                                            <div class="item-label"><strong>Назва</strong></div>
-                                            {{ html()->text('name')->required()->attributes(['id'=>'name','class'=>'form-control']) }}
-                                        </div><!--//col-->
-                                        <div class="col-6">
-                                            <div class="item-label"><strong>Ціна</strong></div>
-                                            {{ html()->text('price')->required()->attributes(['id'=>'price','class'=>'form-control']) }}
+                                        <div class="col-auto">
+                                            <div class="item-label"><strong>Базова ціна послуги</strong></div>
+                                            {{ html()->text('price')->attributes(['id'=>'price','class'=>'form-control']) }}
                                         </div><!--//col-->
                                     </div><!--//row-->
                                 </div><!--//item-->

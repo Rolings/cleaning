@@ -21,7 +21,7 @@
                     {{ html()->text('name')->required()->placeholder('Your Name')->attributes(['id'=>'name','class'=>'form-control']) }}
                     {{ html()->text('phone')->required()->placeholder('Mobile Number')->attributes(['id'=>'phone','class'=>'form-control']) }}
                     <div class="control-group">
-                        {{ html()->select('offer_id',$offers->pluck('name','id'))->required()->attributes(['id'=>'offer_id','class'=>'custom-select']) }}
+                        {{ html()->select('service_id',$services->pluck('name','id'))->required()->attributes(['id'=>'service_id','class'=>'custom-select']) }}
                     </div>
                     {{ html()->textarea('comment')->attributes(['id'=>'comment','class'=>'form-control','cols'=>'100','rows'=>'30','style'=>'height:100px;']) }}
 

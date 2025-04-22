@@ -38,7 +38,7 @@ class CartRequest extends FormRequest
             'name'       => ['sometimes', 'nullable', 'string'],
             'first_name' => ['sometimes', 'nullable', 'string'],
             'last_name'  => ['sometimes', 'nullable', 'string'],
-            'offer_id'   => ['sometimes', 'nullable', 'integer', 'exists:offers,id'],
+            'service_id'   => ['sometimes', 'nullable', 'integer', 'exists:services,id'],
             'phone'      => ['sometimes', 'nullable'],
             // 'phone'       => ['sometimes', 'nullable', 'regex:/^(?:\+1\s?)?(\(\d{3}\)|\d{3})([\s.-]?)\d{3}([\s.-]?)\d{4}$/'],
             'comment'    => ['sometimes', 'nullable', 'string'],

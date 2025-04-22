@@ -1419,6 +1419,96 @@ a.btn-round {
     border: 2px solid #e9a1ff;
 }
 
+.rooms-list-block .rooms-list-item  {
+    display: inline;
+}
+
+.rooms-list-block .rooms-list-item  li {
+    display: inline;
+}
+
+.rooms-list-block .checkbox-wrapper .tgl {
+    display: none;
+}
+
+.rooms-list-block .checkbox-wrapper .tgl,
+.rooms-list-block .checkbox-wrapper .tgl:after,
+.rooms-list-block .checkbox-wrapper .tgl:before,
+.rooms-list-block .checkbox-wrapper .tgl *,
+.rooms-list-block .checkbox-wrapper .tgl *:after,
+.rooms-list-block .checkbox-wrapper .tgl *:before,
+.rooms-list-block .checkbox-wrapper .tgl + .tgl-btn {
+    box-sizing: border-box;
+}
+
+.rooms-list-block .checkbox-wrapper .tgl::-moz-selection,
+.rooms-list-block .checkbox-wrapper .tgl:after::-moz-selection,
+.rooms-list-block .checkbox-wrapper .tgl:before::-moz-selection,
+.rooms-list-block .checkbox-wrapper .tgl *::-moz-selection,
+.rooms-list-block .checkbox-wrapper .tgl *:after::-moz-selection,
+.rooms-list-block .checkbox-wrapper .tgl *:before::-moz-selection,
+.rooms-list-block .checkbox-wrapper .tgl + .tgl-btn::-moz-selection,
+.rooms-list-block .checkbox-wrapper .tgl::selection,
+.rooms-list-block .checkbox-wrapper .tgl:after::selection,
+.rooms-list-block .checkbox-wrapper .tgl:before::selection,
+.rooms-list-block .checkbox-wrapper .tgl *::selection,
+.rooms-list-block .checkbox-wrapper .tgl *:after::selection,
+.rooms-list-block .checkbox-wrapper .tgl *:before::selection,
+.rooms-list-block .checkbox-wrapper .tgl + .tgl-btn::selection {
+    background: none;
+}
+
+.rooms-list-block .checkbox-wrapper .tgl + .tgl-btn {
+    outline: 0;
+    display: block;
+    width: 4em;
+    height: 2em;
+    position: relative;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.rooms-list-block .checkbox-wrapper .tgl + .tgl-btn:after,
+.rooms-list-block .checkbox-wrapper .tgl + .tgl-btn:before {
+    position: relative;
+    display: block;
+    content: "";
+    width: 50%;
+    height: 100%;
+}
+
+.rooms-list-block .checkbox-wrapper .tgl + .tgl-btn:after {
+    left: 0;
+}
+
+.rooms-list-block .checkbox-wrapper .tgl + .tgl-btn:before {
+    display: none;
+}
+
+.rooms-list-block .checkbox-wrapper .tgl:checked + .tgl-btn:after {
+    left: 50%;
+}
+
+.rooms-list-block .checkbox-wrapper .tgl-light + .tgl-btn {
+    background: #f0f0f0;
+    border-radius: 2em;
+    padding: 2px;
+    transition: all 0.4s ease;
+}
+
+.rooms-list-block .checkbox-wrapper .tgl-light + .tgl-btn:after {
+    border-radius: 50%;
+    background: #fff;
+    transition: all 0.2s ease;
+}
+
+.rooms-list-block .checkbox-wrapper .tgl-light:checked + .tgl-btn {
+    background: #12bbd4;
+}
+
 
 @media only screen and (max-width: 700px) {
     .additional-services-list {

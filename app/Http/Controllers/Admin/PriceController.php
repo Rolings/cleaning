@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Price\{StoreRequest, UpdateRequest};
-use App\Models\Price;
+use App\Models\{Price, RoomType, Service};
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -15,7 +15,10 @@ class PriceController extends Controller
      */
     public function index(): View
     {
-        $prices = Price::all();
+        $prices = Price::with(['service', 'roomType'])
+            ->orderByDesc('service_id')
+            ->orderByDesc('room_type_id')
+            ->paginate();
 
         return view('admin.price.index', [
             'items' => $prices
@@ -27,7 +30,10 @@ class PriceController extends Controller
      */
     public function create(): View
     {
-        return view('admin.price.create');
+        return view('admin.price.create', [
+            'services'  => Service::onlyActive()->get(),
+            'roomTypes' => RoomType::onlyActive()->get()
+        ]);
     }
 
     /**
@@ -35,8 +41,12 @@ class PriceController extends Controller
      */
     public function store(StoreRequest $request, Price $price): RedirectResponse
     {
-        $price->fill($request->all());
-        $price->save();
+        try {
+            $price->fill($request->all());
+            $price->save();
+        } catch (\Exception $exception) {
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
 
         return redirect()->route('admin.prices.index');
     }
@@ -46,8 +56,11 @@ class PriceController extends Controller
      */
     public function edit(Price $price): View
     {
+
         return view('admin.price.edit', [
-            'item' => $price
+            'item'      => $price,
+            'services'  => Service::onlyActive()->get(),
+            'roomTypes' => RoomType::onlyActive()->get()
         ]);
     }
 
@@ -56,8 +69,12 @@ class PriceController extends Controller
      */
     public function update(UpdateRequest $request, Price $price): RedirectResponse
     {
-        $price->fill($request->all());
-        $price->save();
+        try {
+            $price->fill($request->all());
+            $price->save();
+        } catch (\Exception $exception) {
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        }
 
         return redirect()->route('admin.prices.index');
     }

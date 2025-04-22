@@ -50,20 +50,6 @@
                                     </div><!--//row-->
                                 </div><!--//item-->
 
-
-                                <div class="item app-card-settings border-bottom py-3">
-                                    <div class="row justify-content-between align-items-center">
-                                        @foreach($roomTypes as $type)
-                                            <div class="col-12">
-                                                {{ html()->checkbox('active',$item->active,1)->attributes(['id'=>'active','class'=>'form-check-input']) }}
-                                                <label class="form-check-label" for="active">{{ $type->name }}</label>
-
-                                            </div><!--//col-->
-                                        @endforeach
-                                    </div><!--//row-->
-                                </div><!--//item-->
-
-
                                 <div class="item app-card-settings border-bottom py-3">
                                     <div class="row justify-content-between align-items-center">
                                         <div class="col-auto">
@@ -95,79 +81,12 @@
 
                                 <div class="item border-bottom py-3">
                                     <div class="row justify-content-between align-items-center">
-                                        <div class="col-6">
-                                            <div class="item-label"><strong>Ціна</strong></div>
-                                            {{ html()->text('price',$item->price)->required()->attributes(['id'=>'price','class'=>'form-control']) }}
+                                        <div class="col-auto">
+                                            <div class="item-label"><strong>Базова ціна послуги</strong></div>
+                                            {{ html()->text('price',$item->price)->attributes(['id'=>'price','class'=>'form-control']) }}
                                         </div><!--//col-->
                                     </div><!--//row-->
                                 </div><!--//item-->
-
-                              {{--  <div class="item app-card-settings border-bottom py-3">
-                                    <div class="row justify-content-between align-items-center">
-
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>Кімнати</th>
-                                                    @foreach($roomTypes as $type)
-                                                        <th>
-                                                            {{ html()->checkbox('active',$item->active,1)->attributes(['id'=>'active','class'=>'form-check-input']) }}
-                                                            <label class="form-check-label" for="active">{{ $type->name }}</label>
-                                                        </th><!--//col-->
-                                                    @endforeach
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            @for ($i = $roomTypes->min('min'); $i <= $roomTypes->max('max'); $i+=0.5)
-                                                <tr>
-                                                    <td>{{ $i }}</td>
-                                                    @foreach($roomTypes as $type)
-                                                        @if($type->fractional)
-                                                            <td>{{ html()->number('price['.$type->id.']['.$i.']')->attributes(['id'=>'slug','class'=>'form-control']) }}</td>
-                                                        @elseif(!$type->fractional && is_int($i))
-                                                            <td>{{ html()->number('price['.$type->id.']['.$i.']')->attributes(['id'=>'slug','class'=>'form-control']) }}</td>
-                                                        @else
-                                                            <td> - </td>
-                                                        @endif
-
-                                     --}}{{--                   <td> {{ is_int($i) }}</td>--}}{{--
---}}{{--
-                                                            @if(!is_int($i) && !$type->fractional)
-                                                             <td>   {{ html()->number('price['.$type->id.']['.$i.']')->attributes(['id'=>'slug','class'=>'form-control']) }}</td>
-                                                            @else
-                                                                <td> - </td>
-                                                            @endif--}}{{--
-
-                                                    @endforeach
-                                                </tr>
-                                            @endfor
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                </div>--}}
-
-                                @foreach($roomTypes as $type)
-                                    <div class="item app-card-settings border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-
-                                            <div class="col-12">
-                                                {{ html()->checkbox('room_type_enable[]',false,$type->id)->attributes(['id'=>'room_type_enable-'.$type->id,'data-type-id'=>$type->id,'class'=>'form-check-input js-room-type-check']) }}
-                                                <label class="form-check-label" for="room_type_enable-{{$type->id}}">{{ $type->name }}</label>
-                                            </div><!--//col-->
-                                            <div class="row js-price-list-type-{{$type->id}} d-none">
-                                                @foreach($type->getRoomSteps() as $index => $room)
-                                                    <div class="col-3 col-md-4 col-sm-4 col-lg-3 col-xl-2">
-                                                        <div class="item-label"><strong>{{ $room }} rooms</strong></div>
-                                                        {{ html()->number('room_type_prices['.$type->id.']['.$room.']')->attributes(['id'=>'slug','class'=>'form-control']) }}
-                                                    </div>
-                                                @endforeach
-                                            </div>
-
-                                        </div><!--//row-->
-                                    </div><!--//item-->
-                                @endforeach
-
                                 <div class="item border-bottom py-3">
                                     <div class="row justify-content-between align-items-center">
                                         <div class="col-12">

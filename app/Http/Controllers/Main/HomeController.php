@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
-use App\Models\{Offer, Question, Service};
+use App\Models\{Question, Service};
 use Illuminate\Contracts\View\View;
 
 class HomeController extends Controller
 {
     public function index(): View
     {
-        $services = Service::orderBy('id', 'asc')->limit(4)->get();
-
-        $offers = Offer::orderBy('name', 'asc')->get();
+        $services = Service::onlyActive()
+            ->orderBy('id', 'asc')
+            ->get();
 
         $questions = Question::onlyTop()
             ->onlyActive()
@@ -22,7 +22,6 @@ class HomeController extends Controller
 
         return \view('main.home.index', [
             'services'  => $services,
-            'offers'    => $offers,
             'questions' => $questions,
         ]);
     }

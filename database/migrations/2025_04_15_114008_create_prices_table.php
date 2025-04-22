@@ -16,7 +16,10 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Service::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(RoomType::class)->constrained()->cascadeOnDelete();
-
+            $table->decimal('room_quantity', 3, 1)->default(0);
+            $table->float('price_by_unit')->default(0);
+            $table->float('price_for_next_unit')->default(0);
+            $table->unique(['service_id', 'room_type_id']);
             $table->timestamps();
         });
     }

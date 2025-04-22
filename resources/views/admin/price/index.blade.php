@@ -9,15 +9,15 @@
             <div class="container-xl">
                 <div class="row g-3 mb-4 align-items-center justify-content-between">
                     <div class="col-auto">
-                        <h1 class="app-page-title mb-0">Типи кімнат</h1>
+                        <h1 class="app-page-title mb-0">Ціни</h1>
                     </div>
                     <div class="col-auto">
                         <div class="page-utilities">
                             <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
 
                                 <div class="col-auto">
-                                    <a class="btn app-btn-primary" href="{{ route('admin.room-types.create') }}">
-                                        Додати тип кімнат
+                                    <a class="btn app-btn-primary" href="{{ route('admin.prices.create') }}">
+                                        Додати ціну
                                     </a>
                                 </div>
                             </div><!--//row-->
@@ -32,11 +32,11 @@
                                 <thead>
                                 <tr>
                                     <th class="cell">№</th>
-                                    <th class="cell">Назва</th>
-                                    <th class="cell">Мінімально кімнат</th>
-                                    <th class="cell">Максимально кімнат</th>
-                                    <th class="cell">Дробна кількість кімнат</th>
-                                    <th class="cell">Статус</th>
+                                    <th class="cell">Сервіс</th>
+                                    <th class="cell">Тип кімнати</th>
+                                    <th class="cell">Кількісь кімнати</th>
+                                    <th class="cell">Ціна за 1 кімнату</th>
+                                    <th class="cell">Ціна збільшення</th>
                                     <th class="cell" colspan="2"></th>
                                 </tr>
                                 </thead>
@@ -44,20 +44,14 @@
                                 @foreach($items as $item)
                                     <tr>
                                         <td class="cell">#{{ $item->id }}</td>
-                                        <td class="cell">{{ $item->name }}</td>
-                                        <td class="cell">{{ $item->min }}</td>
-                                        <td class="cell">{{ $item->max }}</td>
-                                        <td class="cell">{{ $item->fractional }}</td>
+                                        <td class="cell">{{ $item->service->name }}</td>
+                                        <td class="cell">{{ $item->roomType->name }}</td>
+                                        <td class="cell">{{ $item->room_quantity }}</td>
+                                        <td class="cell">${{ $item->price_by_unit }}</td>
+                                        <td class="cell">${{ $item->price_for_next_unit }}</td>
+                                        <td class="cell"><a class="btn-sm app-btn-secondary" href="{{ route('admin.prices.edit',$item) }}">Редагувати</a></td>
                                         <td class="cell">
-                                            @if($item->active)
-                                                <span class="badge bg-success">Активно</span>
-                                            @else
-                                                <span class="badge bg-warning">Неактивно</span>
-                                            @endif
-                                        </td>
-                                        <td class="cell"><a class="btn-sm app-btn-secondary" href="{{ route('admin.room-types.edit',$item) }}">Редагувати</a></td>
-                                        <td class="cell">
-                                            {{ html()->form('delete')->route('admin.room-types.destroy', $item)->open() }}
+                                            {{ html()->form('delete')->route('admin.prices.destroy', $item)->open() }}
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="dropdown-item">

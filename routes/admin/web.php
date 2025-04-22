@@ -50,7 +50,6 @@ Route::prefix('admin')->name('admin.')->middleware(['web', AdminMiddleware::clas
     Route::resource('clients', ClientController::class);
     Route::resource('employees', EmployeesController::class);
 
-    //  Route::resource('orders', OrderController::class);
     Route::resource('offers', OfferController::class);
     Route::resource('room-types', RoomTypeController::class);
     Route::resource('prices', PriceController::class);

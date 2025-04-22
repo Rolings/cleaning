@@ -19,7 +19,8 @@ class UpdateRequest extends FormRequest
     {
         $this->merge([
             'slug'   => Str::slug($this->slug ?? $this->name),
-            'active' => isset($this->active)
+            'active' => isset($this->active),
+            'price'  => isset($this->price) ? $this->price : 0
         ]);
     }
 
@@ -31,15 +32,13 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'slug'             => ['required', 'string', 'max:255'],
-            'name'             => ['required', 'string', 'max:255'],
-            'price'            => ['required',],
-            'room_type_enable' => ['required', 'array'],
-            'room_type_prices' => ['required', 'array'],
-            'additional'       => ['sometimes', 'nullable', 'array'],
-            'description'      => ['required', 'string'],
-            'image'            => ['sometimes', 'image', 'max:15120', 'mimes:jpg,png'],
-            'active'           => ['required', 'boolean'],
+            'slug'        => ['required', 'string', 'max:255'],
+            'name'        => ['required', 'string', 'max:255'],
+            'price'       => ['nullable', 'numeric',],
+            'additional'  => ['sometimes', 'nullable', 'array'],
+            'description' => ['required', 'string'],
+            'image'       => ['sometimes', 'image', 'max:15120', 'mimes:jpg,png'],
+            'active'      => ['required', 'boolean'],
         ];
     }
 }

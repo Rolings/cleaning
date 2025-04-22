@@ -49,17 +49,21 @@ class ServiceController extends Controller
      */
     public function store(StoreRequest $request, Service $service, FileService $fileService): RedirectResponse
     {
-        $file = $request->hasFile('image')
-            ? $fileService->setParams($request, 'image', 'public')->storeFile()->id
-            : null;
+        try {
+            $file = $request->hasFile('image')
+                ? $fileService->setParams($request, 'image', 'public')->storeFile()->id
+                : null;
 
-        $service->fill(array_merge($request->validated(), [
-            'image_id' => $file,
-        ]))->save();
+            $service->fill(array_merge($request->validated(), [
+                'image_id' => $file,
+            ]))->save();
 
-        if ($request->has('additional')) {
-            $service->additional()->sync($request->additional);
-        }
+            if ($request->has('additional')) {
+                $service->additional()->sync($request->additional);
+            }
+        } catch (\Exception $exception) {
+            return redirect()->back()->withErrors([$exception->getMessage()]);
+        };
 
         return redirect()->route('admin.services.index');
     }
@@ -91,24 +95,22 @@ class ServiceController extends Controller
      */
     public function update(UpdateRequest $request, Service $service, FileService $fileService): RedirectResponse
     {
+        try {
+            $file = $request->hasFile('image')
+                ? $fileService->setParams($request, 'image', 'public')->storeFile($service->image_id)->id
+                : $service->image_id;
 
-        $file = $request->hasFile('image')
-            ? $fileService->setParams($request, 'image', 'public')->storeFile($service->image_id)->id
-            : $service->image_id;
+            $service->fill(array_merge($request->all(), [
+                'image_id' => $file
+            ]))->save();
 
-        $service->fill(array_merge($request->all(), [
-            'image_id' => $file
-        ]))->save();
-
-        if ($request->has('additional')) {
-            $service->additional()->sync($request->additional);
+            if ($request->has('additional')) {
+                $service->additional()->sync($request->additional);
+            }
+        } catch (\Exception $exception) {
+            return redirect()->back()->withErrors([$exception->getMessage()]);
         }
 
-        $request->collect('room_type_prices')->each(function ($item, $index) use ($request, $service) {
-            dump($index);
-
-        });
-        //dd($request->all(), $request->collect('room_type_enable'));
         return redirect()->route('admin.services.index');
     }
 

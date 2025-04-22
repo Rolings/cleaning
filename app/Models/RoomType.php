@@ -25,9 +25,14 @@ class RoomType extends Model
         'active' => 'boolean',
     ];
 
-    public function roomsPrice(): HasMany
+    /**
+     * Relations with Price model
+     *
+     * @return HasMany
+     */
+    public function prices(): HasMany
     {
-        return $this->hasMany(ServiceRoomPrice::class, 'room_type_id', 'id');
+        return $this->hasMany(Price::class, 'room_type_id', 'id');
     }
 
     /***

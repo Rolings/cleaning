@@ -13,9 +13,33 @@
                         <h1 class="app-page-title mb-0">{{ $item->name }}</h1>
                     </div>
                 </div><!--//row-->
-                {{ html()->form('put')->route('admin.offers.update', $item)->open() }}
+                {{ html()->form('put')->route('admin.prices.update', $item)->open() }}
                     <div class="row gy-4">
+                        <div class="col-12 col-lg-4">
+                            <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+                                <div class="app-card-body px-4 w-100">
 
+                                    <div class="item app-card-settings border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-12">
+                                                <div class="item-label"><strong>Сервіс</strong></div>
+                                                {{ html()->select('service_id',$services->pluck('name','id'),$item->service_id)->attributes(['id'=>'services','class'=>'form-control']) }}
+                                            </div><!--//col-->
+                                        </div><!--//row-->
+                                    </div><!--//item-->
+
+                                    <div class="item app-card-settings border-bottom py-3">
+                                        <div class="row justify-content-between align-items-center">
+                                            <div class="col-12">
+                                                <div class="item-label"><strong>Тип кімнати</strong></div>
+                                                {{ html()->select('room_type_id',$roomTypes->pluck('name','id'),$item->room_type_id)->attributes(['id'=>'services','class'=>'form-control']) }}
+                                            </div><!--//col-->
+                                        </div><!--//row-->
+                                    </div><!--//item-->
+
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-12 col-lg-8">
                             <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
                                 <div class="app-card-body px-4 w-100">
@@ -23,8 +47,8 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-12">
-                                                <div class="item-label"><strong>Url</strong></div>
-                                                {{ html()->text('slug',$item->slug)->attributes(['id'=>'slug','class'=>'form-control']) }}
+                                                <div class="item-label"><strong>Кількість кімнат</strong></div>
+                                                {{ html()->number('room_quantity',$item->room_quantity)->attributes(['id'=>'room_quantity','step'=>'0.5','class'=>'form-control']) }}
                                             </div><!--//col-->
                                         </div><!--//row-->
                                     </div><!--//item-->
@@ -32,8 +56,8 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-12">
-                                                <div class="item-label"><strong>Назва <span>*</span></strong></div>
-                                                {{ html()->text('name',$item->name)->required()->attributes(['id'=>'name','class'=>'form-control']) }}
+                                                <div class="item-label"><strong>Ціна за 1 кімнату <span>*</span></strong></div>
+                                                {{ html()->text('price_by_unit',$item->price_by_unit)->required()->attributes(['id'=>'price_by_unit','class'=>'form-control']) }}
                                             </div><!--//col-->
                                         </div><!--//row-->
                                     </div><!--//item-->
@@ -41,22 +65,15 @@
                                     <div class="item border-bottom py-3">
                                         <div class="row justify-content-between align-items-center">
                                             <div class="col-12">
-                                                <div class="item-label"><strong>Опис</strong></div>
-                                                {{ html()->textarea('description',$item->description)->attributes(['id'=>'description','class'=>'form-control textarea textarea-editor','cols'=>'100','rows'=>'30','style'=>'height:300px;']) }}
+                                                <div class="item-label"><strong>Ціна за кожну наступну кімнату</strong></div>
+                                                {{ html()->text('price_for_next_unit',$item->price_for_next_unit)->required()->attributes(['id'=>'price_for_next_unit','class'=>'form-control']) }}
                                             </div><!--//col-->
                                         </div><!--//row-->
                                     </div><!--//item-->
-                                    <div class="item app-card-settings border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-auto">
-                                                {{ html()->checkbox('active',$item->active,1)->attributes(['id'=>'active','class'=>'form-check-input']) }}
-                                                <label class="form-check-label" for="active">Active</label>
-                                            </div><!--//col-->
-                                        </div><!--//row-->
-                                    </div><!--//item-->
+
                                 </div><!--//app-card-body-->
                                 <div class="col-12 p-3">
-                                    <a class="btn app-btn-secondary float-start" href="{{ route('admin.offers.index') }}">Назад</a>
+                                    <a class="btn app-btn-secondary float-start" href="{{ route('admin.prices.index') }}">Назад</a>
                                     {{ html()->submit('Зберегти')->attributes(['class'=>'btn app-btn-primary float-end']) }}
                                     <div class="item  py-3">
                                         @if($errors->any())
@@ -81,22 +98,7 @@
                                 </div><!--//app-card-footer-->
                             </div><!--//app-card-->
                         </div>
-                        <div class="col-12 col-lg-4">
-                            <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
-                                <div class="app-card-body px-4 w-100">
 
-                                    <div class="item app-card-settings border-bottom py-3">
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-12">
-                                                <div class="item-label"><strong>Сервіси</strong></div>
-                                                {{ html()->multiselect('services',$services->pluck('name','id'),$item->services)->attributes(['id'=>'services','class'=>'form-control']) }}
-                                            </div><!--//col-->
-                                        </div><!--//row-->
-                                    </div><!--//item-->
-
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 {{ html()->form()->close() }}
 

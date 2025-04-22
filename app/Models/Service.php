@@ -79,11 +79,13 @@ class Service extends Model
     }
 
     /**
-     * @return HasMany
+     * Relation with mode Price
+     *
+     * @return HasOne
      */
-    public function roomsPrices(): HasMany
+    public function prices(): HasMany
     {
-        return $this->hasMany(ServiceRoomPrice::class, 'service_id', 'id');
+        return $this->hasMany(Price::class, 'service_id', 'id');
     }
 
     /**
@@ -104,6 +106,9 @@ class Service extends Model
         return Str::limit($this->description, 55);
     }
 
+    /**
+     * @return \class-string
+     */
     public function getEntity()
     {
         return self::class;
