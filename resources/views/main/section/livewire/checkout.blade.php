@@ -8,13 +8,13 @@
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                         <div class="form-group">
                             {{ html()->label('First Name <span class="text-danger">*</span>','first_name') }}
-                            {{ html()->text('first_name')->required()->placeholder('')->attributes(['id'=>'first_name','class'=>'form-control','wire:model.live'=>'data.first_name']) }}
+                            {{ html()->text('first_name')->required()->placeholder('')->attributes(['id'=>'first_name','class'=>'form-control','wire:model.live'=>'checkoutService.first_name']) }}
                         </div>
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                         <div class="form-group">
                             {{ html()->label('Last Name','last_name') }}
-                            {{ html()->text('last_name')->placeholder('')->attributes(['id'=>'last_name','class'=>'form-control','wire:model.live'=>'data.last_name']) }}
+                            {{ html()->text('last_name')->placeholder('')->attributes(['id'=>'last_name','class'=>'form-control','wire:model.live'=>'checkoutService.last_name']) }}
                         </div>
                     </div>
                 </div>
@@ -22,13 +22,13 @@
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                         <div class="form-group">
                             {{ html()->label('Email','email') }}
-                            {{ html()->text('email')->placeholder('')->attributes(['id'=>'email','class'=>'form-control','wire:model.live'=>'data.email']) }}
+                            {{ html()->text('email')->placeholder('')->attributes(['id'=>'email','class'=>'form-control','wire:model.live'=>'checkoutService.email']) }}
                         </div>
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                         <div class="form-group">
                             {{ html()->label('Mobile Number <span class="text-danger">*</span>','phone') }}
-                            {{ html()->text('phone')->required()->placeholder('')->attributes(['id'=>'phone','class'=>'form-control','wire:model.live'=>'data.phone']) }}
+                            {{ html()->text('phone')->required()->placeholder('')->attributes(['id'=>'phone','class'=>'form-control','wire:model.live'=>'checkoutService.phone']) }}
                         </div>
                     </div>
                 </div>
@@ -40,19 +40,19 @@
                     <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                         <div class="form-group">
                             {{ html()->label('State <span class="text-danger">*</span>','state_id') }}
-                            {{ html()->select('state_id',$this->checkoutService->states->pluck('name','id'),$this->checkoutService->states->filter(fn($state) => $state->default)?->first()?->id)->required()->attributes(['id'=>'state_id','class'=>'custom-select','wire:model.live'=>'data.state_id']) }}
+                            {{ html()->select('state_id',$this->checkoutService->states->pluck('name','id'),$this->checkoutService->states->filter(fn($state) => $state->default)?->first()?->id)->required()->attributes(['id'=>'state_id','class'=>'custom-select','wire:model.live'=>'checkoutService.state_id']) }}
                         </div>
                     </div>
                     <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 col-xxl-5">
                         <div class="form-group">
                             {{ html()->label('City <span class="text-danger">*</span>','city') }}
-                            {{ html()->text('city')->required()->placeholder('')->attributes(['id'=>'city','class'=>'form-control','wire:model.live'=>'data.city']) }}
+                            {{ html()->text('city')->required()->placeholder('')->attributes(['id'=>'city','class'=>'form-control','wire:model.live'=>'checkoutService.city']) }}
                         </div>
                     </div>
                     <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                         <div class="form-group">
                             {{ html()->label('Zip <span class="text-danger">*</span>','zip') }}
-                            {{ html()->text('zip')->required()->placeholder('')->attributes(['id'=>'zip','class'=>'form-control','wire:model.live'=>'data.zip']) }}
+                            {{ html()->text('zip')->required()->placeholder('')->attributes(['id'=>'zip','class'=>'form-control','wire:model.live'=>'checkoutService.zip']) }}
                         </div>
                     </div>
                 </div>
@@ -60,13 +60,13 @@
                     <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 col-xxl-9">
                         <div class="form-group">
                             {{ html()->label('Address <span class="text-danger">*</span>','address') }}
-                            {{ html()->text('address')->required()->placeholder('')->attributes(['id'=>'address','class'=>'form-control','wire:model.live'=>'data.address']) }}
+                            {{ html()->text('address')->required()->placeholder('')->attributes(['id'=>'address','class'=>'form-control','wire:model.live'=>'checkoutService.address']) }}
                         </div>
                     </div>
                     <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                         <div class="form-group">
                             {{ html()->label('Apt/Suite <span class="text-danger">*</span>','apt_suite') }}
-                            {{ html()->text('apt_suite')->placeholder('')->attributes(['id'=>'apt_suite','class'=>'form-control','wire:model.live'=>'data.apt_suite']) }}
+                            {{ html()->text('apt_suite')->placeholder('')->attributes(['id'=>'apt_suite','class'=>'form-control','wire:model.live'=>'checkoutService.apt_suite']) }}
                         </div>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                     <div class="col-12" wire:ignore>
                         <div class="form-group">
                             {{ html()->label('Date <span class="text-danger">*</span>','date') }}
-                            {{ html()->text('order_at')->required()->placeholder('')->attributes(['id'=>'datetime','class'=>'form-control date-time-picker','wire:model.live'=>'data.datetime']) }}
+                            {{ html()->text('order_at')->required()->placeholder('')->attributes(['id'=>'datetime','class'=>'form-control date-time-picker','wire:model.live'=>'checkoutService.datetime']) }}
                         </div>
                     </div>
                 </div>
@@ -155,9 +155,9 @@
                                     </svg>
                                 </span>
                                     <span
-                                        class="p-1">{{ $data->selectedServices->count() ? ''.$data->selectedServices->count() : '' }}</span>
+                                        class="p-1">{{ $this->checkoutService->selectedServices->count() ? ''.$this->checkoutService->selectedServices->count() : '' }}</span>
                                 </div>
-                                {{ html()->hidden('services_id',$data->selectedServices?->pluck('id')?->toJson()) }}
+                                {{ html()->hidden('services_id',$this->checkoutService->selectedServices?->pluck('id')?->toJson()) }}
                             </div>
                             <div class="services-list-block">
                                 <ul class="row service-list-item justify-content-center">
@@ -196,16 +196,16 @@
                                     </svg>
                                 </span>
                                     <span
-                                        class="p-1">{{ $data->selectedRooms->count() ? ''.$data->selectedRooms->count() : '' }}</span>
+                                        class="p-1">{{ $this->checkoutService->selectedRooms->count() ? ''.$this->checkoutService->selectedRooms->count() : '' }}</span>
                                 </div>
-                                {{ html()->hidden('services_id',$data->selectedRooms?->pluck('id')?->toJson()) }}
+                                {{ html()->hidden('services_id',$this->checkoutService->selectedRooms?->pluck('id')?->toJson()) }}
                             </div>
 
                             <div class="rooms-list-block">
                                 <ul class="rooms-list-item d-flex flex-wrap gap-3 p-0 m-0 list-unstyled">
                                     @foreach($this->checkoutService->rooms as $room)
                                         <li class="col-12 col-sm-6 col-md-6 col-lg-4 d-flex justify-content-center">
-                                            <div class="checkbox-wrapper">
+                                            <div class="col-12 checkbox-wrapper">
                                                 <span>{{ $room->name }}</span>
                                                 <div class="row">
                                                     <div class="col-6">
@@ -254,10 +254,10 @@
                                     </svg>
                                 </span>
                                     <span
-                                        class="p-1">{{ $data->selectedAdditionalServices->count() ? ''.$data->selectedAdditionalServices->count() : '' }}</span>
+                                        class="p-1">{{ $this->checkoutService->selectedAdditionalServices->count() ? ''.$this->checkoutService->selectedAdditionalServices->count() : '' }}</span>
                                 </div>
 
-                                {{ html()->hidden('additional_services_id',$data->selectedAdditionalServices?->pluck('id')?->toJson()) }}
+                                {{ html()->hidden('additional_services_id',$this->checkoutService->selectedAdditionalServices?->pluck('id')?->toJson()) }}
                             </div>
 
                         </div>
@@ -284,7 +284,7 @@
                     <div class="col-12">
                         <div class="form-group">
                             {{ html()->label('Comment for order','comment') }}
-                            {{ html()->textarea('comment',$data->comment)->attributes(['id'=>'comment','class'=>'form-control','cols'=>'100','rows'=>'30','style'=>'height:100px;']) }}
+                            {{ html()->textarea('comment',$this->checkoutService->comment)->attributes(['id'=>'comment','class'=>'form-control','cols'=>'100','rows'=>'30','style'=>'height:100px;']) }}
                         </div>
                     </div>
                 </div>

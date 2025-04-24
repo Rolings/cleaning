@@ -7,9 +7,15 @@ use App\Models\Service;
 use App\Models\State;
 use Illuminate\Support\Collection;
 use Livewire\Wireable;
+use App\Contracts\Livewire\CheckoutDataInterface;
 
 class CheckoutService implements Wireable
 {
+
+    /**
+     * @var string|null
+     */
+    public ?string $name = null;
 
     /**
      * @var string|null
@@ -67,9 +73,15 @@ class CheckoutService implements Wireable
     public ?string $comment = null;
 
     /**
+     * @var int|null
+     */
+    public ?int $service_id = null;
+
+    /**
      * @var float|int
      */
     public float $totalCost = 0;
+
     /**
      * @var float|int
      */
@@ -99,7 +111,6 @@ class CheckoutService implements Wireable
      * @var float|int
      */
     public float $discountPercentage = 0;
-
 
     /**
      * @var Collection
@@ -133,6 +144,9 @@ class CheckoutService implements Wireable
      */
     public Collection $selectedRooms;
 
+    /**
+     * @var Collection
+     */
     public Collection $selectedRoomsCount;
 
     /**
@@ -153,7 +167,16 @@ class CheckoutService implements Wireable
 
     public static function fromLivewire($value)
     {
+    }
 
+
+    public function loadData(CheckoutDataInterface $data): void
+    {
+        foreach (get_object_vars($data) as $key => $val) {
+            if (property_exists($this, $key)) {
+                $this->{$key} = $val;
+            }
+        }
     }
 
     protected function init()
@@ -219,7 +242,7 @@ class CheckoutService implements Wireable
     {
         $list = $this->selectedRooms->pluck('id')->toArray();
 
-        $this->selectedRoomsCount = collect($selectedRoomCount)->filter(function ($item,$roomId) use ($list) {
+        $this->selectedRoomsCount = collect($selectedRoomCount)->filter(function ($item, $roomId) use ($list) {
             return in_array($roomId, $list);
         });
 
@@ -248,7 +271,7 @@ class CheckoutService implements Wireable
 
     public function calculateCostRooms(): void
     {
-        dd($this->selectedRooms,$this->selectedRoomsCount);
+        //dd($this->selectedRooms,$this->selectedRoomsCount);
 
     }
 }

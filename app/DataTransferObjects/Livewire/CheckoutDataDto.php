@@ -5,9 +5,13 @@ namespace App\DataTransferObjects\Livewire;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Wireable;
+use App\Contracts\Livewire\CheckoutDataInterface;
 
-class CheckoutDataDto implements Wireable
+class CheckoutDataDto implements Wireable, CheckoutDataInterface
 {
+    /**
+     * @var string|null
+     */
     public ?string $name = null;
 
     /**
@@ -29,11 +33,6 @@ class CheckoutDataDto implements Wireable
      * @var string|null
      */
     public ?string $email = null;
-
-    /**
-     * @var int|null
-     */
-    public ?int $state_id = null;
 
     /**
      * @var string|null
@@ -68,94 +67,22 @@ class CheckoutDataDto implements Wireable
     /**
      * @var int|null
      */
+    public ?int $state_id = null;
+
+    /**
+     * @var int|null
+     */
     public ?int $service_id = null;
 
-    /**
-     * @var float|int
-     */
-    public float $totalCost = 0;
-
-    /**
-     * @var float|int
-     */
-    public float $costServices = 0;
-
-    /**
-     * @var float|int
-     */
-    public float $costAdditionalServices = 0;
-
-    /**
-     * @var float|int
-     */
-    public float $taxAmount = 0;
-
-    /**
-     * @var float|int
-     */
-    public float $discountAmount = 0;
-
-    /**
-     * @var float|int
-     */
-    public float $taxPercentage = 0;
-
-    /**
-     * @var float|int
-     */
-    public float $discountPercentage = 0;
-
-    /**
-     * @var Collection
-     */
-    public Collection $states;
-
-    /**
-     * @var Collection
-     */
-    public Collection $services;
-
-    /**
-     * @var Collection
-     */
-    public Collection $roomTypes;
-
-    /**
-     * @var Collection
-     */
-    public Collection $prices;
-
-    /**
-     * @var Collection
-     */
-    public Collection $additionalServices;
-
-    /**
-     * @var Collection
-     */
-    public Collection $selectedServices;
-
-    /**
-     * @var Collection
-     */
-    public Collection $selectedRooms;
-
-    /**
-     * @var Collection
-     */
-    public Collection $selectedAdditionalServices;
 
     public function __construct(array $data = [])
     {
         $this->load($data);
+    }
 
-        $this->selectedServices = new Collection();
-
-        $this->selectedRooms = new Collection();
-
-        $this->additionalServices = new Collection();
-
-        $this->selectedAdditionalServices = new Collection();
+    public function toArray(): array
+    {
+        return get_object_vars($this);
     }
 
     /**
@@ -163,7 +90,7 @@ class CheckoutDataDto implements Wireable
      */
     public function toLivewire()
     {
-        return get_object_vars($this);
+        return $this->toArray();
     }
 
     protected function load(array $data): void
@@ -175,9 +102,26 @@ class CheckoutDataDto implements Wireable
         }
     }
 
-    public function setProperty(string $key, $value): void
+    public function validate(): self
     {
-        $this->{$key} = $value;
+        $validated = Validator::make($this->toArray(), [
+            'first_name' => 'required|string',
+            'last_name'  => 'required|string',
+            'phone'      => 'required|string',
+            'state_id'   => 'required|integer',
+            'city'       => 'nullable|string',
+            'zip'        => 'nullable|string',
+            'address'    => 'nullable|string',
+            'apt_suite'  => 'nullable|string',
+            'datetime'   => 'required|date',
+            'comment'    => 'nullable|string',
+        ])->validate();
+
+        foreach ($validated as $key => $value) {
+            $this->$key = $value;
+        }
+
+        return $this;
     }
 
     /**

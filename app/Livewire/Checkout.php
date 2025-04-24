@@ -12,7 +12,7 @@ class Checkout extends Component
 {
     public CheckoutService $checkoutService;
 
-    public $data;
+   // public $data;
 
     public array $selectedServicesId = [];
     public array $selectedRoomId = [];
@@ -28,7 +28,7 @@ class Checkout extends Component
 
     public function mount(...$arguments): void
     {
-        $this->data = new CheckoutDataDto(...$arguments);
+        $this->checkoutService->loadData(new CheckoutDataDto(...$arguments));
     }
 
     /**
@@ -38,10 +38,6 @@ class Checkout extends Component
     public function updatedDataStateId(State $state): void
     {
         $this->checkoutService->updateState($state);
-
-        $this->data->setProperty('city', $this->checkoutService->city);
-
-        $this->data->setProperty('zip', $this->checkoutService->zip);
     }
 
     public function updatedSelectedServicesId(): void
@@ -54,6 +50,8 @@ class Checkout extends Component
         $this->checkoutService->selectServices($this->selectedServicesId);
 
         $this->checkoutService->selectRooms($this->selectedRoomId);
+
+        $this->selectedRoomCount = $this->mergeTestArrays($this->selectedRoomId,$this->selectedRoomCount);
     }
 
     public function updatedSelectedRoomCount(): void
@@ -75,6 +73,24 @@ class Checkout extends Component
         $this->checkoutService->selectRoomsCount($this->selectedRoomCount);
 
         $this->checkoutService->selectAdditionalServices($this->selectedAdditionalServicesId);
+    }
+
+    function mergeTestArrays(array $baseIds, array $overrideValues): array
+    {
+        foreach ($overrideValues as $key => $value) {
+            if (is_int($key) && is_int($value) && !array_key_exists($value, $overrideValues)) {
+                $overrideValues[$value] = 1;
+                unset($overrideValues[$key]);
+            }
+        }
+
+        $mergedArray = [];
+
+        foreach ($baseIds as $id) {
+            $mergedArray[$id] = $overrideValues[$id] ?? 1;
+        }
+
+        return $mergedArray;
     }
 
 
