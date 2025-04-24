@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ServiceAdditionalService extends Model
+class RoomTypeAdditionalService extends Model
 {
     public $timestamps = false;
 
     protected $fillable = [
-        'service_id',
+        'room_type_id',
         'additional_service_id',
     ];
 }

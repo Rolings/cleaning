@@ -57,12 +57,10 @@ class ServiceController extends Controller
             $service->fill(array_merge($request->validated(), [
                 'image_id' => $file,
             ]))->save();
-
-            if ($request->has('additional')) {
-                $service->additional()->sync($request->additional);
-            }
         } catch (\Exception $exception) {
-            return redirect()->back()->withErrors([$exception->getMessage()]);
+            logger()->error($exception->getMessage());
+
+            return redirect()->back();
         };
 
         return redirect()->route('admin.services.index');
@@ -104,11 +102,10 @@ class ServiceController extends Controller
                 'image_id' => $file
             ]))->save();
 
-            if ($request->has('additional')) {
-                $service->additional()->sync($request->additional);
-            }
         } catch (\Exception $exception) {
-            return redirect()->back()->withErrors([$exception->getMessage()]);
+            logger()->error($exception->getMessage());
+
+            return redirect()->back();
         }
 
         return redirect()->route('admin.services.index');

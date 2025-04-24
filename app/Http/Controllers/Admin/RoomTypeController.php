@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdditionalService;
 use App\Models\RoomType;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Http\Requests\Admin\RoomType\{StoreRequest, UpdateRequest};
 
 class RoomTypeController extends Controller
 {
@@ -24,18 +26,32 @@ class RoomTypeController extends Controller
      */
     public function create(): View
     {
-        return view('admin.room-type.create');
+        $additionalServices = AdditionalService::onlyActive()
+            ->orderBy('id')
+            ->get();
+
+        return view('admin.room-type.create', [
+            'additionalServices' => $additionalServices
+        ]);
     }
 
     /**
      * @param Request $request
      * @return RedirectResponse
      */
-    public function store(Request $request, RoomType $roomType): RedirectResponse
+    public function store(StoreRequest $request, RoomType $roomType): RedirectResponse
     {
-        $roomType->fill($request->all());
+        try {
+            $roomType->fill($request->all());
 
-        $roomType->save();
+            $roomType->save();
+
+            if ($request->has('additional')) {
+                $roomType->additional()->sync($request->additional);
+            }
+        } catch (\Exception $exception) {
+            logger()->error($exception->getMessage());
+        }
 
         return redirect()->route('admin.room-types.index');
     }
@@ -46,8 +62,13 @@ class RoomTypeController extends Controller
      */
     public function edit(RoomType $roomType): View
     {
+        $additionalServices = AdditionalService::onlyActive()
+            ->orderBy('id')
+            ->get();
+
         return view('admin.room-type.edit', [
-            'item' => $roomType
+            'item'               => $roomType,
+            'additionalServices' => $additionalServices
         ]);
     }
 
@@ -56,11 +77,21 @@ class RoomTypeController extends Controller
      * @param RoomType $roomType
      * @return RedirectResponse
      */
-    public function update(Request $request, RoomType $roomType): RedirectResponse
+    public function update(UpdateRequest $request, RoomType $roomType): RedirectResponse
     {
-        $roomType->fill($request->all());
+        try {
+            $roomType->fill($request->all());
 
-        $roomType->save();
+            $roomType->save();
+
+            if ($request->has('additional')) {
+                $roomType->additional()->sync($request->additional);
+            }
+        } catch (\Exception $exception) {
+            logger()->error($exception->getMessage());
+
+            return redirect()->back();
+        }
 
         return redirect()->route('admin.room-types.index');
     }

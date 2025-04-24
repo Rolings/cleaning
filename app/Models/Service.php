@@ -49,16 +49,6 @@ class Service extends Model
     }
 
     /**
-     * Relation with mode AdditionalService
-     *
-     * @return BelongsToMany
-     */
-    public function additional(): BelongsToMany
-    {
-        return $this->belongsToMany(AdditionalService::class, ServiceAdditionalService::class, 'service_id', 'additional_service_id');
-    }
-
-    /**
      * Relation with mode Offer
      *
      * @return BelongsToMany

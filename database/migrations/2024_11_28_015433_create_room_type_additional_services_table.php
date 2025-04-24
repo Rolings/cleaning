@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\{Service,AdditionalService};
+use App\Models\{RoomType,AdditionalService};
 
 return new class extends Migration
 {
@@ -12,9 +12,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('service_additional_services', function (Blueprint $table) {
+        Schema::create('room_type_additional_services', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Service::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(RoomType::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(AdditionalService::class);
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('service_additional_services');
+        Schema::dropIfExists('room_type_additional_services');
     }
 };

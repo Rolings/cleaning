@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\AdditionalService;
 use App\Models\RoomType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -23,5 +24,13 @@ class RoomTypeSeeder extends Seeder
         ];
 
         RoomType::onWriteConnection()->insertOrIgnore($data);
+
+        $additionalServices = AdditionalService::onlyActive()->get();
+
+        RoomType::onlyActive()->each(function ($room) use ($additionalServices) {
+            $room->additional()->attach(
+                $additionalServices->random(rand(1, 3))->pluck('id')->toArray()
+            );
+        });
     }
 }

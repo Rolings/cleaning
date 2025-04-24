@@ -195,7 +195,7 @@ class CheckoutService implements Wireable
 
         $this->states = State::onlyActive()->get();
 
-        $this->services = Service::with('prices.roomType.prices')->onlyActive()->get();
+        $this->services = Service::with(['prices.roomType.prices','prices.roomType.additional'])->onlyActive()->get();
     }
 
     public function updateState(State|null $state): void
@@ -222,12 +222,6 @@ class CheckoutService implements Wireable
             ->unique('id')
             ->sortBy('name');
 
-        $this->additionalServices = $this->selectedServices
-            ->pluck('additional')
-            ->flatten()
-            ->unique('id')
-            ->sortBy('name');
-
         $this->calculateCostServices();
     }
 
@@ -236,6 +230,12 @@ class CheckoutService implements Wireable
         $this->selectedRooms = $this->rooms->filter(function ($roomType) use ($selectedRoomId) {
             return in_array($roomType->id, $selectedRoomId);
         });
+
+        $this->additionalServices = $this->selectedRooms
+            ->pluck('additional')
+            ->flatten()
+            ->unique('id')
+            ->sortBy('name');
     }
 
     public function selectRoomsCount(array $selectedRoomCount): void

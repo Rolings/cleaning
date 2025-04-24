@@ -5,4 +5,5 @@ namespace App\Contracts\Livewire;
 interface CheckoutDataInterface
 {
 
+
 }

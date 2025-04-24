@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\PropertiesTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class RoomType extends Model
@@ -33,6 +34,16 @@ class RoomType extends Model
     public function prices(): HasMany
     {
         return $this->hasMany(Price::class, 'room_type_id', 'id');
+    }
+
+    /**
+     * Relation with mode AdditionalService
+     *
+     * @return BelongsToMany
+     */
+    public function additional(): BelongsToMany
+    {
+        return $this->belongsToMany(AdditionalService::class, RoomTypeAdditionalService::class, 'room_type_id', 'additional_service_id');
     }
 
     /***

@@ -14,12 +14,6 @@ class ServiceSeeder extends Seeder
      */
     public function run(): void
     {
-        $additionalServices = AdditionalService::onlyActive()->get();
-
-        Service::factory()->count(3)->create()->each(function ($service) use ($additionalServices) {
-            $service->additional()->attach(
-                $additionalServices->random(rand(1, 3))->pluck('id')->toArray()
-            );
-        });
+        Service::factory()->count(3)->create();
     }
 }

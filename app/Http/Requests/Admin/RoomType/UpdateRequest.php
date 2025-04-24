@@ -14,6 +14,14 @@ class UpdateRequest extends FormRequest
         return false;
     }
 
+    public function prepareForValidation(): void
+    {
+        $this->merge([
+            'active'     => isset($this->active),
+            'fractional' => isset($this->fractional),
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,7 +30,12 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name'       => ['required', 'string', 'max:255'],
+            'min'        => ['required', 'numeric', 'min:0,5'],
+            'max'        => ['required', 'numeric'],
+            'fractional' => ['required', 'boolean'],
+            'active'     => ['required', 'boolean'],
+            'additional' => ['sometimes', 'nullable', 'array'],
         ];
     }
 }
