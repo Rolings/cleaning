@@ -155,6 +155,9 @@ class CheckoutService implements Wireable
     public Collection $selectedAdditionalServices;
 
 
+    public int $selectedRoomsPrices = 0;
+
+
     public function __construct()
     {
         $this->init();
@@ -191,11 +194,12 @@ class CheckoutService implements Wireable
 
         $this->selectedAdditionalServices = new Collection();
 
+
         $this->rooms = new Collection();
 
         $this->states = State::onlyActive()->get();
 
-        $this->services = Service::with(['prices.roomType.prices','prices.roomType.additional'])->onlyActive()->get();
+        $this->services = Service::with(['prices.roomType.prices', 'prices.roomType.additional'])->onlyActive()->get();
     }
 
     public function updateState(State|null $state): void
@@ -214,6 +218,10 @@ class CheckoutService implements Wireable
         $this->selectedServices = $this->services->filter(function ($service) use ($selectedServicesId) {
             return in_array($service->id, $selectedServicesId);
         });
+
+        $this->prices = $this->selectedServices
+            ->pluck('prices')
+            ->flatten();
 
         $this->rooms = $this->selectedServices
             ->pluck('prices')
@@ -236,14 +244,16 @@ class CheckoutService implements Wireable
             ->flatten()
             ->unique('id')
             ->sortBy('name');
+
+        $this->calculateCostRooms();
     }
 
     public function selectRoomsCount(array $selectedRoomCount): void
     {
-        $list = $this->selectedRooms->pluck('id')->toArray();
+        $rooms = $this->selectedRooms->pluck('id')->toArray();
 
-        $this->selectedRoomsCount = collect($selectedRoomCount)->filter(function ($item, $roomId) use ($list) {
-            return in_array($roomId, $list);
+        $this->selectedRoomsCount = collect($selectedRoomCount)->filter(function ($item, $roomId) use ($rooms) {
+            return in_array($roomId, $rooms);
         });
 
         $this->calculateCostRooms();
@@ -256,6 +266,21 @@ class CheckoutService implements Wireable
         });
 
         $this->calculateCostAdditionalServices();
+    }
+
+    public function setDefaultSelectedRooms(array $baseIds, array $overrideValues): array
+    {
+        foreach ($overrideValues as $key => $value) {
+            if (is_int($key) && is_int($value) && !isset($overrideValues[$value])) {
+                $overrideValues[$value] = 1;
+                unset($overrideValues[$key]);
+            }
+        }
+
+        return array_reduce($baseIds, function ($carry, $id) use ($overrideValues) {
+            $carry[$id] = $overrideValues[$id] ?? 1;
+            return $carry;
+        }, []);
     }
 
 
@@ -271,7 +296,32 @@ class CheckoutService implements Wireable
 
     public function calculateCostRooms(): void
     {
-        //dd($this->selectedRooms,$this->selectedRoomsCount);
+        $rooms = $this->selectedRooms;
 
+        $finalPrice = 0;
+
+        $this->selectedRoomsCount->each(function (float $count,int $id) use (&$finalPrice,$rooms) {
+
+           $room = $rooms->firstWhere('id', $id);
+           $price = $this->prices->firstWhere('room_type_id', $id);
+
+
+
+           if ($count >= $price->room_quantity) {
+               if ($count==$price->room_quantity){
+                   $finalPrice = $finalPrice + $price->price_by_unit;
+               }else{
+                   $finalPrice = $finalPrice + $price->price_by_unit + (($count-1)*$price->price_for_next_unit);
+               }
+
+           }
+         //  dd($room,$price,$count);
+           //if ($room){
+
+         //  }
+
+        });
+
+        $this->selectedRoomsPrices = $finalPrice;
     }
 }

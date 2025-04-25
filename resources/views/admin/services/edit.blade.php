@@ -43,15 +43,6 @@
 
                                 <div class="item app-card-settings border-bottom py-3">
                                     <div class="row justify-content-between align-items-center">
-                                        <div class="col-12">
-                                            <div class="item-label"><strong>Додаткові послуги</strong></div>
-                                            {{ html()->multiselect('additional',$additionalServices->pluck('name','id'),$item->additional)->attributes(['id'=>'additional','class'=>'form-control']) }}
-                                        </div><!--//col-->
-                                    </div><!--//row-->
-                                </div><!--//item-->
-
-                                <div class="item app-card-settings border-bottom py-3">
-                                    <div class="row justify-content-between align-items-center">
                                         <div class="col-auto">
                                             {{ html()->checkbox('active',$item->active,1)->attributes(['id'=>'active','class'=>'form-check-input']) }}
                                             <label class="form-check-label" for="active">Active</label>

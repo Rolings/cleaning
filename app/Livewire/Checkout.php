@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\DataTransferObjects\Livewire\CheckoutDataDto;
+use App\DTOs\Livewire\CheckoutDataDto;
 use App\Models\State;
 use App\Services\Checkout\CheckoutService;
 use Illuminate\Contracts\View\View;
@@ -11,8 +11,6 @@ use Livewire\Component;
 class Checkout extends Component
 {
     public CheckoutService $checkoutService;
-
-   // public $data;
 
     public array $selectedServicesId = [];
     public array $selectedRoomId = [];
@@ -42,29 +40,27 @@ class Checkout extends Component
 
     public function updatedSelectedServicesId(): void
     {
-        $this->checkoutService->selectServices($this->selectedServicesId);
+        $this->updateSelectedFields();
+
     }
 
     public function updatedSelectedRoomId(): void
     {
-        $this->checkoutService->selectServices($this->selectedServicesId);
-
-        $this->checkoutService->selectRooms($this->selectedRoomId);
-
-        $this->selectedRoomCount = $this->mergeTestArrays($this->selectedRoomId,$this->selectedRoomCount);
+        $this->updateSelectedFields();
     }
 
     public function updatedSelectedRoomCount(): void
     {
-        $this->checkoutService->selectServices($this->selectedServicesId);
-
-        $this->checkoutService->selectRooms($this->selectedRoomId);
-
-        $this->checkoutService->selectRoomsCount($this->selectedRoomCount);
+        $this->updateSelectedFields();
 
     }
 
     public function updatedSelectedAdditionalServicesId(): void
+    {
+        $this->updateSelectedFields();
+    }
+
+    private function updateSelectedFields()
     {
         $this->checkoutService->selectServices($this->selectedServicesId);
 
@@ -73,26 +69,9 @@ class Checkout extends Component
         $this->checkoutService->selectRoomsCount($this->selectedRoomCount);
 
         $this->checkoutService->selectAdditionalServices($this->selectedAdditionalServicesId);
+
+        $this->selectedRoomCount = $this->checkoutService->setDefaultSelectedRooms($this->selectedRoomId, $this->selectedRoomCount);
     }
-
-    function mergeTestArrays(array $baseIds, array $overrideValues): array
-    {
-        foreach ($overrideValues as $key => $value) {
-            if (is_int($key) && is_int($value) && !array_key_exists($value, $overrideValues)) {
-                $overrideValues[$value] = 1;
-                unset($overrideValues[$key]);
-            }
-        }
-
-        $mergedArray = [];
-
-        foreach ($baseIds as $id) {
-            $mergedArray[$id] = $overrideValues[$id] ?? 1;
-        }
-
-        return $mergedArray;
-    }
-
 
     /**
      * @return View

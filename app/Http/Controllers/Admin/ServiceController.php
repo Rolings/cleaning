@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\AdditionalService;
+use App\Http\Requests\Admin\Service\{StoreRequest, UpdateRequest};
 use App\Models\RoomType;
 use App\Models\Service;
+use App\Services\File\FileService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use App\Services\File\FileService;
-use App\Http\Requests\Admin\Service\{StoreRequest, UpdateRequest};
 
 class ServiceController extends Controller
 {
@@ -32,13 +31,7 @@ class ServiceController extends Controller
      */
     public function create(): View
     {
-        $additionalServices = AdditionalService::onlyActive()
-            ->orderBy('id')
-            ->get();
-
-        return view('admin.services.create', [
-            'additionalServices' => $additionalServices
-        ]);
+        return view('admin.services.create');
     }
 
     /**
@@ -72,15 +65,12 @@ class ServiceController extends Controller
      */
     public function edit(Service $service): View
     {
-        $service->load(['image', 'additional']);
-
-        $additionalServices = AdditionalService::onlyActive()->get();
+        $service->load(['image']);
 
         $roomTypes = RoomType::onlyActive()->get();
 
         return view('admin.services.edit', [
             'item'               => $service,
-            'additionalServices' => $additionalServices,
             'roomTypes'          => $roomTypes
         ]);
     }

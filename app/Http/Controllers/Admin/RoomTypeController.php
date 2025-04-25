@@ -62,6 +62,8 @@ class RoomTypeController extends Controller
      */
     public function edit(RoomType $roomType): View
     {
+        $roomType->load('additional');
+
         $additionalServices = AdditionalService::onlyActive()
             ->orderBy('id')
             ->get();

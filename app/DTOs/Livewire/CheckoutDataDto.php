@@ -1,8 +1,7 @@
 <?php
 
-namespace App\DataTransferObjects\Livewire;
+namespace App\DTOs\Livewire;
 
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Wireable;
 use App\Contracts\Livewire\CheckoutDataInterface;

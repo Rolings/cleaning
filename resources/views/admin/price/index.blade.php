@@ -34,7 +34,7 @@
                                     <th class="cell">№</th>
                                     <th class="cell">Сервіс</th>
                                     <th class="cell">Тип кімнати</th>
-                                    <th class="cell">Кількісь кімнати</th>
+                                    <th class="cell">Мінімальна кількісь кімнати</th>
                                     <th class="cell">Ціна за 1 кімнату</th>
                                     <th class="cell">Ціна збільшення</th>
                                     <th class="cell" colspan="2"></th>

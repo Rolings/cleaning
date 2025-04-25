@@ -154,8 +154,9 @@
                                           d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
                                     </svg>
                                 </span>
-                                    <span
-                                        class="p-1">{{ $this->checkoutService->selectedServices->count() ? ''.$this->checkoutService->selectedServices->count() : '' }}</span>
+                                    <span class="p-1">
+                                        {{ $this->checkoutService->selectedServices->count() }}
+                                    </span>
                                 </div>
                                 {{ html()->hidden('services_id',$this->checkoutService->selectedServices?->pluck('id')?->toJson()) }}
                             </div>
@@ -314,7 +315,12 @@
                                               d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
                                         </svg>
                                     </span>
-                                    <span>{{ $offer->name??'Select a service...' }}</span>
+                                    <span>{{ 'Select a services: ' }}</span>
+                                    <ul class="list-group list-group-flush">
+                                        @foreach($this->checkoutService->selectedServices as $service)
+                                            <li class="list-group-item"> - {{ $service->name }}</li>
+                                        @endforeach
+                                    </ul>
                                 </li>
                                 <li class="list-group-item">
                                     <span class="mr-2">
@@ -330,6 +336,9 @@
                                 </li>
                                 <li class="list-group-item price-amount">
                                     <span>Services: </span><span>${{ $checkoutService->costServices }}</span>
+                                </li>
+                                <li class="list-group-item price-amount">
+                                    <span>Rooms: </span><span>${{ $checkoutService->selectedRoomsPrices }}</span>
                                 </li>
                                 <li class="list-group-item price-amount">
                                     <span>Additional services: </span>

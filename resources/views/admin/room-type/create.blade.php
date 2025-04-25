@@ -8,7 +8,7 @@
         <div class="app-content pt-3 p-md-3 p-lg-4">
             <div class="container-xl">
 
-                {{ html()->form()->route('admin.offers.store')->open() }}
+                {{ html()->form()->route('admin.room-types.store')->open() }}
                 <div class="row gy-4">
                     <div class="col-12 col-lg-8">
                         <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
@@ -17,16 +17,7 @@
                                 <div class="item border-bottom py-3">
                                     <div class="row justify-content-between align-items-center">
                                         <div class="col-12">
-                                            <div class="item-label"><strong>Url</strong></div>
-                                            {{ html()->text('slug')->attributes(['id'=>'slug','class'=>'form-control']) }}
-                                        </div><!--//col-->
-                                    </div><!--//row-->
-                                </div><!--//item-->
-
-                                <div class="item border-bottom py-3">
-                                    <div class="row justify-content-between align-items-center">
-                                        <div class="col-12">
-                                            <div class="item-label"><strong>Назва <span>*</span></strong></div>
+                                            <div class="item-label"><strong>Назва<span>*</span></strong></div>
                                             {{ html()->text('name')->required()->attributes(['id'=>'name','class'=>'form-control']) }}
                                         </div><!--//col-->
                                     </div><!--//row-->
@@ -35,11 +26,30 @@
                                 <div class="item border-bottom py-3">
                                     <div class="row justify-content-between align-items-center">
                                         <div class="col-12">
-                                            <div class="item-label"><strong>Опис</strong></div>
-                                            {{ html()->textarea('description')->attributes(['id'=>'description','class'=>'form-control textarea textarea-editor','cols'=>'100','rows'=>'30','style'=>'height:300px;']) }}
+                                            <div class="item-label"><strong>Мінімальна кількість кімнат<span>*</span></strong></div>
+                                            {{ html()->number('min')->required()->attributes(['id'=>'min','min'=>0.5,'step'=>0.5,'class'=>'form-control']) }}
                                         </div><!--//col-->
                                     </div><!--//row-->
                                 </div><!--//item-->
+
+                                <div class="item border-bottom py-3">
+                                    <div class="row justify-content-between align-items-center">
+                                        <div class="col-12">
+                                            <div class="item-label"><strong>Максимальна кількість кімнат<span>*</span></strong></div>
+                                            {{ html()->number('max')->required()->attributes(['id'=>'max','min'=>0.5,'step'=>0.5,'class'=>'form-control']) }}
+                                        </div><!--//col-->
+                                    </div><!--//row-->
+                                </div><!--//item-->
+
+                                <div class="item app-card-settings border-bottom py-3">
+                                    <div class="row justify-content-between align-items-center">
+                                        <div class="col-auto">
+                                            {{ html()->checkbox('fractional',1,1)->attributes(['id'=>'fractional','class'=>'form-check-input']) }}
+                                            <label class="form-check-label" for="fractional">Можлива Half room</label>
+                                        </div><!--//col-->
+                                    </div><!--//row-->
+                                </div><!--//item-->
+
                                 <div class="item app-card-settings border-bottom py-3">
                                     <div class="row justify-content-between align-items-center">
                                         <div class="col-auto">
@@ -50,7 +60,7 @@
                                 </div><!--//item-->
                             </div><!--//app-card-body-->
                             <div class="col-12 p-3">
-                                <a class="btn app-btn-secondary float-start" href="{{ route('admin.offers.index') }}">Назад</a>
+                                <a class="btn app-btn-secondary float-start" href="{{ route('admin.room-types.index') }}">Назад</a>
                                 {{ html()->submit('Зберегти')->attributes(['class'=>'btn app-btn-primary float-end']) }}
                                 <div class="item  py-3">
                                     @if($errors->any())
@@ -82,8 +92,8 @@
                                 <div class="item app-card-settings border-bottom py-3">
                                     <div class="row justify-content-between align-items-center">
                                         <div class="col-12">
-                                            <div class="item-label"><strong>Сервіси</strong></div>
-                                            {{ html()->multiselect('services',$services->pluck('name','id'))->attributes(['id'=>'services','class'=>'form-control']) }}
+                                            <div class="item-label"><strong>Додаткові сервіси</strong></div>
+                                            {{ html()->multiselect('additionalServices',$additionalServices->pluck('name','id'))->attributes(['id'=>'additionalServices','class'=>'form-control']) }}
                                         </div><!--//col-->
                                     </div><!--//row-->
                                 </div><!--//item-->
@@ -101,14 +111,6 @@
 @endsection
 @section('js')
     <script>
-        var loadFile = function (event) {
-            var output = document.getElementById('image');
-            output.src = URL.createObjectURL(event.target.files[0]);
-            output.onload = function () {
-                URL.revokeObjectURL(output.src) // free memory
-            }
-        };
-
         window.onload = () => {
             $('select[multiple]').multiselect({
                 columns: 1,
