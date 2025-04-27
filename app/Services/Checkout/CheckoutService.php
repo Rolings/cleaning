@@ -4,10 +4,13 @@ namespace App\Services\Checkout;
 
 use App\Models\Price;
 use App\Models\Service;
+use App\Models\Setting;
 use App\Models\State;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Livewire\Wireable;
 use App\Contracts\Livewire\CheckoutDataInterface;
+use function Symfony\Component\Translation\t;
 
 class CheckoutService implements Wireable
 {
@@ -65,7 +68,7 @@ class CheckoutService implements Wireable
     /**
      * @var string|null
      */
-    public ?string $datetime = null;
+    public Carbon|null $datetime = null;
 
     /**
      * @var string|null
@@ -194,19 +197,33 @@ class CheckoutService implements Wireable
 
         $this->selectedAdditionalServices = new Collection();
 
-
         $this->rooms = new Collection();
 
         $this->states = State::onlyActive()->get();
 
         $this->services = Service::with(['prices.roomType.prices', 'prices.roomType.additional'])->onlyActive()->get();
+
+        $this->taxPercentage = Setting::findByKey('tax_percentage')?->value ?? 0;
+
+        $this->discountPercentage = Setting::findByKey('discount_percentage')?->value ?? 0;
     }
 
-    public function updateState(State|null $state): void
+    public function selectDatetime(?string $datetime): void
     {
-        if (is_null($state)) {
+        if (is_null($datetime)) {
             return;
         }
+
+        $this->datetime = Carbon::parse($datetime);
+    }
+
+    public function selectState(?int $stateId): void
+    {
+        if (is_null($stateId)) {
+            return;
+        }
+
+        $state = State::find($stateId);
 
         $this->city = $state->capital;
 
@@ -230,6 +247,10 @@ class CheckoutService implements Wireable
             ->unique('id')
             ->sortBy('name');
 
+        if (!$this->selectedRooms->count()){
+            $this->selectedRooms = $this->selectedServices->pluck('rooms')->flatten();
+        }
+
         $this->calculateCostServices();
     }
 
@@ -244,6 +265,7 @@ class CheckoutService implements Wireable
             ->flatten()
             ->unique('id')
             ->sortBy('name');
+
 
         $this->calculateCostRooms();
     }
@@ -283,45 +305,45 @@ class CheckoutService implements Wireable
         }, []);
     }
 
-
     private function calculateCostServices(): void
     {
         $this->costServices = $this->selectedServices->sum('price');
+
+        $this->calculateTotalConst();
     }
 
     public function calculateCostAdditionalServices(): void
     {
         $this->costAdditionalServices = $this->selectedAdditionalServices->sum('price');
+
+        $this->calculateTotalConst();
     }
 
     public function calculateCostRooms(): void
     {
-        $rooms = $this->selectedRooms;
-
         $finalPrice = 0;
 
-        $this->selectedRoomsCount->each(function (float $count,int $id) use (&$finalPrice,$rooms) {
+        $this->selectedRoomsCount->each(function (float $count, int $id) use (&$finalPrice) {
+            $price = $this->prices->firstWhere('room_type_id', $id);
 
-           $room = $rooms->firstWhere('id', $id);
-           $price = $this->prices->firstWhere('room_type_id', $id);
+            if (!$price || $count < $price->room_quantity) {
+                return;
+            }
 
-
-
-           if ($count >= $price->room_quantity) {
-               if ($count==$price->room_quantity){
-                   $finalPrice = $finalPrice + $price->price_by_unit;
-               }else{
-                   $finalPrice = $finalPrice + $price->price_by_unit + (($count-1)*$price->price_for_next_unit);
-               }
-
-           }
-         //  dd($room,$price,$count);
-           //if ($room){
-
-         //  }
-
+            $extraUnits = max(0, $count - 1);
+            $finalPrice += $price->price_by_unit + ($extraUnits * $price->price_for_next_unit);
         });
 
         $this->selectedRoomsPrices = $finalPrice;
+
+        $this->calculateTotalConst();
     }
+
+    public function calculateTotalConst(): void
+    {
+        $this->totalCost = $this->costServices
+            + $this->costAdditionalServices
+            + $this->selectedRoomsPrices;
+    }
+
 }

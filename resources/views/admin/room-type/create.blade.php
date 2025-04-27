@@ -93,7 +93,7 @@
                                     <div class="row justify-content-between align-items-center">
                                         <div class="col-12">
                                             <div class="item-label"><strong>Додаткові сервіси</strong></div>
-                                            {{ html()->multiselect('additionalServices',$additionalServices->pluck('name','id'))->attributes(['id'=>'additionalServices','class'=>'form-control']) }}
+                                            {{ html()->multiselect('additional',$additionalServices->pluck('name','id'))->attributes(['id'=>'additional','class'=>'form-control']) }}
                                         </div><!--//col-->
                                     </div><!--//row-->
                                 </div><!--//item-->

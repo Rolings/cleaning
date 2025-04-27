@@ -12,11 +12,34 @@ class Checkout extends Component
 {
     public CheckoutService $checkoutService;
 
+    /**
+     * @var string
+     */
+    public ?string $selectOrderAt = null;
+
+    /**
+     * @var int
+     */
+    public ?int $selectStateId = null;
+
+    /**
+     * @var array
+     */
     public array $selectedServicesId = [];
+
+    /**
+     * @var array
+     */
     public array $selectedRoomId = [];
 
+    /**
+     * @var array
+     */
     public array $selectedRoomCount = [];
 
+    /**
+     * @var array
+     */
     public array $selectedAdditionalServicesId = [];
 
     public function __construct()
@@ -29,48 +52,62 @@ class Checkout extends Component
         $this->checkoutService->loadData(new CheckoutDataDto(...$arguments));
     }
 
+    public function updatedSelectOrderAt(): void
+    {
+        $this->updateFields();
+    }
+
     /**
      * @param State $state
      * @return void
      */
-    public function updatedDataStateId(State $state): void
+    public function updatedSelectStateId(): void
     {
-        $this->checkoutService->updateState($state);
+        $this->updateFields();
     }
 
     public function updatedSelectedServicesId(): void
     {
-        $this->updateSelectedFields();
-
+        $this->updateFields();
     }
 
     public function updatedSelectedRoomId(): void
     {
-        $this->updateSelectedFields();
+        $this->updateFields();
     }
 
     public function updatedSelectedRoomCount(): void
     {
-        $this->updateSelectedFields();
+        $this->updateFields();
 
     }
 
     public function updatedSelectedAdditionalServicesId(): void
     {
-        $this->updateSelectedFields();
+        $this->updateFields();
     }
 
-    private function updateSelectedFields()
+    private function updateFields()
     {
+        $this->checkoutService->selectDatetime($this->selectOrderAt);
+
+        $this->checkoutService->selectState($this->selectStateId);
+
         $this->checkoutService->selectServices($this->selectedServicesId);
 
-        $this->checkoutService->selectRooms($this->selectedRoomId);
+
+        if (!count($this->selectedRoomId)) {
+            $this->selectedRoomId = $this->checkoutService->selectedRooms->pluck('id')->toArray();
+        }else{
+            $this->checkoutService->selectRooms($this->selectedRoomId);
+        }
+
+        $this->selectedRoomCount = $this->checkoutService
+            ->setDefaultSelectedRooms($this->selectedRoomId, $this->selectedRoomCount);
 
         $this->checkoutService->selectRoomsCount($this->selectedRoomCount);
 
         $this->checkoutService->selectAdditionalServices($this->selectedAdditionalServicesId);
-
-        $this->selectedRoomCount = $this->checkoutService->setDefaultSelectedRooms($this->selectedRoomId, $this->selectedRoomCount);
     }
 
     /**

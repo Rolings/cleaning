@@ -31,7 +31,11 @@ class ServiceController extends Controller
      */
     public function create(): View
     {
-        return view('admin.services.create');
+        $roomTypes = RoomType::onlyActive()->get();
+
+        return view('admin.services.create', [
+            'roomTypes' => $roomTypes
+        ]);
     }
 
     /**
@@ -50,6 +54,10 @@ class ServiceController extends Controller
             $service->fill(array_merge($request->validated(), [
                 'image_id' => $file,
             ]))->save();
+
+            if ($request->has('rooms')) {
+                $service->rooms()->sync($request->rooms);
+            }
         } catch (\Exception $exception) {
             logger()->error($exception->getMessage());
 
@@ -65,13 +73,13 @@ class ServiceController extends Controller
      */
     public function edit(Service $service): View
     {
-        $service->load(['image']);
+        $service->load(['image','rooms']);
 
         $roomTypes = RoomType::onlyActive()->get();
 
         return view('admin.services.edit', [
-            'item'               => $service,
-            'roomTypes'          => $roomTypes
+            'item'      => $service,
+            'roomTypes' => $roomTypes
         ]);
     }
 
@@ -92,6 +100,11 @@ class ServiceController extends Controller
                 'image_id' => $file
             ]))->save();
 
+            if ($request->has('rooms')) {
+                $service->rooms()->sync($request->rooms);
+            }else{
+                $service->rooms()->detach();
+            }
         } catch (\Exception $exception) {
             logger()->error($exception->getMessage());
 

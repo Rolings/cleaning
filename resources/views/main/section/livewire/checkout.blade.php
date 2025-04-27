@@ -3,7 +3,7 @@
         <div class="col-sm-12 col-md-12 col-lg-8">
             <!--Contact info-->
             <div class="col-sm-12 p-0 mt-3">
-                <h5>CONTACT INFO</h5>
+                <h5 class="text-dark fw-bold">CONTACT INFORMATION</h5>
                 <div class="row">
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                         <div class="form-group">
@@ -40,7 +40,10 @@
                     <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
                         <div class="form-group">
                             {{ html()->label('State <span class="text-danger">*</span>','state_id') }}
-                            {{ html()->select('state_id',$this->checkoutService->states->pluck('name','id'),$this->checkoutService->states->filter(fn($state) => $state->default)?->first()?->id)->required()->attributes(['id'=>'state_id','class'=>'custom-select','wire:model.live'=>'checkoutService.state_id']) }}
+                            {{
+                                html()->select('state_id',$this->checkoutService->states->pluck('name','id'),$this->checkoutService->states->filter(fn($state) => $state->default)?->first()?->id)
+                                      ->required()
+                                      ->attributes(['id'=>'state_id','class'=>'custom-select','wire:model.live'=>'selectStateId']) }}
                         </div>
                     </div>
                     <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 col-xxl-5">
@@ -65,7 +68,7 @@
                     </div>
                     <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                         <div class="form-group">
-                            {{ html()->label('Apt/Suite <span class="text-danger">*</span>','apt_suite') }}
+                            {{ html()->label('Apt/Suite ','apt_suite') }}
                             {{ html()->text('apt_suite')->placeholder('')->attributes(['id'=>'apt_suite','class'=>'form-control','wire:model.live'=>'checkoutService.apt_suite']) }}
                         </div>
                     </div>
@@ -75,10 +78,16 @@
             <div class="col-sm-12 p-0 mt-3">
                 <h5>SERVICE DATE</h5>
                 <div class="row">
-                    <div class="col-12" wire:ignore>
+                    <div class="col-6" wire:ignore>
                         <div class="form-group">
-                            {{ html()->label('Date <span class="text-danger">*</span>','date') }}
-                            {{ html()->text('order_at')->required()->placeholder('')->attributes(['id'=>'datetime','class'=>'form-control date-time-picker','wire:model.live'=>'checkoutService.datetime']) }}
+                            {{ html()->label('Date <span class="text-danger">*</span>','date') }}`
+                            {{ html()->text('order_at')->required()->placeholder('')->attributes(['id'=>'datetime','class'=>'form-control date-time-picker','wire:model.live'=>'selectOrderAt']) }}
+                        </div>
+                    </div>
+                    <div class="col-6" wire:ignore>
+                        <div class="form-group">
+                            {{ html()->label('Date <span class="text-danger">*</span>','date') }}`
+                            {{ html()->text('order_at')->required()->placeholder('')->attributes(['id'=>'datetime','class'=>'form-control date-time-picker','wire:model.live'=>'selectOrderAt']) }}
                         </div>
                     </div>
                 </div>
@@ -237,6 +246,8 @@
                     </div>
                 @endif
 
+                {{ print_r($selectedRoomId) }}
+
                 <!--Additional services-->
                 @if($this->checkoutService->additionalServices->count())
                     <div class="row additional-services-list mb-3">
@@ -290,8 +301,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
         <div class="col-sm-12 col-md-12 col-lg-4">
             <!--Calculation-->
@@ -332,7 +341,7 @@
                                             d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
                                     </svg>
                                     </span>
-                                    <span>{{ $service->datetimeFormat??'Choose service date...' }}</span>
+                                    <span>{{ $checkoutService->datetime?->format('m/d/Y @ h:i A')??'Choose service date...' }}</span>
                                 </li>
                                 <li class="list-group-item price-amount">
                                     <span>Services: </span><span>${{ $checkoutService->costServices }}</span>
@@ -344,21 +353,21 @@
                                     <span>Additional services: </span>
                                     <span>${{ $checkoutService->costAdditionalServices }}</span>
                                 </li>
-                                @if($service->discountAmount>0)
+                                @if($checkoutService->discountAmount)
                                     <li class="list-group-item price-amount">
                                         <span>Discount: </span><span>${{ $checkoutService->discountAmount }}</span>
                                     </li>
                                 @endif
-                                @if($service->taxAmount>0)
+                                @if($checkoutService->taxAmount)
                                     <li class="list-group-item price-amount">
                                         <span>Sales tax: </span>
-                                        <span title="{{ $service->taxPercentage }}%">
-                                        ${{ $service->taxAmount }}
+                                        <span title="{{ $checkoutService->taxPercentage }}%">
+                                        ${{ $checkoutService->taxAmount }}
                                     </span>
                                     </li>
                                 @endif
                                 <li class="list-group-item price-amount">
-                                    <span>TOTAL</span> <span>${{ $service->totalCost }}</span>
+                                    <span>TOTAL</span> <span>${{ $checkoutService->totalCost }}</span>
                                 </li>
                             </ul>
                             {{--   @if(isset($validation))

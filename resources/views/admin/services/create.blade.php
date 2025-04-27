@@ -43,6 +43,15 @@
 
                                 <div class="item app-card-settings border-bottom py-3">
                                     <div class="row justify-content-between align-items-center">
+                                        <div class="col-12">
+                                            <div class="item-label"><strong>Типи кімнат</strong></div>
+                                            {{ html()->multiselect('rooms',$roomTypes->pluck('name','id'))->attributes(['id'=>'rooms','class'=>'form-control']) }}
+                                        </div><!--//col-->
+                                    </div><!--//row-->
+                                </div><!--//item-->
+
+                                <div class="item app-card-settings border-bottom py-3">
+                                    <div class="row justify-content-between align-items-center">
                                         <div class="col-auto">
                                             {{ html()->checkbox('active',null,1)->attributes(['id'=>'name','class'=>'form-check-input']) }}
                                             <label class="form-check-label" for="active">Active</label>

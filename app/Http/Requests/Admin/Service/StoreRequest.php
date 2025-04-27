@@ -38,6 +38,7 @@ class StoreRequest extends FormRequest
             'description' => ['required', 'string'],
             'image'       => ['required', 'image', 'max:15120', 'mimes:jpg,png'],
             'active'      => ['required', 'boolean'],
+            'rooms'       => ['sometimes', 'nullable', 'array'],
         ];
     }
 }

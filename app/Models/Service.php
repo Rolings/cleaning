@@ -59,6 +59,16 @@ class Service extends Model
     }
 
     /**
+     * Relation with mode RoomType
+     *
+     * @return BelongsToMany
+     */
+    public function rooms(): BelongsToMany
+    {
+        return $this->belongsToMany(RoomType::class, ServiceRoomType::class, 'service_id', 'room_type_id');
+    }
+
+    /**
      * Relation with mode Review
      *
      * @return HasMany

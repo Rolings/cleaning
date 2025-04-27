@@ -38,6 +38,7 @@ class UpdateRequest extends FormRequest
             'description' => ['required', 'string'],
             'image'       => ['sometimes', 'image', 'max:15120', 'mimes:jpg,png'],
             'active'      => ['required', 'boolean'],
+            'rooms'       => ['sometimes', 'nullable', 'array'],
         ];
     }
 }
