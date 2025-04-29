@@ -1270,69 +1270,76 @@ a.btn-round {
     text-align: center;
 }
 
-.additional-services-list > .item {
+.additional-service-block > .item {
     flex: 1;
     padding: 0.5rem;
 }
 
-.additional-services-list input[type="radio"],
-.additional-services-list input[type="checkbox"] {
+.additional-service-block input[type="radio"],
+.additional-service-block input[type="checkbox"] {
     display: none;
 }
 
-.additional-services-list .additional-service-item .additional-services-label span:first-child {
-    position: relative;
-    float: left;
+.additional-service-block li label span:first-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    max-height: 150px;
     width: 100%;
-    clear: both;
-    margin-bottom: 1em;
+    position: relative;
+    margin-bottom: 15px;
 }
 
-.additional-services-list .additional-service-item .additional-services-label span:first-child img {
+.additional-service-block li label span:first-child img {
     filter: brightness(1);
-    max-width: 100%;
     width: auto;
+    object-fit: contain;
+    position: relative;
+    max-width: none;
+    max-height: none;
 }
 
-.additional-services-list .additional-service-item .additional-services-label span:last-child {
+.additional-service-block li label span:last-child {
     position: relative;
-    display: contents;
+    display: flex;
     float: left;
     width: 100%;
     clear: both;
+    justify-content: space-around;
 }
 
-.additional-services-list input[type="radio"]:not(:disabled) ~ .additional-services-label,
-.additional-services-list input[type="checkbox"]:not(:disabled) ~ .additional-services-label {
+.additional-service-block input[type="radio"]:not(:disabled) ~ label,
+.additional-service-block input[type="checkbox"]:not(:disabled) ~ label {
     cursor: pointer;
 }
 
-.additional-services-list input[type="radio"]:disabled ~ .additional-services-label,
-.additional-services-list input[type="checkbox"]:disabled ~ .additional-services-label {
+.additional-service-block input[type="radio"]:disabled ~ label,
+.additional-service-block input[type="checkbox"]:disabled ~ label {
     color: hsla(150, 5%, 75%, 1);
     border-color: hsla(150, 5%, 75%, 1);
     box-shadow: none;
     cursor: not-allowed;
 }
 
-.additional-services-list input[type="radio"]:checked + .additional-services-label,
-.additional-services-list input[type="checkbox"]:checked + .additional-services-label {
-    background: #ffd662;
-    color: #000000cc;
+.additional-service-block input[type="radio"]:checked + label,
+.additional-service-block input[type="checkbox"]:checked + label {
+    background: #12b590;
+    color: white;
 }
 
-.additional-services-list input[type="radio"]:checked + .additional-services-label span:first-child img,
-.additional-services-list input[type="checkbox"]:checked + .additional-services-label span:first-child img {
-    filter: hue-rotate(90deg) brightness(1000%) contrast(1.2);
+.additional-service-block input[type="radio"]:checked + label span:first-child img,
+.additional-service-block input[type="checkbox"]:checked + label span:first-child img {
+/*    filter: hue-rotate(90deg) brightness(1000%) contrast(1.2);*/
 }
 
-.additional-services-list .additional-services-label {
+.additional-service-block label {
     height: 100%;
     display: block;
     background: white;
     border: 1px solid rgba(0, 0, 0, .125);
     border-radius: 5px;
-    padding: 1rem;
+   /* padding: 1rem;*/
     margin-bottom: 1rem;
     margin: 1rem;
     text-align: center;
@@ -1347,10 +1354,10 @@ a.btn-round {
 }
 
 .services-list .services-list-block ul {
-    list-style: none;
-    padding: 20px;
+/*    list-style: none;
+    padding: 16px;
     max-height: 400px;
-    overflow-y: auto;
+    overflow-y: auto;*/
 }
 
 .services-list .services-list-block ul li {
@@ -1360,7 +1367,7 @@ a.btn-round {
 .services-list .services-list-block ul li label {
     display: inline-block;
     background-color: rgba(255, 255, 255, .9);
-    border: 2px solid rgba(139, 139, 139, .3);
+    border: 1px solid rgba(0,0,0,.125);
     color: #adadad;
     border-radius: 5px;
     white-space: nowrap;
@@ -1400,8 +1407,8 @@ a.btn-round {
 }
 
 .services-list .services-list-block ul li input[type="checkbox"]:checked + label {
-    border: 2px solid #1bdbf8;
-    background-color: #12bbd4;
+    border: 1px solid rgba(0,0,0,.125);
+    background-color: #12b590;
     color: #fff;
     transition: all .2s;
 }
@@ -1416,54 +1423,84 @@ a.btn-round {
 }
 
 .services-list .services-list-block ul li input[type="checkbox"]:focus + label {
-    border: 2px solid #e9a1ff;
+    border: 1px solid rgba(0,0,0,.125);
 }
 
-.rooms-list-block .rooms-list-item  {
+/**/
+
+.services-list .services-list-block ul li input[type="radio"]:checked + label::before {
+    content: "\f00c";
+    transform: rotate(-360deg);
+    transition: transform .3s ease-in-out;
+}
+
+.services-list .services-list-block ul li input[type="radio"]:checked + label {
+    border: 1px solid rgba(0,0,0,.125);
+    background-color: #12b590;
+    color: #fff;
+    transition: all .2s;
+}
+
+.services-list .services-list-block ul li input[type="radio"] {
+    display: absolute;
+}
+
+.services-list .services-list-block ul li input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.services-list .services-list-block ul li input[type="radio"]:focus + label {
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+/**/
+
+.rooms-types-block ul  {
     display: inline;
 }
 
-.rooms-list-block .rooms-list-item  li {
+.rooms-types-block ul  li {
     display: inline;
 }
 
-.rooms-list-block .rooms-list-item  li input[type="number"]{
-    height: 32px;
-    min-width: 72px;
+.rooms-types-block ul  li input[type="number"]{
+    border-radius: 2em;
+    text-align: center;
 }
 
-.rooms-list-block .checkbox-wrapper .tgl {
+.rooms-types-block .checkbox-wrapper .tgl {
     display: none;
 }
 
-.rooms-list-block .checkbox-wrapper .tgl,
-.rooms-list-block .checkbox-wrapper .tgl:after,
-.rooms-list-block .checkbox-wrapper .tgl:before,
-.rooms-list-block .checkbox-wrapper .tgl *,
-.rooms-list-block .checkbox-wrapper .tgl *:after,
-.rooms-list-block .checkbox-wrapper .tgl *:before,
-.rooms-list-block .checkbox-wrapper .tgl + .tgl-btn {
+.rooms-types-block .checkbox-wrapper .tgl,
+.rooms-types-block .checkbox-wrapper .tgl:after,
+.rooms-types-block .checkbox-wrapper .tgl:before,
+.rooms-types-block .checkbox-wrapper .tgl *,
+.rooms-types-block .checkbox-wrapper .tgl *:after,
+.rooms-types-block .checkbox-wrapper .tgl *:before,
+.rooms-types-block .checkbox-wrapper .tgl + .tgl-btn {
     box-sizing: border-box;
 }
 
-.rooms-list-block .checkbox-wrapper .tgl::-moz-selection,
-.rooms-list-block .checkbox-wrapper .tgl:after::-moz-selection,
-.rooms-list-block .checkbox-wrapper .tgl:before::-moz-selection,
-.rooms-list-block .checkbox-wrapper .tgl *::-moz-selection,
-.rooms-list-block .checkbox-wrapper .tgl *:after::-moz-selection,
-.rooms-list-block .checkbox-wrapper .tgl *:before::-moz-selection,
-.rooms-list-block .checkbox-wrapper .tgl + .tgl-btn::-moz-selection,
-.rooms-list-block .checkbox-wrapper .tgl::selection,
-.rooms-list-block .checkbox-wrapper .tgl:after::selection,
-.rooms-list-block .checkbox-wrapper .tgl:before::selection,
-.rooms-list-block .checkbox-wrapper .tgl *::selection,
-.rooms-list-block .checkbox-wrapper .tgl *:after::selection,
-.rooms-list-block .checkbox-wrapper .tgl *:before::selection,
-.rooms-list-block .checkbox-wrapper .tgl + .tgl-btn::selection {
+.rooms-types-block .checkbox-wrapper .tgl::-moz-selection,
+.rooms-types-block .checkbox-wrapper .tgl:after::-moz-selection,
+.rooms-types-block .checkbox-wrapper .tgl:before::-moz-selection,
+.rooms-types-block .checkbox-wrapper .tgl *::-moz-selection,
+.rooms-types-block .checkbox-wrapper .tgl *:after::-moz-selection,
+.rooms-types-block .checkbox-wrapper .tgl *:before::-moz-selection,
+.rooms-types-block .checkbox-wrapper .tgl + .tgl-btn::-moz-selection,
+.rooms-types-block .checkbox-wrapper .tgl::selection,
+.rooms-types-block .checkbox-wrapper .tgl:after::selection,
+.rooms-types-block .checkbox-wrapper .tgl:before::selection,
+.rooms-types-block .checkbox-wrapper .tgl *::selection,
+.rooms-types-block .checkbox-wrapper .tgl *:after::selection,
+.rooms-types-block .checkbox-wrapper .tgl *:before::selection,
+.rooms-types-block .checkbox-wrapper .tgl + .tgl-btn::selection {
     background: none;
 }
 
-.rooms-list-block .checkbox-wrapper .tgl + .tgl-btn {
+.rooms-types-block .checkbox-wrapper .tgl + .tgl-btn {
     outline: 0;
     display: block;
     width: 4em;
@@ -1476,8 +1513,8 @@ a.btn-round {
     user-select: none;
 }
 
-.rooms-list-block .checkbox-wrapper .tgl + .tgl-btn:after,
-.rooms-list-block .checkbox-wrapper .tgl + .tgl-btn:before {
+.rooms-types-block .checkbox-wrapper .tgl + .tgl-btn:after,
+.rooms-types-block .checkbox-wrapper .tgl + .tgl-btn:before {
     position: relative;
     display: block;
     content: "";
@@ -1485,38 +1522,58 @@ a.btn-round {
     height: 100%;
 }
 
-.rooms-list-block .checkbox-wrapper .tgl + .tgl-btn:after {
+.rooms-types-block .checkbox-wrapper .tgl + .tgl-btn:after {
     left: 0;
 }
 
-.rooms-list-block .checkbox-wrapper .tgl + .tgl-btn:before {
+.rooms-types-block .checkbox-wrapper .tgl + .tgl-btn:before {
     display: none;
 }
 
-.rooms-list-block .checkbox-wrapper .tgl:checked + .tgl-btn:after {
+.rooms-types-block .checkbox-wrapper .tgl:checked + .tgl-btn:after {
     left: 50%;
 }
 
-.rooms-list-block .checkbox-wrapper .tgl-light + .tgl-btn {
+.rooms-types-block .checkbox-wrapper .tgl-light + .tgl-btn {
     background: #f0f0f0;
     border-radius: 2em;
     padding: 2px;
     transition: all 0.4s ease;
 }
 
-.rooms-list-block .checkbox-wrapper .tgl-light + .tgl-btn:after {
+.rooms-types-block .checkbox-wrapper .tgl-light + .tgl-btn:after {
     border-radius: 50%;
     background: #fff;
     transition: all 0.2s ease;
 }
 
-.rooms-list-block .checkbox-wrapper .tgl-light:checked + .tgl-btn {
-    background: #12bbd4;
+.rooms-types-block .checkbox-wrapper .tgl-light:checked + .tgl-btn {
+    background: #12b590;
+}
+
+@media only screen and (min-width: 1140px) {
+    .services-list .services-list-block ul li:first-child {
+        padding-left: 0px;
+    }
+
+    .services-list .services-list-block ul li:last-child {
+        padding-right: 0px;
+    }
+}
+
+@media only screen and (min-width: 960px) {
+    .services-list .services-list-block ul li:first-child {
+        padding-left: 0px;
+    }
+
+    .services-list .services-list-block ul li:last-child {
+        padding-right: 0px;
+    }
 }
 
 
 @media only screen and (max-width: 700px) {
-    .additional-services-list {
+    .additional-service-block {
         flex-direction: column;
     }
 

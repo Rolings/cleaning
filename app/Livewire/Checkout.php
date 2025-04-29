@@ -25,7 +25,7 @@ class Checkout extends Component
     /**
      * @var array
      */
-    public array $selectedServicesId = [];
+    public $selectedServicesId;
 
     /**
      * @var array
@@ -68,7 +68,25 @@ class Checkout extends Component
 
     public function updatedSelectedServicesId(): void
     {
-        $this->updateFields();
+        $this->cleanFields();
+
+        $this->checkoutService->selectDatetime($this->selectOrderAt);
+
+        $this->checkoutService->selectState($this->selectStateId);
+
+        $this->checkoutService->selectServices([$this->selectedServicesId]);
+
+        $this->selectedRoomId = $this->checkoutService->getDefaultServiceRoom();
+
+        $this->checkoutService->selectRooms($this->selectedRoomId);
+
+        $this->selectedRoomCount = $this->checkoutService
+            ->setDefaultSelectedRooms($this->selectedRoomId, $this->selectedRoomCount);
+
+        $this->checkoutService->selectRoomsCount($this->selectedRoomCount);
+
+        $this->checkoutService->selectAdditionalServices($this->selectedAdditionalServicesId);
+
     }
 
     public function updatedSelectedRoomId(): void
@@ -87,20 +105,22 @@ class Checkout extends Component
         $this->updateFields();
     }
 
+    private function cleanFields(): void
+    {
+        $this->selectedRoomId = [];
+        $this->selectedRoomCount = [];
+        $this->selectedAdditionalServicesId = [];
+    }
+
     private function updateFields()
     {
         $this->checkoutService->selectDatetime($this->selectOrderAt);
 
         $this->checkoutService->selectState($this->selectStateId);
 
-        $this->checkoutService->selectServices($this->selectedServicesId);
+        $this->checkoutService->selectServices([$this->selectedServicesId]);
 
-
-        if (!count($this->selectedRoomId)) {
-            $this->selectedRoomId = $this->checkoutService->selectedRooms->pluck('id')->toArray();
-        }else{
-            $this->checkoutService->selectRooms($this->selectedRoomId);
-        }
+        $this->checkoutService->selectRooms($this->selectedRoomId);
 
         $this->selectedRoomCount = $this->checkoutService
             ->setDefaultSelectedRooms($this->selectedRoomId, $this->selectedRoomCount);

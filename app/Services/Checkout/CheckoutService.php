@@ -201,7 +201,7 @@ class CheckoutService implements Wireable
 
         $this->states = State::onlyActive()->get();
 
-        $this->services = Service::with(['prices.roomType.prices', 'prices.roomType.additional'])->onlyActive()->get();
+        $this->services = Service::with(['prices.roomType.prices', 'prices.roomType.additional','rooms'])->onlyActive()->get();
 
         $this->taxPercentage = Setting::findByKey('tax_percentage')?->value ?? 0;
 
@@ -305,6 +305,14 @@ class CheckoutService implements Wireable
         }, []);
     }
 
+    public function getDefaultServiceRoom()
+    {
+        return $this->selectedServices
+            ->pluck('rooms')
+            ->flatten()
+            ?->pluck('id')
+            ?->toArray() ?? [];
+    }
     private function calculateCostServices(): void
     {
         $this->costServices = $this->selectedServices->sum('price');

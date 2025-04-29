@@ -42,15 +42,6 @@
                                 <div class="item border-bottom py-3">
                                     <div class="row justify-content-between align-items-center">
                                         <div class="col-12">
-                                            <div class="item-label"><strong>Мінімальна кількісь кімнати</strong></div>
-                                            {{ html()->number('room_quantity',1)->required()->attributes(['id'=>'room_quantity','step'=>'0.5','class'=>'form-control']) }}
-                                        </div><!--//col-->
-                                    </div><!--//row-->
-                                </div><!--//item-->
-
-                                <div class="item border-bottom py-3">
-                                    <div class="row justify-content-between align-items-center">
-                                        <div class="col-12">
                                             <div class="item-label"><strong>Ціна за 1 кімнату <span>*</span></strong></div>
                                             {{ html()->text('price_by_unit')->required()->attributes(['id'=>'price_by_unit','class'=>'form-control']) }}
                                         </div><!--//col-->

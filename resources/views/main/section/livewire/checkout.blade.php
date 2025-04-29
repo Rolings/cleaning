@@ -76,17 +76,17 @@
             </div>
             <!--Service date-->
             <div class="col-sm-12 p-0 mt-3">
-                <h5>SERVICE DATE</h5>
+                <h5>DATE & TIME</h5>
                 <div class="row">
                     <div class="col-6" wire:ignore>
                         <div class="form-group">
-                            {{ html()->label('Date <span class="text-danger">*</span>','date') }}`
+                            {{ html()->label('Date <span class="text-danger">*</span>','date') }}
                             {{ html()->text('order_at')->required()->placeholder('')->attributes(['id'=>'datetime','class'=>'form-control date-time-picker','wire:model.live'=>'selectOrderAt']) }}
                         </div>
                     </div>
                     <div class="col-6" wire:ignore>
                         <div class="form-group">
-                            {{ html()->label('Date <span class="text-danger">*</span>','date') }}`
+                            {{ html()->label('Date <span class="text-danger">*</span>','date') }}
                             {{ html()->text('order_at')->required()->placeholder('')->attributes(['id'=>'datetime','class'=>'form-control date-time-picker','wire:model.live'=>'selectOrderAt']) }}
                         </div>
                     </div>
@@ -153,32 +153,20 @@
                         <div class="col-12">
                             <div class="form-group">
                                 {{ html()->label('Services') }}
-                                <div class="d-flex row justify-content-center  align-items-center float-right m-0 p-0">
-                                <span class="p-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                         class="bi bi-cart-check" viewBox="0 0 16 16">
-                                      <path
-                                          d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"/>
-                                      <path
-                                          d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                                    </svg>
-                                </span>
-                                    <span class="p-1">
-                                        {{ $this->checkoutService->selectedServices->count() }}
-                                    </span>
-                                </div>
                                 {{ html()->hidden('services_id',$this->checkoutService->selectedServices?->pluck('id')?->toJson()) }}
                             </div>
-                            <div class="services-list-block">
-                                <ul class="row service-list-item justify-content-center">
+                            <div class="col-12 justify-content-center ml-0 mr-0 p-0 services-list-block">
+                                <ul class="col-12 d-flex flex-wrap gap-3 p-0 m-0 list-unstyled">
                                     @forelse($this->checkoutService->services as $service)
-                                        <li class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4">
+                                        <li class="col-12 col-sm-6 col-md-6 col-lg-4 d-flex justify-content-center">
                                             {{ html()
-                                                    ->checkbox('services',null,$service->id)
+                                                    ->radio('services',null,$service->id)
                                                     ->attributes(['id'=>'service-'.$service->id,'wire:model.live'=>'selectedServicesId'])
-                                                    }}
+                                            }}
                                             <label class="col-12 d-flex justify-content-center"
-                                                   for="service-{{$service->id}}">{{ $service->name }}</label>
+                                                   for="service-{{$service->id}}">
+                                                {{ $service->name }}
+                                            </label>
                                         </li>
                                     @empty
                                     @endforelse
@@ -194,100 +182,81 @@
                         <div class="col-12">
                             <div class="form-group">
                                 {{ html()->label('Rooms') }}
-                                <div
-                                    class="d-flex row justify-content-center  align-items-center float-right m-0 p-0">
-                                <span class="p-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                         class="bi bi-cart-check" viewBox="0 0 16 16">
-                                      <path
-                                          d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"/>
-                                      <path
-                                          d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-                                    </svg>
-                                </span>
-                                    <span
-                                        class="p-1">{{ $this->checkoutService->selectedRooms->count() ? ''.$this->checkoutService->selectedRooms->count() : '' }}</span>
-                                </div>
                                 {{ html()->hidden('services_id',$this->checkoutService->selectedRooms?->pluck('id')?->toJson()) }}
                             </div>
-
-                            <div class="rooms-list-block">
-                                <ul class="rooms-list-item d-flex flex-wrap gap-3 p-0 m-0 list-unstyled">
-                                    @foreach($this->checkoutService->rooms as $room)
-                                        <li class="col-12 col-sm-6 col-md-6 col-lg-4 d-flex justify-content-center">
-                                            <div class="col-12 checkbox-wrapper">
-                                                <span>{{ $room->name }}</span>
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        {{ html()
-                                                          ->checkbox('rooms',null,$room->id)
-                                                          ->attributes(['id'=>'rooms-'.$room->id,'class'=>'tgl tgl-light','wire:model.live'=>'selectedRoomId'])
-                                                       }}
-                                                        <label class="tgl-btn" for="rooms-{{ $room->id }}"></label>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        {{ html()
-                                                           ->number('rooms-count',in_array($room->id,$selectedRoomId),$room->min,$room->max,$room->fractional ? 0.5:1)
-                                                           ->disabled(!in_array($room->id,$selectedRoomId))
-                                                           ->attributes([
-                                                               'id'=>'room-count-'.$room->id,
-                                                               'class'=>'form-control',
-                                                               'wire:model.live'=>'selectedRoomCount.'.$room->id
-                                                               ])
-                                                        }}
-                                                    </div>
+                        </div>
+                        <div class="col-12 justify-content-center ml-0 mr-0 p-0 rooms-types-block">
+                            <ul class="col-12 d-flex flex-wrap gap-3 p-0 m-0 list-unstyled">
+                                @foreach($this->checkoutService->rooms as $room)
+                                    <li class="col-12 col-sm-6 col-md-6 col-lg-4 d-flex justify-content-center">
+                                        <div class="col-12 checkbox-wrapper p-0 m-0">
+                                            <span>{{ $room->name }}</span>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    {{ html()
+                                                      ->checkbox('rooms',null,$room->id)
+                                                      ->attributes(['id'=>'rooms-'.$room->id,'class'=>'tgl tgl-light','wire:model.live'=>'selectedRoomId'])
+                                                   }}
+                                                    <label class="tgl-btn" for="rooms-{{ $room->id }}"></label>
+                                                </div>
+                                                <div class="col-6">
+                                                    {{ html()
+                                                       ->number('rooms-count',in_array($room->id,$selectedRoomId),$room->min,$room->max,$room->fractional ? 0.5:1)
+                                                       ->disabled(!in_array($room->id,$selectedRoomId))
+                                                       ->attributes([
+                                                           'id'=>'room-count-'.$room->id,
+                                                           'class'=>'form-control',
+                                                           'wire:model.live'=>'selectedRoomCount.'.$room->id
+                                                           ])
+                                                    }}
                                                 </div>
                                             </div>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
                     </div>
                 @endif
 
-                {{ print_r($selectedRoomId) }}
-
                 <!--Additional services-->
                 @if($this->checkoutService->additionalServices->count())
-                    <div class="row additional-services-list mb-3">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="row mb-3">
+                        <div class="col-12">
                             <div class="form-group">
                                 {{ html()->label('Additional services') }}
-                                <div
-                                    class="d-flex row justify-content-center  align-items-center float-right m-0 p-0">
-                                <span class="p-1">
+                                <span class="d-inline-block"
+                                      tabindex="0"
+                                      data-bs-toggle="tooltip"
+                                      data-bs-html="true"
+                                      data-bs-placement="top"
+                                      title="Additional services are not included in the general service and are paid separately.">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                         class="bi bi-cart-check" viewBox="0 0 16 16">
+                                         class="bi bi-question-circle" viewBox="0 0 16 16">
+                                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                                       <path
-                                          d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"/>
-                                      <path
-                                          d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                                          d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94"/>
                                     </svg>
-                                </span>
-                                    <span
-                                        class="p-1">{{ $this->checkoutService->selectedAdditionalServices->count() ? ''.$this->checkoutService->selectedAdditionalServices->count() : '' }}</span>
-                                </div>
 
+                                </span>
                                 {{ html()->hidden('additional_services_id',$this->checkoutService->selectedAdditionalServices?->pluck('id')?->toJson()) }}
                             </div>
-
                         </div>
-                        <div class="col-12 row justify-content-center ml-0 mr-0 p-0">
-                            @foreach($this->checkoutService->additionalServices as $service)
-                                <div
-                                    class="additional-service-item col-12 col-sm-12 col-md-3 col-lg-6 col-xl-3 mb-4 p-0">
-                                    {{ html()->checkbox('additional-services',false,$service->id)->attributes(['id'=>'additional-services-'.$service->id,'wire:model.live'=>'selectedAdditionalServicesId']) }}
-                                    <label class=" d-block additional-services-label"
-                                           for="additional-services-{{ $service->id }}"
-                                           title="{!! $service->description !!}">
-                                <span>
-                                    <img src="{{ $service->iconUrl }}" alt="{{ $service->name }}">
-                                </span>
-                                        <span>{{ $service->name }}</span>
-                                    </label>
-                                </div>
-                            @endforeach
+                        <div class="col-12 ml-0 mr-0 p-0 additional-service-block">
+                            <ul class="row  gx-0  list-unstyled p-0 m-0">
+                                @foreach($this->checkoutService->additionalServices as $service)
+                                    <li class="col-12 col-md-3 mb-3 p-0 m-0">
+                                        {{ html()->checkbox('additional-services',false,$service->id)->attributes(['id'=>'additional-services-'.$service->id,'wire:model.live'=>'selectedAdditionalServicesId']) }}
+                                        <label class="d-block" for="additional-services-{{ $service->id }}"
+                                               title="{!! $service->description !!}">
+                                        <span>
+                                            <img src="{{ $service->iconUrl }}" alt="{{ $service->name }}">
+                                        </span>
+                                            <span>{{ $service->name }}</span>
+                                        </label>
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
                     </div>
                 @endif
@@ -494,6 +463,8 @@
     });
 
     const initializeFlatpickr = () => {
+        $('[data-bs-toggle="tooltip"]').tooltip();
+
         flatpickr(document.getElementsByClassName('date-time-picker')[0], {
             enableTime: true,
             noCalendar: false,

@@ -34,7 +34,6 @@
                                     <th class="cell">№</th>
                                     <th class="cell">Сервіс</th>
                                     <th class="cell">Тип кімнати</th>
-                                    <th class="cell">Мінімальна кількісь кімнати</th>
                                     <th class="cell">Ціна за 1 кімнату</th>
                                     <th class="cell">Ціна збільшення</th>
                                     <th class="cell" colspan="2"></th>
@@ -46,7 +45,6 @@
                                         <td class="cell">#{{ $item->id }}</td>
                                         <td class="cell">{{ $item->service->name }}</td>
                                         <td class="cell">{{ $item->roomType->name }}</td>
-                                        <td class="cell">{{ $item->room_quantity }}</td>
                                         <td class="cell">${{ $item->price_by_unit }}</td>
                                         <td class="cell">${{ $item->price_for_next_unit }}</td>
                                         <td class="cell"><a class="btn-sm app-btn-secondary" href="{{ route('admin.prices.edit',$item) }}">Редагувати</a></td>

@@ -25,15 +25,19 @@
         <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
     </div>
 @endsection
+@vite(['resources/css/library/quantity.css'])
 @section('js')
+
     <script>
         window.onload = () => {
+            $('[data-bs-toggle="tooltip"]').tooltip();
             $(document).on('click', ".js-add-services", function () {
                 $("#services-list").modal('show');
             });
 
             const initializeFlatpickr = () => {
-                console.log(123)
+                $('[data-bs-toggle="tooltip"]').tooltip();
+
                 flatpickr(document.getElementsByClassName('date-time-picker')[0], {
                     enableTime: true,
                     noCalendar: false,
@@ -56,7 +60,5 @@
                 initializeFlatpickr();
             });
         }
-
-
     </script>
 @endsection
