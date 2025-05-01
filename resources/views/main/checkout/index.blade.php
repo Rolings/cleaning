@@ -26,39 +26,91 @@
     </div>
 @endsection
 @vite(['resources/css/library/quantity.css'])
-@section('js')
-
+@section('css')
+    <link href="https://cdn.jsdelivr.net/npm/simple-jscalendar@1.4.5/source/jsCalendar.min.css" rel="stylesheet">
+@endsection
+@section('before_js')
+    <script src="https://cdn.jsdelivr.net/npm/simple-jscalendar@1.4.5/source/jsCalendar.min.js"></script>
     <script>
         window.onload = () => {
-            $('[data-bs-toggle="tooltip"]').tooltip();
             $(document).on('click', ".js-add-services", function () {
                 $("#services-list").modal('show');
             });
 
             const initializeFlatpickr = () => {
-                $('[data-bs-toggle="tooltip"]').tooltip();
-
-                flatpickr(document.getElementsByClassName('date-time-picker')[0], {
+                $(document).ready(function(){
+                    $(".date-time-picker").simpleCalendar();
+                });
+      /*          flatpickr(document.getElementsByClassName('date-time-picker')[0], {
                     enableTime: true,
                     noCalendar: false,
                     dateFormat: "m/d/Y h:i K",
                     time_24hr: false,
                     minDate: new Date(),
                     minuteIncrement: 30
-                });
+                });*/
             }
 
+
             document.addEventListener('livewire:load', function () {
-                initializeFlatpickr();
+              //  initializeFlatpickr();
             });
 
             document.addEventListener('livewire:updated', function () {
-                initializeFlatpickr();
+               // initializeFlatpickr();
             });
 
             document.addEventListener('livewire:initialized', function () {
-                initializeFlatpickr();
+              //  initializeFlatpickr();
             });
         }
+
+        window.addEventListener('DOMContentLoaded', () => {
+
+            const initializeFlatpickr = () => {
+                $(document).ready(function(){
+                    $(".date-time-picker").simpleCalendar();
+                });
+ /*               flatpickr(document.getElementsByClassName('date-time-picker')[0], {
+                    enableTime: false,
+                    noCalendar: false,
+                    dateFormat: "m/d/Y",
+                    time_24hr: false,
+                    minDate: new Date(),
+                    minuteIncrement: 30
+                });*/
+            }
+
+            function initTooltips() {
+
+                $('.custom-tooltip').each(function () {
+                    const $el = $(this);
+                    if ($el.data('bs.tooltip')) return;
+
+                    const tooltipText = $el.find('.tooltip-text').text().trim();
+                    if (tooltipText) {
+                        $el.tooltip({
+                            title: tooltipText
+                        });
+                    }
+                });
+            }
+
+            initTooltips();
+            initializeFlatpickr();
+
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.addedNodes.length > 0) {
+                        initTooltips();
+                    }
+                });
+            });
+
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        });
     </script>
 @endsection

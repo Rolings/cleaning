@@ -201,7 +201,14 @@ class CheckoutService implements Wireable
 
         $this->states = State::onlyActive()->get();
 
-        $this->services = Service::with(['prices.roomType.prices', 'prices.roomType.additional','rooms'])->onlyActive()->get();
+        $this->services = Service::with([
+            'prices.roomType.prices',
+            'prices.roomType.additional',
+            'prices.roomType',
+            'rooms'
+        ])
+            ->onlyActive()
+            ->get();
 
         $this->taxPercentage = Setting::findByKey('tax_percentage')?->value ?? 0;
 
@@ -244,11 +251,15 @@ class CheckoutService implements Wireable
             ->pluck('prices')
             ->flatten()
             ->pluck('roomType')
+            ->filter(fn($room) => $room->active)
             ->unique('id')
             ->sortBy('name');
 
-        if (!$this->selectedRooms->count()){
-            $this->selectedRooms = $this->selectedServices->pluck('rooms')->flatten();
+        if (!$this->selectedRooms->count()) {
+            $this->selectedRooms = $this->selectedServices
+                ->pluck('rooms')
+                ->flatten()
+                ->filter(fn($room) => $room->active);
         }
 
         $this->calculateCostServices();
@@ -313,6 +324,12 @@ class CheckoutService implements Wireable
             ?->pluck('id')
             ?->toArray() ?? [];
     }
+
+    public function getFullName(): string
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
     private function calculateCostServices(): void
     {
         $this->costServices = $this->selectedServices->sum('price');

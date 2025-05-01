@@ -58,7 +58,8 @@
     'resources/js/library/jquery.mask.js',
     'resources/js/main/main-script.js',
 ])
-@yield('js')
 @livewireScripts
+@yield('js')
+
 </body>
 </html>

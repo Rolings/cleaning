@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(File::class, 'icon_id')->nullable();
             $table->text('base64image')->nullable();
             $table->string('name');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->decimal('price', 8, 2)->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();

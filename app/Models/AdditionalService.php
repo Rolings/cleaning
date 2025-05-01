@@ -55,6 +55,9 @@ class AdditionalService extends Model
         return Str::limit($this->description, 55);
     }
 
+    /**
+     * @return \class-string
+     */
     public function getEntity()
     {
         return self::class;
