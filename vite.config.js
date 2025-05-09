@@ -37,8 +37,9 @@ export default defineConfig({
                 'resources/js/library/tinymce.js',
                 'resources/js/library/jquery.multiselect.js',
                 'resources/js/library/select2.js',
-                'resources/js/library/flatpickr.js',
-                'resources/js/library/quantity.js',
+/*                'resources/js/library/flatpickr.js',
+                'resources/js/library/litepicker.js',*/
+                'resources/js/library/fullcalendar.js',
 
                 // Admin resources
                 'resources/css/admin/portal.css',
@@ -51,7 +52,7 @@ export default defineConfig({
                 {
                     src: 'resources/images/*',
                     dest: 'images/'
-                },
+                }
             ]
         }),
     ],
