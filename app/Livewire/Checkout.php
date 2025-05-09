@@ -7,6 +7,7 @@ use App\Models\State;
 use App\Services\Checkout\CheckoutService;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use Livewire\Attributes\On;
 
 class Checkout extends Component
 {
@@ -52,8 +53,11 @@ class Checkout extends Component
         $this->checkoutService->loadData(new CheckoutDataDto(...$arguments));
     }
 
-    public function updatedSelectOrderAt(): void
+    #[On('selected-date.updated')]
+    public function updatedSelectOrderAt($date): void
     {
+        $this->selectOrderAt = $date;
+
         $this->updateFields();
     }
 

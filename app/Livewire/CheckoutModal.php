@@ -11,33 +11,28 @@ use Livewire\Component;
 
 class CheckoutModal extends Component
 {
-    // Selected
-    public array $servicesId = [];
+    /**
+     * @var string
+     */
+    public ?string $selectedDate = null;
 
-    protected $listeners = ['clearSelectServices'];
+    /**
+     * @var array
+     */
+    public array $blockedDate = [];
 
     /**
      * @return void
      */
-    public function updatedServicesId(): void
+    public function updatedSelectedDate(): void
     {
-        $this->dispatch('updatedSelectServicesId', ['list' => $this->servicesId]);
-    }
-
-    /**
-     * @return void
-     */
-    public function clearSelectServices(): void
-    {
-        $this->servicesId = [];
+        $this->dispatch('selected-date.updated', date: $this->selectedDate);
     }
 
     public function render()
     {
-        $services = Service::onlyActive()->get();
+        return view('main.section.livewire.checkout-modal',[
 
-        return view('main.section.livewire.checkout-modal', [
-            'services' => $services,
         ]);
     }
 }

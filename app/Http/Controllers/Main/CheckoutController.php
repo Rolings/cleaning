@@ -14,9 +14,11 @@ class CheckoutController extends Controller
 {
     public function index(CartRequest $request): View
     {
-        return view('main.checkout.index',
-            [
-                'requestData' => $request->isMethod('POST') ? $request->validated() : []
+        $blockedDates = ['2025-05-14'];
+
+        return view('main.checkout.index', [
+                'requestData'  => $request->isMethod('POST') ? $request->validated() : [],
+                'blockedDates' => $blockedDates
             ]
         );
     }

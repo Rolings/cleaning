@@ -54,7 +54,9 @@
     'resources/js/library/jquery.toast.js',
     'resources/js/library/owl.carousel.js',
     'resources/js/library/select2.js',
-    'resources/js/library/flatpickr.js',
+    'resources/js/library/fullcalendar.js',
+/*    'resources/js/library/flatpickr.js',
+    'resources/js/library/litepicker.js',*/
     'resources/js/library/jquery.mask.js',
     'resources/js/main/main-script.js',
 ])

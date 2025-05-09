@@ -13,9 +13,8 @@
         <div class="service">
             {{ html()->form()->route('checkout')->open() }}
             <div class="container-fluid">
-                <h3>Complete your booking.</h3>
                 <livewire:checkout :request-data="$requestData"/>
-                <livewire:checkout-modal/>
+                <livewire:checkout-modal :blocked-date="$blockedDates"/>
             </div>
             {{ html()->form()->close() }}
         </div>
@@ -26,63 +25,16 @@
     </div>
 @endsection
 @vite(['resources/css/library/quantity.css'])
-@section('css')
-    <link href="https://cdn.jsdelivr.net/npm/simple-jscalendar@1.4.5/source/jsCalendar.min.css" rel="stylesheet">
-@endsection
 @section('before_js')
-    <script src="https://cdn.jsdelivr.net/npm/simple-jscalendar@1.4.5/source/jsCalendar.min.js"></script>
     <script>
+        var calendarModal;
         window.onload = () => {
-            $(document).on('click', ".js-add-services", function () {
-                $("#services-list").modal('show');
-            });
-
-            const initializeFlatpickr = () => {
-                $(document).ready(function(){
-                    $(".date-time-picker").simpleCalendar();
-                });
-      /*          flatpickr(document.getElementsByClassName('date-time-picker')[0], {
-                    enableTime: true,
-                    noCalendar: false,
-                    dateFormat: "m/d/Y h:i K",
-                    time_24hr: false,
-                    minDate: new Date(),
-                    minuteIncrement: 30
-                });*/
-            }
-
-
-            document.addEventListener('livewire:load', function () {
-              //  initializeFlatpickr();
-            });
-
-            document.addEventListener('livewire:updated', function () {
-               // initializeFlatpickr();
-            });
-
-            document.addEventListener('livewire:initialized', function () {
-              //  initializeFlatpickr();
-            });
+            calendarModal = $('#calendar-modal');
         }
 
         window.addEventListener('DOMContentLoaded', () => {
 
-            const initializeFlatpickr = () => {
-                $(document).ready(function(){
-                    $(".date-time-picker").simpleCalendar();
-                });
- /*               flatpickr(document.getElementsByClassName('date-time-picker')[0], {
-                    enableTime: false,
-                    noCalendar: false,
-                    dateFormat: "m/d/Y",
-                    time_24hr: false,
-                    minDate: new Date(),
-                    minuteIncrement: 30
-                });*/
-            }
-
             function initTooltips() {
-
                 $('.custom-tooltip').each(function () {
                     const $el = $(this);
                     if ($el.data('bs.tooltip')) return;
@@ -97,7 +49,6 @@
             }
 
             initTooltips();
-            initializeFlatpickr();
 
             const observer = new MutationObserver((mutations) => {
                 mutations.forEach((mutation) => {
