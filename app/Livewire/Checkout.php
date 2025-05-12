@@ -5,23 +5,26 @@ namespace App\Livewire;
 use App\DTOs\Livewire\CheckoutDataDto;
 use App\Models\State;
 use App\Services\Checkout\CheckoutService;
+use App\Traits\CheckoutTrait;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\Attributes\On;
 
 class Checkout extends Component
 {
+    use CheckoutTrait;
+
     public CheckoutService $checkoutService;
 
     /**
      * @var string
      */
-    public ?string $selectOrderAt = null;
+    public ?string $selectedOrderAt = null;
 
     /**
      * @var int
      */
-    public ?int $selectStateId = null;
+    public ?int $selectedStateId = null;
 
     /**
      * @var array
@@ -53,61 +56,112 @@ class Checkout extends Component
         $this->checkoutService->loadData(new CheckoutDataDto(...$arguments));
     }
 
-    #[On('selected-date.updated')]
-    public function updatedSelectOrderAt($date): void
+    public function updatedSelectedServicesId(): void
     {
-        $this->selectOrderAt = $date;
+        $this->cleanFields();
 
-        $this->updateFields();
+        $this->checkoutService->setFirstName($this->first_name);
+
+        $this->checkoutService->setLastName($this->last_name);
+
+        $this->checkoutService->setEmail($this->email);
+
+        $this->checkoutService->setPhone($this->phone);
+
+        $this->checkoutService->setAddress($this->address);
+
+        $this->checkoutService->setAptSuite($this->apt_suite);
+
+        $this->checkoutService->setDatetime($this->selectedOrderAt);
+
+        $this->checkoutService->setState($this->selectedStateId);
+
+        $this->checkoutService->setServices([$this->selectedServicesId]);
+
+        $this->selectedRoomId = $this->checkoutService->getDefaultServiceRoom();
+
+        $this->checkoutService->setRooms($this->selectedRoomId);
+
+        $this->selectedRoomCount = $this->checkoutService
+            ->setDefaultSelectedRooms($this->selectedRoomId, $this->selectedRoomCount);
+
+        $this->checkoutService->setRoomsCount($this->selectedRoomCount);
+
+        $this->checkoutService->setAdditionalServices($this->selectedAdditionalServicesId);
+
+    }
+
+    public function updatedSelectedRoomId(): void
+    {
+        $this->setService();
+    }
+
+    public function updatedSelectedRoomCount(): void
+    {
+        $this->setService();
+    }
+
+    public function updatedSelectedAdditionalServicesId(): void
+    {
+        $this->setService();
+    }
+
+    public function updatedSelectedOrderAt(): void
+    {
+        $this->setService();
+
+        $this->dispatch('open-calendar-modal', date: $this->selectedOrderAt);
+    }
+
+    #[On('set-date.updated')]
+    public function setSelectedOrderAt($date): void
+    {
+        $this->selectedOrderAt = $date;
+
+        $this->setService();
+    }
+
+    public function updatedFirstName(): void
+    {
+        $this->setService();
+    }
+
+    public function updatedLastName(string $lastName): void
+    {
+        $this->setService();
+    }
+
+    public function updatedEmail(): void
+    {
+        $this->setService();
+    }
+
+    public function updatedPhone(): void
+    {
+        $this->setService();
     }
 
     /**
      * @param State $state
      * @return void
      */
-    public function updatedSelectStateId(): void
+    public function updatedSelectedStateId(): void
     {
-        $this->updateFields();
+        $this->setService();
     }
 
-    public function updatedSelectedServicesId(): void
+    public function updatedAddress(): void
     {
-        $this->cleanFields();
 
-        $this->checkoutService->selectDatetime($this->selectOrderAt);
-
-        $this->checkoutService->selectState($this->selectStateId);
-
-        $this->checkoutService->selectServices([$this->selectedServicesId]);
-
-        $this->selectedRoomId = $this->checkoutService->getDefaultServiceRoom();
-
-        $this->checkoutService->selectRooms($this->selectedRoomId);
-
-        $this->selectedRoomCount = $this->checkoutService
-            ->setDefaultSelectedRooms($this->selectedRoomId, $this->selectedRoomCount);
-
-        $this->checkoutService->selectRoomsCount($this->selectedRoomCount);
-
-        $this->checkoutService->selectAdditionalServices($this->selectedAdditionalServicesId);
-
+        $this->setService();
     }
 
-    public function updatedSelectedRoomId(): void
+    public function updatedAptSuite(): void
     {
-        $this->updateFields();
+
+        $this->setService();
     }
 
-    public function updatedSelectedRoomCount(): void
-    {
-        $this->updateFields();
-
-    }
-
-    public function updatedSelectedAdditionalServicesId(): void
-    {
-        $this->updateFields();
-    }
 
     private function cleanFields(): void
     {
@@ -116,22 +170,35 @@ class Checkout extends Component
         $this->selectedAdditionalServicesId = [];
     }
 
-    private function updateFields()
+
+    private function setService(): void
     {
-        $this->checkoutService->selectDatetime($this->selectOrderAt);
+        $this->checkoutService->setFirstName($this->first_name);
 
-        $this->checkoutService->selectState($this->selectStateId);
+        $this->checkoutService->setLastName($this->last_name);
 
-        $this->checkoutService->selectServices([$this->selectedServicesId]);
+        $this->checkoutService->setEmail($this->email);
 
-        $this->checkoutService->selectRooms($this->selectedRoomId);
+        $this->checkoutService->setPhone($this->phone);
+
+        $this->checkoutService->setAddress($this->address);
+
+        $this->checkoutService->setAptSuite($this->apt_suite);
+
+        $this->checkoutService->setDatetime($this->selectedOrderAt);
+
+        $this->checkoutService->setState($this->selectedStateId);
+
+        $this->checkoutService->setServices([$this->selectedServicesId]);
+
+        $this->checkoutService->setRooms($this->selectedRoomId);
 
         $this->selectedRoomCount = $this->checkoutService
             ->setDefaultSelectedRooms($this->selectedRoomId, $this->selectedRoomCount);
 
-        $this->checkoutService->selectRoomsCount($this->selectedRoomCount);
+        $this->checkoutService->setRoomsCount($this->selectedRoomCount);
 
-        $this->checkoutService->selectAdditionalServices($this->selectedAdditionalServicesId);
+        $this->checkoutService->setAdditionalServices($this->selectedAdditionalServicesId);
     }
 
     /**

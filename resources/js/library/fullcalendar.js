@@ -6,7 +6,6 @@ window.FullCalendar = {
     Calendar, dayGridPlugin, interactionPlugin
 };
 
-
 window.initCalendar = (elementId, callback, blockedDates = []) => {
     const calendarEl = document.getElementById(elementId);
     if (!calendarEl) return;
@@ -21,24 +20,29 @@ window.initCalendar = (elementId, callback, blockedDates = []) => {
             start: new Date().toISOString().split('T')[0]
         },
         selectAllow: function (selectInfo) {
-            const start = selectInfo.start;
-            const end = selectInfo.end;
-            const diffInMs = end - start;
-            const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
-            return diffInDays <= 1;
-        },
-        dateClick: function (info) {
-            callback(info);
-        },
-        dayCellDidMount: function (arg) {
-            const dateStr = arg.date.toISOString().split('T')[0];
+            const dateStr = selectInfo.startStr;
 
-            if (blockedDates.includes(dateStr)) {
-                arg.el.style.backgroundColor = '#f8d7da';
-                arg.el.style.color = '#721c24';
-                arg.el.style.cursor = 'not-allowed';
-            }
+            return !blockedDates.includes(dateStr);
         },
+        select: function(info) {
+            callback({
+                dateStr: info.startStr,
+                date: info.start
+            });
+        },
+        events: blockedDates.map(date => {
+            const endDate = new Date(date);
+            endDate.setDate(endDate.getDate() + 1);
+
+            return {
+                start: date,
+                end: endDate.toISOString().split('T')[0],
+                allDay: true,
+                display: 'background',
+                color: '#f45a5a',
+                overlap: false
+            };
+        }),
     });
 
     calendar.render();

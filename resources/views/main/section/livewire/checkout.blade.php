@@ -79,22 +79,8 @@
                 @endif
             </div>
 
-            <!--Service date-->
-            <div class="col-sm-12 p-0 mt-3">
-                <h5>DATE & TIME</h5>
-                <div class="row">
-                    <div class="col-12" wire:ignore>
-                        <div class="form-group">
-                            {{ html()->label('Date <span class="text-danger">*</span>','date') }}
-                             {{ html()->text('order_at')->required()->placeholder('')->attributes(['id'=>'order_at','class'=>'form-control date-time-picker','wire:model.live'=>'selectOrderAt']) }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!--Additional services-->
             <div class="col-sm-12 p-0 mt-3">
-
                 @if($this->checkoutService->additionalServices->count())
                     <div class="row mb-3">
                         <div class="col-12">
@@ -150,6 +136,39 @@
                         </div>
                     </div>
                 @endif
+
+                    <div class="row">
+                        <div wire:ignore class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-4">
+                            <div class="row m-0">
+                                {{ html()->label('Date <span class="text-danger">*</span>','order_at') }}
+                            </div>
+                            <div class="input-group">
+                                {{
+                                 html()
+                                 ->text('order_at')
+                                 ->required()
+                                 ->placeholder('')
+                                 ->attributes([
+                                     'id'=>'order_at',
+                                     'class'=>'form-control date-time-picker',
+                                     'aria-describedby'=>'order_at_label',
+                                     'wire:model.live'=>'selectedOrderAt',
+                                   /*  'wire:click'=>'openCalendar'*/
+                                     ])
+                                 }}
+
+                                <span class="input-group-text">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-calendar-event" viewBox="0 0 16 16">
+                                  <path
+                                      d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
+                                  <path
+                                      d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                                </svg>
+                            </span>
+                            </div>
+                        </div>
+                    </div>
             </div>
 
             <!--Contact info-->
@@ -159,13 +178,13 @@
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                         <div class="form-group">
                             {{ html()->label('First Name <span class="text-danger">*</span>','first_name') }}
-                            {{ html()->text('first_name')->required()->placeholder('')->attributes(['id'=>'first_name','class'=>'form-control','wire:model.live'=>'checkoutService.first_name']) }}
+                            {{ html()->text('first_name')->required()->placeholder('')->attributes(['id'=>'first_name','class'=>'form-control','wire:model.live'=>'first_name']) }}
                         </div>
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                         <div class="form-group">
                             {{ html()->label('Last Name','last_name') }}
-                            {{ html()->text('last_name')->placeholder('')->attributes(['id'=>'last_name','class'=>'form-control','wire:model.live'=>'checkoutService.last_name']) }}
+                            {{ html()->text('last_name')->placeholder('')->attributes(['id'=>'last_name','class'=>'form-control','wire:model.live'=>'last_name']) }}
                         </div>
                     </div>
                 </div>
@@ -173,17 +192,18 @@
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                         <div class="form-group">
                             {{ html()->label('Email','email') }}
-                            {{ html()->text('email')->placeholder('')->attributes(['id'=>'email','class'=>'form-control','wire:model.live'=>'checkoutService.email']) }}
+                            {{ html()->text('email')->placeholder('')->attributes(['id'=>'email','class'=>'form-control','wire:model.live'=>'email']) }}
                         </div>
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
                         <div class="form-group">
                             {{ html()->label('Mobile Number <span class="text-danger">*</span>','phone') }}
-                            {{ html()->text('phone')->required()->placeholder('')->attributes(['id'=>'phone','class'=>'form-control','wire:model.live'=>'checkoutService.phone']) }}
+                            {{ html()->text('phone')->required()->placeholder('')->attributes(['id'=>'phone','class'=>'form-control','wire:model.live'=>'phone']) }}
                         </div>
                     </div>
                 </div>
             </div>
+
             <!--Address-->
             <div class="col-sm-12 p-0 mt-3">
                 <div class="row">
@@ -193,19 +213,19 @@
                             {{
                                 html()->select('state_id',$this->checkoutService->states->pluck('name','id'),$this->checkoutService->states->filter(fn($state) => $state->default)?->first()?->id)
                                       ->required()
-                                      ->attributes(['id'=>'state_id','class'=>'custom-select','wire:model.live'=>'selectStateId']) }}
+                                      ->attributes(['id'=>'state_id','class'=>'custom-select','wire:model.live'=>'selectedStateId']) }}
                         </div>
                     </div>
                     <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 col-xxl-5">
                         <div class="form-group">
                             {{ html()->label('City <span class="text-danger">*</span>','city') }}
-                            {{ html()->text('city')->required()->placeholder('')->attributes(['id'=>'city','class'=>'form-control','wire:model.live'=>'checkoutService.city']) }}
+                            {{ html()->text('city')->required()->placeholder('')->attributes(['id'=>'city','class'=>'form-control','wire:model.live'=>'city']) }}
                         </div>
                     </div>
                     <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                         <div class="form-group">
                             {{ html()->label('Zip <span class="text-danger">*</span>','zip') }}
-                            {{ html()->text('zip')->required()->placeholder('')->attributes(['id'=>'zip','class'=>'form-control','wire:model.live'=>'checkoutService.zip']) }}
+                            {{ html()->text('zip')->required()->placeholder('')->attributes(['id'=>'zip','class'=>'form-control','wire:model.live'=>'zip']) }}
                         </div>
                     </div>
                 </div>
@@ -213,13 +233,13 @@
                     <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 col-xxl-9">
                         <div class="form-group">
                             {{ html()->label('Address <span class="text-danger">*</span>','address') }}
-                            {{ html()->text('address')->required()->placeholder('')->attributes(['id'=>'address','class'=>'form-control','wire:model.live'=>'checkoutService.address']) }}
+                            {{ html()->text('address')->required()->placeholder('')->attributes(['id'=>'address','class'=>'form-control','wire:model.live'=>'address']) }}
                         </div>
                     </div>
                     <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
                         <div class="form-group">
                             {{ html()->label('Apt/Suite ','apt_suite') }}
-                            {{ html()->text('apt_suite')->placeholder('')->attributes(['id'=>'apt_suite','class'=>'form-control','wire:model.live'=>'checkoutService.apt_suite']) }}
+                            {{ html()->text('apt_suite')->placeholder('')->attributes(['id'=>'apt_suite','class'=>'form-control','wire:model.live'=>'apt_suite']) }}
                         </div>
                     </div>
                 </div>
@@ -511,19 +531,19 @@
     $(document).ready(function () {
         $('#phone').mask('+1 (000) 000-0000');
 
-        $(".js-scroll-to").on('click', function () {
-            let object = $("#" + $(this).attr('data-scroll-to'));
-            object.addClass("error");
+        /*        $(".js-scroll-to").on('click', function () {
+                    let object = $("#" + $(this).attr('data-scroll-to'));
+                    object.addClass("error");
 
-            object.on('input', function () {
-                $(this).removeClass('error')
-            });
-            $([document.documentElement, document.body]).animate({
-                scrollTop: object.offset().top - 50
-            }, 500, () => {
-                object.focus();
-            });
-        });
+                    object.on('input', function () {
+                        $(this).removeClass('error')
+                    });
+                    $([document.documentElement, document.body]).animate({
+                        scrollTop: object.offset().top - 50
+                    }, 500, () => {
+                        object.focus();
+                    });
+                });*/
 
         $('#order_at').on('click', function () {
             calendarModal.modal('show');

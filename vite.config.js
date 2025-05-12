@@ -23,6 +23,7 @@ export default defineConfig({
                 'resources/css/library/select2.css',
                 'resources/css/library/flatpickr.css',
                 'resources/css/library/quantity.css',
+                'resources/css/library/calendar.css',
 
                 'resources/js/library/jquery.js',
                 'resources/js/library/bootstrap.js',
@@ -37,9 +38,7 @@ export default defineConfig({
                 'resources/js/library/tinymce.js',
                 'resources/js/library/jquery.multiselect.js',
                 'resources/js/library/select2.js',
-/*                'resources/js/library/flatpickr.js',
-                'resources/js/library/litepicker.js',*/
-                'resources/js/library/fullcalendar.js',
+                'resources/js/library/calendar.js',
 
                 // Admin resources
                 'resources/css/admin/portal.css',

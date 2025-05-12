@@ -6,79 +6,15 @@ use App\Models\Price;
 use App\Models\Service;
 use App\Models\Setting;
 use App\Models\State;
+use App\Traits\CheckoutTrait;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Livewire\Wireable;
 use App\Contracts\Livewire\CheckoutDataInterface;
-use function Symfony\Component\Translation\t;
 
 class CheckoutService implements Wireable
 {
-
-    /**
-     * @var string|null
-     */
-    public ?string $name = null;
-
-    /**
-     * @var string|null
-     */
-    public ?string $first_name = null;
-
-    /**
-     * @var string|null
-     */
-    public ?string $last_name = null;
-
-    /**
-     * @var string|null
-     */
-    public ?string $phone = null;
-
-    /**
-     * @var string|null
-     */
-    public ?string $email = null;
-
-    /**
-     * @var int|null
-     */
-    public ?int $state_id = null;
-
-    /**
-     * @var string|null
-     */
-    public ?string $city = null;
-
-    /**
-     * @var string|null
-     */
-    public ?string $zip = null;
-
-    /**
-     * @var string|null
-     */
-    public ?string $address = null;
-
-    /**
-     * @var string|null
-     */
-    public ?string $apt_suite = null;
-
-    /**
-     * @var string|null
-     */
-    public Carbon|null $datetime = null;
-
-    /**
-     * @var string|null
-     */
-    public ?string $comment = null;
-
-    /**
-     * @var int|null
-     */
-    public ?int $service_id = null;
+    use CheckoutTrait;
 
     /**
      * @var float|int
@@ -215,19 +151,63 @@ class CheckoutService implements Wireable
         $this->discountPercentage = Setting::findByKey('discount_percentage')?->value ?? 0;
     }
 
-    public function selectDatetime(?string $datetime): void
+    public function setFirstName(?string $firstName): self
+    {
+        $this->first_name = $firstName;
+
+        return $this;
+    }
+
+    public function setLastName(?string $lastName): self
+    {
+        $this->last_name = $lastName;
+
+        return $this;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function setAptSuite(?int $aptSuite): self
+    {
+        $this->apt_suite = $aptSuite;
+
+        return $this;
+    }
+
+    public function setDatetime(?string $datetime): self
     {
         if (is_null($datetime)) {
-            return;
+            return $this;
         }
 
         $this->datetime = Carbon::parse($datetime);
+
+        return $this;
     }
 
-    public function selectState(?int $stateId): void
+    public function setState(?int $stateId): self
     {
         if (is_null($stateId)) {
-            return;
+            return $this;
         }
 
         $state = State::find($stateId);
@@ -235,9 +215,11 @@ class CheckoutService implements Wireable
         $this->city = $state->capital;
 
         $this->zip = $state->zip;
+
+        return $this;
     }
 
-    public function selectServices(array $selectedServicesId): void
+    public function setServices(array $selectedServicesId): self
     {
         $this->selectedServices = $this->services->filter(function ($service) use ($selectedServicesId) {
             return in_array($service->id, $selectedServicesId);
@@ -263,9 +245,11 @@ class CheckoutService implements Wireable
         }
 
         $this->calculateCostServices();
+
+        return $this;
     }
 
-    public function selectRooms(array $selectedRoomId): void
+    public function setRooms(array $selectedRoomId): self
     {
         $this->selectedRooms = $this->rooms->filter(function ($roomType) use ($selectedRoomId) {
             return in_array($roomType->id, $selectedRoomId);
@@ -277,11 +261,12 @@ class CheckoutService implements Wireable
             ->unique('id')
             ->sortBy('name');
 
-
         $this->calculateCostRooms();
+
+        return $this;
     }
 
-    public function selectRoomsCount(array $selectedRoomCount): void
+    public function setRoomsCount(array $selectedRoomCount): self
     {
         $rooms = $this->selectedRooms->pluck('id')->toArray();
 
@@ -290,15 +275,19 @@ class CheckoutService implements Wireable
         });
 
         $this->calculateCostRooms();
+
+        return $this;
     }
 
-    public function selectAdditionalServices(array $selectedAdditionalServicesId): void
+    public function setAdditionalServices(array $selectedAdditionalServicesId): self
     {
         $this->selectedAdditionalServices = $this->additionalServices->filter(function ($service) use ($selectedAdditionalServicesId) {
             return in_array($service->id, $selectedAdditionalServicesId);
         });
 
         $this->calculateCostAdditionalServices();
+
+        return $this;
     }
 
     public function setDefaultSelectedRooms(array $baseIds, array $overrideValues): array

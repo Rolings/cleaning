@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Main;
 use App\Http\Controllers\Controller;
 use App\Jobs\Telegram\TelegramChannelMessage;
 use App\Http\Requests\Main\Checkout\{CartRequest, CheckoutRequest};
-use App\Models\Order;
+use App\Models\{Order, CalendarUnavailableDate};
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -14,7 +14,14 @@ class CheckoutController extends Controller
 {
     public function index(CartRequest $request): View
     {
-        $blockedDates = ['2025-05-14'];
+        $blockedDates = CalendarUnavailableDate::query()
+            ->where('unavailable_at', '>=', now()->toDateTimeString())
+            ->pluck('unavailable_at')
+            ->transform(function ($date) {
+                return $date->format('Y-m-d');
+            })
+            ->toArray();
+
 
         return view('main.checkout.index', [
                 'requestData'  => $request->isMethod('POST') ? $request->validated() : [],

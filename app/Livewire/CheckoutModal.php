@@ -2,11 +2,8 @@
 
 namespace App\Livewire;
 
-use App\Models\AdditionalService;
-use App\Models\Offer;
-use App\Models\Service;
-use App\Models\Setting;
-use Illuminate\Support\Carbon;
+use Illuminate\Contracts\View\View;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class CheckoutModal extends Component
@@ -26,13 +23,24 @@ class CheckoutModal extends Component
      */
     public function updatedSelectedDate(): void
     {
-        $this->dispatch('selected-date.updated', date: $this->selectedDate);
+        $this->dispatch('set-date.updated', date: $this->selectedDate);
     }
 
-    public function render()
+    /**
+     * @param string|null $date
+     * @return void
+     */
+    #[On('open-calendar-modal')]
+    public function setDate(string $date = null)
     {
-        return view('main.section.livewire.checkout-modal',[
+        $this->selectedDate = $date;
+    }
 
-        ]);
+    /**
+     * @return View
+     */
+    public function render(): View
+    {
+        return view('main.section.livewire.checkout-modal');
     }
 }

@@ -24,7 +24,10 @@
         <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
     </div>
 @endsection
-@vite(['resources/css/library/quantity.css'])
+@vite([
+    'resources/css/library/calendar.css',
+    'resources/js/library/calendar.js',
+])
 @section('before_js')
     <script>
         var calendarModal;
