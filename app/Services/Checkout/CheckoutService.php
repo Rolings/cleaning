@@ -2,7 +2,6 @@
 
 namespace App\Services\Checkout;
 
-use App\Models\Price;
 use App\Models\Service;
 use App\Models\Setting;
 use App\Models\State;

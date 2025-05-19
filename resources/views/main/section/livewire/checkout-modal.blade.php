@@ -19,8 +19,9 @@
                     html()
                     ->hidden('selected-date')
                     ->required()
+                    ->value($defaultDate)
                     ->placeholder('')
-                    ->attributes(['id'=>'selected-date','class'=>'form-control date-time-picker','wire:model.live'=>'selectedDate'])
+                    ->attributes(['id'=>'selected-date','class'=>'form-control date-time-picker','wire:model.live'=>'defaultDate'])
                     }}
 
                 <div id="calendar"></div>
@@ -33,14 +34,10 @@
 </div>
 @script
 <script>
-    let calendar;
-
-    $(document).ready(function () {
-        $(".btn-close").on('click', () => calendarModal.modal('hide'));
-
+    const initializeCalendar = () => {
         calendarModal.on('shown.bs.modal', () => {
             calendar = new Calendar('#calendar', {
-                defaultDate: '{{ $selectedDate }}',
+                defaultDate: defaultDate,
                 blockedDates:  @json($blockedDate),
                 startWeekOn: 'saturday',
                 timezone: 'America/New_York',
@@ -53,6 +50,12 @@
         }).on('hidden.bs.modal', () => {
 
         });
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+
+
+        initializeCalendar();
     });
+
 </script>
 @endscript

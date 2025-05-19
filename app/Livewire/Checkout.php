@@ -9,6 +9,7 @@ use App\Traits\CheckoutTrait;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\Attributes\On;
+use Illuminate\Support\Facades\Http;
 
 class Checkout extends Component
 {
@@ -54,6 +55,7 @@ class Checkout extends Component
     public function mount(...$arguments): void
     {
         $this->checkoutService->loadData(new CheckoutDataDto(...$arguments));
+        // $this->selectedOrderAt = now()->toDateString();
     }
 
     public function updatedSelectedServicesId(): void
@@ -75,6 +77,10 @@ class Checkout extends Component
         $this->checkoutService->setDatetime($this->selectedOrderAt);
 
         $this->checkoutService->setState($this->selectedStateId);
+
+        $this->city = $this->checkoutService->city;
+
+        $this->zip = $this->checkoutService->zip;
 
         $this->checkoutService->setServices([$this->selectedServicesId]);
 
@@ -121,6 +127,11 @@ class Checkout extends Component
         $this->setService();
     }
 
+    public function openCalendar(): void
+    {
+        $this->dispatch('set-default-date', date: $this->selectedOrderAt);
+    }
+
     public function updatedFirstName(): void
     {
         $this->setService();
@@ -141,11 +152,17 @@ class Checkout extends Component
         $this->setService();
     }
 
-    /**
-     * @param State $state
-     * @return void
-     */
     public function updatedSelectedStateId(): void
+    {
+        $this->setService();
+    }
+
+    public function updatedCity(): void
+    {
+        $this->setService();
+    }
+
+    public function updatedZip(): void
     {
         $this->setService();
     }
@@ -189,6 +206,10 @@ class Checkout extends Component
 
         $this->checkoutService->setState($this->selectedStateId);
 
+        $this->city = $this->checkoutService->city;
+
+        $this->zip = $this->checkoutService->zip;
+
         $this->checkoutService->setServices([$this->selectedServicesId]);
 
         $this->checkoutService->setRooms($this->selectedRoomId);
@@ -199,6 +220,31 @@ class Checkout extends Component
         $this->checkoutService->setRoomsCount($this->selectedRoomCount);
 
         $this->checkoutService->setAdditionalServices($this->selectedAdditionalServicesId);
+    }
+
+    public function submit(): void
+    {
+        dd(request()->all());
+ /*       $validated = $this->validate([
+            'first_name'             => ['required', 'string', 'max:100'],
+            'last_name'              => ['sometimes', 'nullable', 'string'],
+            'phone'                  => ['required', 'string'],
+            'email'                  => ['sometimes', 'nullable', 'email'],
+            'address'                => ['required', 'string', 'max:100'],
+            'apt_suite'              => ['sometimes', 'nullable', 'string', 'max:100'],
+            'city'                   => ['required', 'string', 'max:100'],
+            'state_id'               => ['required', 'string', 'exists:states,id'],
+            'zip'                    => ['required', 'string', 'max:100'],
+            'selected_order_at'               => ['required'],
+            'services_id'            => ['required', 'nullable', 'string',],
+            'count_rooms'            => ['required', 'nullable', 'array',],
+            'additional_services_id' => ['required', 'nullable', 'string',],
+            'comment'                => ['sometimes', 'nullable', 'string'],
+        ]);*/
+
+       // Http::post(route('api.checkout.submit'), $validated);
+
+        dd($validated);
     }
 
     /**

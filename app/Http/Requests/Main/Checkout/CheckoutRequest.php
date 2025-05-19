@@ -44,7 +44,6 @@ class CheckoutRequest extends FormRequest
             'state_id'               => ['required', 'string', 'exists:states,id'],
             'zip'                    => ['required', 'string', 'max:100'],
             'order_at'               => ['required'],
-            'offer_id'               => ['required', 'integer', 'exists:offers,id'],
             'services_id'            => ['required', 'nullable', 'string',],
             'services'               => ['sometimes', 'nullable'],
             'additional_services_id' => ['required', 'nullable', 'string',],

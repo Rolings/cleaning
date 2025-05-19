@@ -11,7 +11,7 @@ class CheckoutModal extends Component
     /**
      * @var string
      */
-    public ?string $selectedDate = null;
+    public ?string $defaultDate = null;
 
     /**
      * @var array
@@ -21,19 +21,19 @@ class CheckoutModal extends Component
     /**
      * @return void
      */
-    public function updatedSelectedDate(): void
+    public function updatedDefaultDate(): void
     {
-        $this->dispatch('set-date.updated', date: $this->selectedDate);
+        $this->dispatch('set-date.updated', date: $this->defaultDate);
     }
 
     /**
      * @param string|null $date
      * @return void
      */
-    #[On('open-calendar-modal')]
-    public function setDate(string $date = null)
+    #[On('set-default-date')]
+    public function setDefaultDate(?string $date = null)
     {
-        $this->selectedDate = $date;
+        $this->defaultDate = $date;
     }
 
     /**

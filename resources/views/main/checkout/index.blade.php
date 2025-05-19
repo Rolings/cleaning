@@ -31,13 +31,16 @@
 @section('before_js')
     <script>
         var calendarModal;
-        window.onload = () => {
-            calendarModal = $('#calendar-modal');
-        }
+
+        var calendar;
+
+        var defaultDate;
 
         window.addEventListener('DOMContentLoaded', () => {
 
-            function initTooltips() {
+            calendarModal = $('#calendar-modal');
+
+            function init() {
                 $('.custom-tooltip').each(function () {
                     const $el = $(this);
                     if ($el.data('bs.tooltip')) return;
@@ -49,14 +52,22 @@
                         });
                     }
                 });
+                $('#phone').mask('+1 (000) 000-0000');
+
+                $('#order_at').on('click', () => calendarModal.modal('show'));
+                $('#order_at_picture').on('click', () => calendarModal.modal('show'));
+
+                $(".btn-close").on('click', () => calendarModal.modal('hide'));
+
             }
 
-            initTooltips();
+            init();
 
             const observer = new MutationObserver((mutations) => {
                 mutations.forEach((mutation) => {
                     if (mutation.addedNodes.length > 0) {
-                        initTooltips();
+
+                        init();
                     }
                 });
             });
@@ -64,6 +75,12 @@
             observer.observe(document.body, {
                 childList: true,
                 subtree: true
+            });
+        });
+
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('set-default-date', (event) => {
+                defaultDate = event.date;
             });
         });
     </script>
