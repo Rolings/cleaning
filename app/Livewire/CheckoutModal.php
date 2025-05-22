@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -33,7 +34,7 @@ class CheckoutModal extends Component
     #[On('set-default-date')]
     public function setDefaultDate(?string $date = null)
     {
-        $this->defaultDate = $date;
+        $this->defaultDate = is_null($date) ?? Carbon::parse($date)->format('Y-m-d');
     }
 
     /**

@@ -1,21 +1,21 @@
 <div>
-    <form wire:submit.prevent="submit">
+    <form wire:submit="submit">
         <div class="row">
             <!--Order-->
             <div class="col-sm-12 col-md-12 col-lg-8">
                 <h5>ORDER</h5>
                 <!--Service-->
                 <div class="col-sm-12 p-0 mt-3">
-                    @if($this->checkoutService->services->count())
+                    @if($this->services->count())
                         <div class="row services-list mb-3">
                             <div class="col-12">
                                 <div class="form-group">
                                     {{ html()->label('Services') }}
-                                    {{ html()->hidden('services_id',$this->checkoutService->selectedServices?->pluck('id')?->toJson()) }}
+           {{--                         {{ html()->hidden('services_id',$this->selectedServices?->pluck('id')?->toJson()) }}--}}
                                 </div>
                                 <div class="col-12 justify-content-center ml-0 mr-0 p-0 services-list-block">
                                     <ul class="col-12 d-flex flex-wrap gap-3 p-0 m-0 list-unstyled">
-                                        @forelse($this->checkoutService->services as $service)
+                                        @forelse($this->services as $service)
                                             <li class="col-12 col-sm-6 col-md-6 col-lg-4 d-flex justify-content-center">
                                                 {{ html()
                                                         ->radio('services',null,$service->id)
@@ -37,18 +37,18 @@
 
                 <!--Rooms-->
                 <div class="col-sm-12 p-0 mt-3">
-                    @if($this->checkoutService->rooms->count())
+                    @if($this->rooms?->count())
                         <div class="row mb-3">
                             <div class="col-12">
                                 <div class="form-group">
                                     {{ html()->label('Rooms') }}
-                                    {{ html()->hidden('selected_rooms_id',$this->checkoutService->selectedRooms?->pluck('id')?->toJson()) }}
-                                    {{ html()->hidden('count_rooms',$this->checkoutService->selectedRoomsCount?->toJson()) }}
+            {{--                        {{ html()->hidden('selected_rooms_id',$this->selectedRooms?->pluck('id')?->toJson()) }}
+                                    {{ html()->hidden('selected_rooms_count_id',$this->selectedRoomsCount?->toJson()) }}--}}
                                 </div>
                             </div>
                             <div class="col-12 justify-content-center ml-0 mr-0 p-0 rooms-types-block">
                                 <ul class="col-12 d-flex flex-wrap gap-3 p-0 m-0 list-unstyled">
-                                    @foreach($this->checkoutService->rooms as $room)
+                                    @foreach($this->rooms as $room)
                                         <li class="col-12 col-sm-6 col-md-6 col-lg-4 d-flex justify-content-center">
                                             <div class="col-12 checkbox-wrapper p-0 m-0">
                                                 <span>{{ $room->name }}</span>
@@ -83,7 +83,7 @@
 
                 <!--Additional services-->
                 <div class="col-sm-12 p-0 mt-3">
-                    @if($this->checkoutService->additionalServices->count())
+                    @if($this->additionalServices->count())
                         <div class="row mb-3">
                             <div class="col-12">
                                 <div class="form-group">
@@ -101,12 +101,12 @@
                                           d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286m1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94"/>
                                     </svg>
                                 </span>
-                                    {{ html()->hidden('additional_services_id',$this->checkoutService->selectedAdditionalServices?->pluck('id')?->toJson()) }}
+{{--                                    {{ html()->hidden('additional_services_id',$this->selectedAdditionalServices?->pluck('id')?->toJson()) }}--}}
                                 </div>
                             </div>
                             <div class="col-12 ml-0 mr-0 p-0 additional-service-block">
                                 <ul class="row  gx-0  list-unstyled p-0 m-0">
-                                    @foreach($this->checkoutService->additionalServices as $service)
+                                    @foreach($this->additionalServices as $service)
                                         <li class="col-12 col-md-3 mb-3 p-0 m-0">
                                             {{ html()->checkbox('additional-services',false,$service->id)->attributes(['id'=>'additional-services-'.$service->id,'wire:model.live'=>'selectedAdditionalServicesId']) }}
                                             <label class="d-block" for="additional-services-{{ $service->id }}"
@@ -154,7 +154,7 @@
                                      'id'=>'order_at',
                                      'class'=>'form-control date-time-picker',
                                      'aria-describedby'=>'order_at_label',
-                                     'wire:model.live'=>'selectedOrderAt',
+                                     'wire:model.live'=>'order_at',
                                      'wire:click'=>'openCalendar'
                                      ])
                                  }}
@@ -209,36 +209,20 @@
                 <!--Address-->
                 <div class="col-sm-12 p-0 mt-3">
                     <div class="row">
-                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                            <div class="form-group">
-                                {{ html()->label('State <span class="text-danger">*</span>','state_id') }}
-                                {{
-                                    html()->select('state_id',$this->checkoutService->states->pluck('name','id'),$this->checkoutService->states->filter(fn($state) => $state->default)?->first()?->id)
-                                          ->required()
-                                          ->attributes(['id'=>'state_id','class'=>'custom-select','wire:model.live'=>'selectedStateId']) }}
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 col-xxl-5">
-                            <div class="form-group">
-                                {{ html()->label('City <span class="text-danger">*</span>','city') }}
-                                {{ html()->text('city')->required()->placeholder('')->attributes(['id'=>'city','class'=>'form-control','wire:model.live'=>'city']) }}
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+
+                        <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 col-xxl-2">
                             <div class="form-group">
                                 {{ html()->label('Zip <span class="text-danger">*</span>','zip') }}
                                 {{ html()->text('zip')->required()->placeholder('')->attributes(['id'=>'zip','class'=>'form-control','wire:model.live'=>'zip']) }}
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-9 col-xxl-9">
+                        <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 col-xxl-8">
                             <div class="form-group">
                                 {{ html()->label('Address <span class="text-danger">*</span>','address') }}
                                 {{ html()->text('address')->required()->placeholder('')->attributes(['id'=>'address','class'=>'form-control','wire:model.live'=>'address']) }}
                             </div>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 col-xxl-3">
+                        <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 col-xxl-2">
                             <div class="form-group">
                                 {{ html()->label('Apt/Suite ','apt_suite') }}
                                 {{ html()->text('apt_suite')->placeholder('')->attributes(['id'=>'apt_suite','class'=>'form-control','wire:model.live'=>'apt_suite']) }}
@@ -253,7 +237,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 {{ html()->label('Comment for order','comment') }}
-                                {{ html()->textarea('comment',$this->checkoutService->comment)->attributes(['id'=>'comment','class'=>'form-control','cols'=>'100','rows'=>'30','style'=>'height:100px;']) }}
+                                {{ html()->textarea('comment',$this->comment)->attributes(['id'=>'comment','class'=>'form-control','cols'=>'100','rows'=>'30','style'=>'height:100px;']) }}
                             </div>
                         </div>
                     </div>
@@ -283,7 +267,7 @@
                                     </span>
                                         <span class="text-uppercase">{{ 'Services: ' }}</span>
                                         <ul class="list-group list-group-flush">
-                                            @foreach($this->checkoutService->selectedServices as $service)
+                                            @foreach($this->selectedServices as $service)
                                                 <li class="list-group-item"> - {{ $service->name }}</li>
                                             @endforeach
                                         </ul>
@@ -300,9 +284,9 @@
                                     </span>
                                         <span class="text-uppercase">{{ 'Rooms: ' }}</span>
                                         <ul class="list-group list-group-flush">
-                                            @foreach($this->checkoutService->selectedRooms as $room)
+                                            @foreach($this->selectedRooms as $room)
                                                 <li class="list-group-item"> - {{ $room->name }}
-                                                    : {{ $this->checkoutService->selectedRoomsCount[$room->id]??0}}</li>
+                                                    : {{ $this->selectedRoomsCount[$room->id]??0}}</li>
                                             @endforeach
                                         </ul>
                                     </li>
@@ -318,7 +302,7 @@
                                     </span>
                                         <span class="text-uppercase">{{ 'Additional services: ' }}</span>
                                         <ul class="list-group list-group-flush">
-                                            @foreach($this->checkoutService->selectedAdditionalServices as $additionalServices)
+                                            @foreach($this->selectedAdditionalServices as $additionalServices)
                                                 <li class="list-group-item"> - {{ $additionalServices->name }}</li>
                                             @endforeach
                                         </ul>
@@ -334,7 +318,7 @@
                                     </svg>
                                     </span>
                                         <span
-                                            class="text-uppercase">{{ 'Service date: '.$checkoutService->datetime?->format('m/d/Y')??'-' }}</span>
+                                            class="text-uppercase">{{ 'Service date: '.$datetime?->format('m/d/Y')??'-' }}</span>
                                     </li>
                                     <li class="list-group-item">
                                     <span class="mr-2">

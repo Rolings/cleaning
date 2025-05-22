@@ -8,6 +8,7 @@ use App\Models\State;
 use App\Traits\CheckoutTrait;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Http;
 use Livewire\Wireable;
 use App\Contracts\Livewire\CheckoutDataInterface;
 
@@ -53,45 +54,7 @@ class CheckoutService implements Wireable
     /**
      * @var Collection
      */
-    public Collection $states;
-
-    /**
-     * @var Collection
-     */
-    public Collection $services;
-
-    public Collection $rooms;
-
-    /**
-     * @var Collection
-     */
     public Collection $prices;
-
-    /**
-     * @var Collection
-     */
-    public Collection $additionalServices;
-
-    /**
-     * @var Collection
-     */
-    public Collection $selectedServices;
-
-    /**
-     * @var Collection
-     */
-    public Collection $selectedRooms;
-
-    /**
-     * @var Collection
-     */
-    public Collection $selectedRoomsCount;
-
-    /**
-     * @var Collection
-     */
-    public Collection $selectedAdditionalServices;
-
 
     public int $selectedRoomsPrices = 0;
 
@@ -150,6 +113,19 @@ class CheckoutService implements Wireable
         $this->discountPercentage = Setting::findByKey('discount_percentage')?->value ?? 0;
     }
 
+    public function setName(?string $firstName, ?string $lastName, $callback = null): self
+    {
+        $this->first_name = $firstName;
+
+        $this->last_name = $lastName;
+
+        if ($callback) {
+            $callback($this->first_name . ' ' . $this->last_name);
+        }
+
+        return $this;
+    }
+
     public function setFirstName(?string $firstName): self
     {
         $this->first_name = $firstName;
@@ -192,24 +168,28 @@ class CheckoutService implements Wireable
         return $this;
     }
 
-    public function setDatetime(?string $datetime): self
+    public function setDatetime(?string $datetime, $callback = null): self
     {
-        if (is_null($datetime)) {
-            return $this;
-        }
+        $this->datetime = is_null($datetime)
+            ? Carbon::now()
+            : Carbon::parse($datetime);
 
-        $this->datetime = Carbon::parse($datetime);
+        if ($callback) {
+            $callback($this->datetime);
+        }
 
         return $this;
     }
 
-    public function setState(?int $stateId): self
+    public function setState(?int $state): self
     {
-        if (is_null($stateId)) {
+        if (is_null($state)) {
             return $this;
         }
 
-        $state = State::find($stateId);
+        $state = State::find($state);
+
+        $this->state_id = $state->id;
 
         $this->city = $state->capital;
 
@@ -218,7 +198,21 @@ class CheckoutService implements Wireable
         return $this;
     }
 
-    public function setServices(array $selectedServicesId): self
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function setZip(?string $zip): self
+    {
+        $this->zip = $zip;
+
+        return $this;
+    }
+
+    public function setServices(array $selectedServicesId, $callback = null): self
     {
         $this->selectedServices = $this->services->filter(function ($service) use ($selectedServicesId) {
             return in_array($service->id, $selectedServicesId);
@@ -245,10 +239,18 @@ class CheckoutService implements Wireable
 
         $this->calculateCostServices();
 
+        if (!is_null($callback)) {
+            $callback(
+                $this->selectedServices,
+                $this->rooms,
+                $this->selectedRooms,
+            );
+        }
+
         return $this;
     }
 
-    public function setRooms(array $selectedRoomId): self
+    public function setRooms(array $selectedRoomId, $callback = null): self
     {
         $this->selectedRooms = $this->rooms->filter(function ($roomType) use ($selectedRoomId) {
             return in_array($roomType->id, $selectedRoomId);
@@ -262,10 +264,17 @@ class CheckoutService implements Wireable
 
         $this->calculateCostRooms();
 
+        if (!is_null($callback)) {
+            $callback(
+                $this->selectedRooms,
+                $this->additionalServices,
+            );
+        }
+
         return $this;
     }
 
-    public function setRoomsCount(array $selectedRoomCount): self
+    public function setRoomsCount(array $selectedRoomCount, $callback = null): self
     {
         $rooms = $this->selectedRooms->pluck('id')->toArray();
 
@@ -275,10 +284,14 @@ class CheckoutService implements Wireable
 
         $this->calculateCostRooms();
 
+        if (!is_null($callback)) {
+            $callback($this->selectedRoomsCount);
+        }
+
         return $this;
     }
 
-    public function setAdditionalServices(array $selectedAdditionalServicesId): self
+    public function setAdditionalServices(array $selectedAdditionalServicesId, $callback = null): self
     {
         $this->selectedAdditionalServices = $this->additionalServices->filter(function ($service) use ($selectedAdditionalServicesId) {
             return in_array($service->id, $selectedAdditionalServicesId);
@@ -286,10 +299,14 @@ class CheckoutService implements Wireable
 
         $this->calculateCostAdditionalServices();
 
+        if (!is_null($callback)) {
+            $callback($this->selectedAdditionalServices);
+        }
+
         return $this;
     }
 
-    public function setDefaultSelectedRooms(array $baseIds, array $overrideValues): array
+    public function setDefaultSelectedRooms(array $baseIds, array $overrideValues, $callback = null): self
     {
         foreach ($overrideValues as $key => $value) {
             if (is_int($key) && is_int($value) && !isset($overrideValues[$value])) {
@@ -298,19 +315,31 @@ class CheckoutService implements Wireable
             }
         }
 
-        return array_reduce($baseIds, function ($carry, $id) use ($overrideValues) {
+        $data = array_reduce($baseIds, function ($carry, $id) use ($overrideValues) {
             $carry[$id] = $overrideValues[$id] ?? 1;
             return $carry;
         }, []);
+
+        if (!is_null($callback)) {
+            $callback($data);
+        }
+
+        return $this;
     }
 
-    public function getDefaultServiceRoom()
+    public function getDefaultServiceRoom($callback = null): self
     {
-        return $this->selectedServices
+        $data = $this->selectedServices
             ->pluck('rooms')
             ->flatten()
             ?->pluck('id')
             ?->toArray() ?? [];
+
+        if (!is_null($callback)) {
+            $callback($data);
+        }
+
+        return $this;
     }
 
     public function getFullName(): string
@@ -325,14 +354,14 @@ class CheckoutService implements Wireable
         $this->calculateTotalConst();
     }
 
-    public function calculateCostAdditionalServices(): void
+    private function calculateCostAdditionalServices(): void
     {
         $this->costAdditionalServices = $this->selectedAdditionalServices->sum('price');
 
         $this->calculateTotalConst();
     }
 
-    public function calculateCostRooms(): void
+    private function calculateCostRooms(): void
     {
         $finalPrice = 0;
 
@@ -352,11 +381,74 @@ class CheckoutService implements Wireable
         $this->calculateTotalConst();
     }
 
-    public function calculateTotalConst(): void
+    private function calculateTotalConst(): void
     {
         $this->totalCost = $this->costServices
             + $this->costAdditionalServices
             + $this->selectedRoomsPrices;
     }
 
+    /**
+     * @param $callback
+     * @return $this|self
+     */
+    public function buildAddressByZip($callback): self
+    {
+        // Валідація ZIP
+        if (!preg_match('/^\d{5}$/', $this->zip)) {
+            return $this->resetAddressFields();
+        }
+
+        try {
+            $response = Http::get("http://api.zippopotam.us/us/{$this->zip}");
+
+            if ($response->failed()) {
+                return $this->resetAddressFields();
+            }
+
+            $place = $response->json('places.0');
+
+            if (!$place) {
+                return $this->resetAddressFields();
+            }
+
+            $abbreviation = $place['state abbreviation'] ?? null;
+            if ($abbreviation) {
+                $state = State::findByAll($abbreviation)->first();
+                $this->state_id = $state?->id;
+                $this->state = $state?->name;
+            }
+
+            $this->city = $place['place name'] ?? null;
+
+            $this->address = trim("{$this->state}, {$this->city}");
+            $this->apt_suite = null;
+
+            $callback(
+                $this->state_id,
+                $this->city,
+                $this->address,
+                $this->apt_suite
+            );
+
+
+        } catch (\Throwable $e) {
+            logger()->error("Address lookup by ZIP failed: {$e->getMessage()}");
+
+            return $this->resetAddressFields();
+        }
+
+        return $this;
+    }
+
+    private function resetAddressFields(): self
+    {
+        $this->address = null;
+        $this->apt_suite = null;
+        $this->city = null;
+        $this->state = null;
+        $this->state_id = null;
+
+        return $this;
+    }
 }

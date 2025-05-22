@@ -29,4 +29,14 @@ class State extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    /**
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function scopeFindByAll(Builder $builder, $state): Builder
+    {
+        return $builder->where('id', $state)
+            ->orWhere('postal_abbreviation', 'like', '%' . $state . '%');
+    }
 }
